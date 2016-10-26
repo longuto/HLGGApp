@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!--标题背景色-->
+    <color name="title_background">#08813f</color>
+    <!--标题按钮颜色-->
+    <color name="title_button_background">#2078ca</color>
+    <!--标题字体颜色-->
+    <color name="title_button_text">#000000</color>
+
+</resources>

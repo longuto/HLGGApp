@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">HLGGApp</string>
+
+    <string name="button_left">left</string>
+    <string name="button_middle">middle</string>
+    <string name="button_right">right</string>
+
+    <string name="username">账号</string>
+    <string name="password">密码</string>
+
+</resources>
