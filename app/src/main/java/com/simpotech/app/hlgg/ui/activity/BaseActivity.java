@@ -1,5 +1,6 @@
 package com.simpotech.app.hlgg.ui.activity;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -8,23 +9,31 @@ import android.widget.Button;
 
 import com.simpotech.app.hlgg.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * Created by longuto on 2016/10/26.
  */
 
 public abstract class BaseActivity extends AppCompatActivity {
+    @BindView(R.id.btn_left)
     Button mLeftBtn;    //左部按钮
+    @BindView(R.id.btn_middle)
     Button mMiddleBtn;  //中部按钮
+    @BindView(R.id.btn_right)
     Button mRightBtn;   //右部按钮
+
+    Context context;    // 上下文
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         toSetContentView();
 
-        mLeftBtn = (Button) findViewById(R.id.btn_left);
-        mMiddleBtn = (Button) findViewById(R.id.btn_middle);
-        mRightBtn = (Button) findViewById(R.id.btn_right  );
+        ButterKnife.bind(this); //使用注解框架
+        context = this;
+
         //初始化标题
         initTitle();
         //初始化数据
