@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.simpotech.app.hlgg.R;
+import com.simpotech.app.hlgg.util.SharedUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,6 +26,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     Button mRightBtn;   //右部按钮
 
     Context context;    // 上下文
+    SharedUtils spUtils;    //SharedPreferences
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,6 +35,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         ButterKnife.bind(this); //使用注解框架
         context = this;
+        spUtils = new SharedUtils();
 
         //初始化标题
         initTitle();
