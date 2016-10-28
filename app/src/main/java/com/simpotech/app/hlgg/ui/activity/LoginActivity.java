@@ -9,10 +9,9 @@ import android.widget.EditText;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.simpotech.app.hlgg.R;
-import com.simpotech.app.hlgg.api.Constant;
 import com.simpotech.app.hlgg.entity.BaseInfo;
 import com.simpotech.app.hlgg.util.LogUtils;
-import com.simpotech.app.hlgg.util.SharedUtils;
+import com.simpotech.app.hlgg.business.SharedManager;
 import com.simpotech.app.hlgg.util.UiUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -26,9 +25,9 @@ import okhttp3.Call;
  */
 public class LoginActivity extends BaseActivity {
 
-    private static final String URL_LOGIN = Constant.HOST + Constant.LOGIN;
+//    private static final String URL_LOGIN = Constant.HOST + Constant.LOGIN;
+    private static final String URL_LOGIN = "http://10.110.1.98:8080/login.json";
     private static final String TAG = "LoginActivity";
-
 
     @BindView(R.id.edt_username)
     EditText mUsernameEdt;
@@ -67,10 +66,10 @@ public class LoginActivity extends BaseActivity {
                         Gson gson = new Gson();
                         BaseInfo<String> loginInfo = gson.fromJson(response, new
                                 TypeToken<BaseInfo<String>>() {
-                        }.getType());
-                        if(loginInfo.code.equals("success")) {
+                                }.getType());
+                        if (loginInfo.code.equals("success")) {
                             //保存用户名至SharedPreferences
-                            spUtils.putStringToXml(SharedUtils.USERNAME, username);
+                            spManager.putStringToXml(SharedManager.USERNAME, username);
 
                             //携带result跳转至MainActivity
                             String result = loginInfo.result;
@@ -79,7 +78,7 @@ public class LoginActivity extends BaseActivity {
                             startActivity(intent);
                             //销毁此Activity
                             finish();
-                        }else {
+                        } else {
                             // 显示错误原因
                             UiUtils.showToast(loginInfo.msg);
                         }
@@ -95,8 +94,9 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void initTitle() {
-        showRightBtn("关闭");
-        getRightBtn().setOnClickListener(new View.OnClickListener() {
+        showMiddleIcon("登录");
+        showRightIcon(R.drawable.vector_sys_back);
+        getRightIcon().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -106,7 +106,7 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        String username = spUtils.getStringFromXml(SharedUtils.USERNAME);
+        String username = spManager.getStringFromXml(SharedManager.USERNAME);
         mUsernameEdt.setText(username);
     }
 

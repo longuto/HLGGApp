@@ -1,14 +1,16 @@
-package com.simpotech.app.hlgg.util;
+package com.simpotech.app.hlgg.business;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import com.simpotech.app.hlgg.util.UiUtils;
 
 /**
  * 配置个人偏爱设置
  * Created by longuto on 2016/10/27.
  */
 
-public class SharedUtils {
+public class SharedManager {
 
     public static final String USERNAME = "username";   //登录的用户名
     private final String CONFIG_NAME = "normal_config"; //默认配置文件的名称
@@ -18,12 +20,12 @@ public class SharedUtils {
     SharedPreferences sp;
 
     /**系统默认配置文件*/
-    public SharedUtils() {
+    public SharedManager() {
         sp = UiUtils.getContext().getSharedPreferences(CONFIG_NAME, Context.MODE_PRIVATE);
     }
 
     /**自定义配置文件*/
-    public SharedUtils(String name) {
+    public SharedManager(String name) {
         sp = UiUtils.getContext().getSharedPreferences(name, Context.MODE_PRIVATE);
     }
 

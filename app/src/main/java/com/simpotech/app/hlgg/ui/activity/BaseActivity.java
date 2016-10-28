@@ -6,9 +6,11 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.simpotech.app.hlgg.R;
-import com.simpotech.app.hlgg.util.SharedUtils;
+import com.simpotech.app.hlgg.business.SharedManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -18,15 +20,15 @@ import butterknife.ButterKnife;
  */
 
 public abstract class BaseActivity extends AppCompatActivity {
-    @BindView(R.id.btn_left)
-    Button mLeftBtn;    //左部按钮
-    @BindView(R.id.btn_middle)
-    Button mMiddleBtn;  //中部按钮
-    @BindView(R.id.btn_right)
-    Button mRightBtn;   //右部按钮
+    @BindView(R.id.iv_left)
+    ImageView mLeftIv;    //左部按钮
+    @BindView(R.id.tv_middle)
+    TextView mMiddleTv;  //中部按钮
+    @BindView(R.id.iv_right)
+    ImageView mRightIv;   //右部按钮
 
     Context context;    // 上下文
-    SharedUtils spUtils;    //SharedPreferences
+    SharedManager spManager;    //SharedPreferences
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -35,7 +37,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         ButterKnife.bind(this); //使用注解框架
         context = this;
-        spUtils = new SharedUtils();
+        spManager = new SharedManager();
 
         //初始化标题
         initTitle();
@@ -55,35 +57,35 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 
     /**显示左边按钮*/
-    public void showLeftBtn(String content) {
-        mLeftBtn.setText(content);
-        mLeftBtn.setVisibility(View.VISIBLE);
+    public void showLeftIcon(int imageRes) {
+        mLeftIv.setImageResource(imageRes);
+        mLeftIv.setVisibility(View.VISIBLE);
     }
 
     /**显示中间按钮*/
-    public void showMiddleBtn(String content) {
-        mMiddleBtn.setText(content);
-        mMiddleBtn.setVisibility(View.VISIBLE);
+    public void showMiddleIcon(String content) {
+        mMiddleTv.setText(content);
+        mMiddleTv.setVisibility(View.VISIBLE);
     }
 
     /**显示右边按钮*/
-    public void showRightBtn(String content) {
-        mRightBtn.setText(content);
-        mRightBtn.setVisibility(View.VISIBLE);
+    public void showRightIcon(int imageRes) {
+        mRightIv.setImageResource(imageRes);
+        mRightIv.setVisibility(View.VISIBLE);
     }
 
     /**获取左边按钮*/
-    public Button getLeftBtn() {
-        return mLeftBtn;
+    public ImageView getLeftIcon() {
+        return mLeftIv;
     }
 
     /**获取中间按钮*/
-    public Button getMiddleBtn() {
-        return mMiddleBtn;
+    public TextView getMiddleIcon() {
+        return mMiddleTv;
     }
 
     /**获取右边按钮*/
-    public Button getRightBtn() {
-        return mRightBtn;
+    public ImageView getRightIcon() {
+        return mRightIv;
     }
 }

@@ -5,8 +5,25 @@
     <string name="button_middle">middle</string>
     <string name="button_right">right</string>
 
+    <!--登录界面控件信息-->
     <string name="username">账号</string>
     <string name="password">密码</string>
     <string name="login">登录</string>
+
+    <!--主界面的按钮功能-->
+    <string name="stockin">入库</string>
+    <string name="stockin_manager">入库管理</string>
+    <string name="stockout">出库</string>
+    <string name="stockout_manager">出库管理</string>
+    <string name="quality">质检</string>
+    <string name="quality_query">质检查询</string>
+    <string name="stockin_query">入库查询</string>
+    <string name="stockout_query">出库查询</string>
+    <string name="invoice">下载发货单</string>
+    <string name="invoice_manager">发货单管理</string>
+    <string name="contruction_query">构件查询</string>
+    <string name="process">流程设置</string>
+    <string name="proLine">生产线配置</string>
+
 
 </resources>
