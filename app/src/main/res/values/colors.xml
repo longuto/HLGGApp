@@ -5,10 +5,19 @@
     <color name="colorAccent">#FF4081</color>
 
     <!--标题背景色-->
-    <color name="title_background">#08813f</color>
+    <color name="title_background">#4BAE4F</color>
     <!--标题按钮颜色-->
     <color name="title_button_background">#2078ca</color>
     <!--标题字体颜色-->
     <color name="title_button_text">#000000</color>
+
+    <!--分割线的背景色-->
+    <color name="cuttle_line_backgroud">#3E7666</color>
+
+    <!--EditText编辑框的外边框颜色-->
+    <color name="edit_text_stroke">#3EB1FE</color>
+
+    <!--RecyclerView字体颜色-->
+    <color name="recy_text_color">#7D7D7D</color>
 
 </resources>

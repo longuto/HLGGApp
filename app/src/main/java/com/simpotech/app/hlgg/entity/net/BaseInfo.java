@@ -1,4 +1,4 @@
-package com.simpotech.app.hlgg.entity;
+package com.simpotech.app.hlgg.entity.net;
 
 /**
  * 网络请求数据的基类

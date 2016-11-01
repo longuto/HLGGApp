@@ -9,7 +9,7 @@ import android.widget.EditText;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.simpotech.app.hlgg.R;
-import com.simpotech.app.hlgg.entity.BaseInfo;
+import com.simpotech.app.hlgg.entity.net.BaseInfo;
 import com.simpotech.app.hlgg.util.LogUtils;
 import com.simpotech.app.hlgg.business.SharedManager;
 import com.simpotech.app.hlgg.util.UiUtils;
@@ -94,9 +94,9 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void initTitle() {
-        showMiddleIcon("登录");
-        showRightIcon(R.drawable.vector_sys_back);
-        getRightIcon().setOnClickListener(new View.OnClickListener() {
+        showMiddleTv("登录");
+        showRightIv(R.drawable.vector_sys_back);
+        getRightLly().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();

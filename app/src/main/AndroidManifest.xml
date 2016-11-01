@@ -21,7 +21,15 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activity.MainActivity">
+        <activity
+            android:name=".ui.activity.MainActivity"
+            android:launchMode="singleTask">
+        </activity>
+        <activity
+            android:name=".ui.activity.ProLineActivity"
+            android:launchMode="singleTask">
+        </activity>
+        <activity android:name=".ui.activity.ProlineNetActivity">
         </activity>
     </application>
 

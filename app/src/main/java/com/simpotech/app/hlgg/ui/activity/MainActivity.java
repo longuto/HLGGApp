@@ -96,7 +96,8 @@ public class MainActivity extends BaseActivity {
 
                 break;
             case R.id.btn_proLine:  //生产线配置
-
+                Intent intent = new Intent(context, ProLineActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;
@@ -111,9 +112,9 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initTitle() {
-        showMiddleIcon("首页");
-        showRightIcon(R.drawable.vector_sys_back);
-        getRightIcon().setOnClickListener(new View.OnClickListener() {
+        showMiddleTv("首页");
+        showRightIv(R.drawable.vector_main_back);
+        getRightLly().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, LoginActivity.class);
