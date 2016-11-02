@@ -4,9 +4,10 @@ import java.util.List;
 
 /**
  * Created by longuto on 2016/10/31.
+ * 数据库中主键的名称
  */
 
-public class ProLineInfo {
+public class DbProLineInfo {
 
     public int id;  //主键
     public String departmentId; //部门id
@@ -14,11 +15,10 @@ public class ProLineInfo {
     public String proLineId;    //生产线id
     public String proLineName;  //生产线名称
 
-    public ProLineInfo() {}
+    public DbProLineInfo() {}
 
-    public ProLineInfo(int id, String departmentId, String departmentName, String proLineId,
-                       String proLineName) {
-        this.id = id;
+    public DbProLineInfo(String departmentId, String departmentName, String proLineId,
+                         String proLineName) {
         this.departmentId = departmentId;
         this.departmentName = departmentName;
         this.proLineId = proLineId;

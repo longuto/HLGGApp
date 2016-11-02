@@ -1,32 +1,21 @@
 package com.simpotech.app.hlgg.ui.activity;
 
 import android.content.Intent;
-import android.support.design.internal.ForegroundLinearLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.simpotech.app.hlgg.R;
 import com.simpotech.app.hlgg.db.dao.ProLineDb;
-import com.simpotech.app.hlgg.entity.ProLineInfo;
+import com.simpotech.app.hlgg.entity.DbProLineInfo;
 import com.simpotech.app.hlgg.ui.adapter.LocalProLineAdapter;
-import com.simpotech.app.hlgg.ui.widget.RecycleViewDivider;
 import com.simpotech.app.hlgg.util.LogUtils;
-import com.simpotech.app.hlgg.util.UiUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-
-import static android.R.string.no;
 
 public class ProLineActivity extends BaseActivity {
 
@@ -45,7 +34,7 @@ public class ProLineActivity extends BaseActivity {
         mAdapter.delData.clear();   //清空delData
 
         String name = mSearchEdt.getText().toString().trim();
-        List<ProLineInfo> proLineInfos = new ProLineDb().queryProlineByName(name);
+        List<DbProLineInfo> proLineInfos = new ProLineDb().queryProlineByName(name);
         mAdapter.data = proLineInfos;
         mAdapter.notifyDataSetChanged();
     }
@@ -82,14 +71,14 @@ public class ProLineActivity extends BaseActivity {
                 mAdapter.data.removeAll(mAdapter.delData);  //删除已经选中的数据
                 mAdapter.notifyDataSetChanged();    //通知数据改变
                 //删除数据库中对应的数据
-                for(ProLineInfo info : mAdapter.delData) {
+                for(DbProLineInfo info : mAdapter.delData) {
                     new ProLineDb().deleteProLineById(info.id);
                 }
 
-                for (ProLineInfo info : mAdapter.delData) {
+                for (DbProLineInfo info : mAdapter.delData) {
                     LogUtils.i(TAG, "delData-----------------" + info.departmentName + " = " + info.proLineName);
                 }
-                for (ProLineInfo info : mAdapter.data) {
+                for (DbProLineInfo info : mAdapter.data) {
                     LogUtils.i(TAG, "data-----------------" + info.departmentName + " = " + info.proLineName);
                 }
 

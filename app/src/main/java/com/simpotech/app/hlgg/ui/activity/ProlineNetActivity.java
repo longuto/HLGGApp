@@ -1,17 +1,17 @@
 package com.simpotech.app.hlgg.ui.activity;
 
-import android.os.Bundle;
-import android.os.SystemClock;
-import android.support.v7.app.AppCompatActivity;
+import android.support.design.internal.ForegroundLinearLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.simpotech.app.hlgg.R;
-import com.simpotech.app.hlgg.ui.adapter.NetProLineAdapter;
+import com.simpotech.app.hlgg.api.NetProlineParse;
+import com.simpotech.app.hlgg.entity.DbProLineInfo;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -20,6 +20,9 @@ import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 
 public class ProlineNetActivity extends BaseActivity {
+
+    private LinearLayoutManager manager;
+    private List<DbProLineInfo> addData;
 
     @BindView(R.id.edt_search_net)
     EditText mSearchEdt;
@@ -30,6 +33,7 @@ public class ProlineNetActivity extends BaseActivity {
 
     @OnClick(R.id.btn_search_net)
     public void searchProlineNet() {
+        addData.clear();    //先清空需要增加数据的集合
 
     }
 
@@ -53,8 +57,11 @@ public class ProlineNetActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 //将选中生产线提交至本地生产线数据库
+                int size = manager.getItemCount();
+                for (int i = 0; i < size; i++) {
+                    View view = manager.findViewByPosition(i);
 
-
+                }
                 finish();
             }
         });
@@ -62,6 +69,7 @@ public class ProlineNetActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        addData = new ArrayList<DbProLineInfo>();
         refreshRecyclerView();
     }
 
@@ -72,14 +80,14 @@ public class ProlineNetActivity extends BaseActivity {
         mRefreshPtr.setPtrHandler(new PtrDefaultHandler() {
             @Override
             public void onRefreshBegin(PtrFrameLayout frame) {
+                addData.clear();
+
                 // 更新RecyclerView的数据
-                LinearLayoutManager manager = new LinearLayoutManager(context,
+                manager = new LinearLayoutManager(context,
                         LinearLayoutManager.VERTICAL, false);
                 mNetProlineRecy.setLayoutManager(manager);
-                NetProLineAdapter adapter = new NetProLineAdapter();
-                mNetProlineRecy.setAdapter(adapter);
-
-                mRefreshPtr.refreshComplete();  //完成刷新
+                //将在网络数据并配置mNetProlineRecy
+                NetProlineParse.getDataFromNet(mNetProlineRecy, mRefreshPtr);
             }
         });
         mRefreshPtr.postDelayed(new Runnable() {

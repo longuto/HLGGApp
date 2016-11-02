@@ -9,8 +9,7 @@ import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.simpotech.app.hlgg.R;
-import com.simpotech.app.hlgg.db.dao.ProLineDb;
-import com.simpotech.app.hlgg.entity.ProLineInfo;
+import com.simpotech.app.hlgg.entity.DbProLineInfo;
 import com.simpotech.app.hlgg.util.LogUtils;
 import com.simpotech.app.hlgg.util.UiUtils;
 
@@ -20,8 +19,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.zhy.http.okhttp.log.LoggerInterceptor.TAG;
-
 /**
  * Created by longuto on 2016/11/1.
  * 本地生产线的适配器
@@ -30,9 +27,9 @@ public class LocalProLineAdapter extends RecyclerView.Adapter<LocalProLineAdapte
         .LocalProLineHolder> {
     private final String TAG = "LocalProLineAdapter";
 
-    public List<ProLineInfo> data;  //本地生产线的集合
+    public List<DbProLineInfo> data;  //本地生产线的集合
 
-    public List<ProLineInfo> delData;   //删除数据的集合
+    public List<DbProLineInfo> delData;   //删除数据的集合
 
     public LocalProLineAdapter() {
         //从数据库中取出所有生产线的集合
@@ -40,20 +37,20 @@ public class LocalProLineAdapter extends RecyclerView.Adapter<LocalProLineAdapte
 //        delData = new ArrayList<>();
 
         // 模拟数据
-        data = new ArrayList<ProLineInfo>();
-        data.add(new ProLineInfo(1, "b01", "部门1", "p01", "生产线1"));
-        data.add(new ProLineInfo(2, "b01", "部门1", "p02", "生产线2"));
-        data.add(new ProLineInfo(3, "b01", "部门1", "p03", "生产线3"));
-        data.add(new ProLineInfo(4, "b02", "部门2", "p01", "生产线1"));
-        data.add(new ProLineInfo(5, "b02", "部门2", "p02", "生产线2"));
-        data.add(new ProLineInfo(6, "b02", "部门2", "p03", "生产线3"));
-        data.add(new ProLineInfo(7, "b03", "部门3", "p01", "生产线1"));
-        data.add(new ProLineInfo(8, "b03", "部门3", "p02", "生产线2"));
-        data.add(new ProLineInfo(9, "b03", "部门3", "p03", "生产线3"));
-        data.add(new ProLineInfo(10, "b04", "部门4", "p01", "生产线1"));
-        data.add(new ProLineInfo(11, "b04", "部门4", "p02", "生产线2"));
-        data.add(new ProLineInfo(12, "b04", "部门4", "p03", "生产线3"));
-        delData = new ArrayList<ProLineInfo>();
+        data = new ArrayList<DbProLineInfo>();
+        data.add(new DbProLineInfo("b01", "部门1", "p01", "生产线1"));
+        data.add(new DbProLineInfo("b01", "部门1", "p02", "生产线2"));
+        data.add(new DbProLineInfo("b01", "部门1", "p03", "生产线3"));
+        data.add(new DbProLineInfo("b02", "部门2", "p01", "生产线1"));
+        data.add(new DbProLineInfo("b02", "部门2", "p02", "生产线2"));
+        data.add(new DbProLineInfo("b02", "部门2", "p03", "生产线3"));
+        data.add(new DbProLineInfo("b03", "部门3", "p01", "生产线1"));
+        data.add(new DbProLineInfo("b03", "部门3", "p02", "生产线2"));
+        data.add(new DbProLineInfo("b03", "部门3", "p03", "生产线3"));
+        data.add(new DbProLineInfo("b04", "部门4", "p01", "生产线1"));
+        data.add(new DbProLineInfo("b04", "部门4", "p02", "生产线2"));
+        data.add(new DbProLineInfo("b04", "部门4", "p03", "生产线3"));
+        delData = new ArrayList<DbProLineInfo>();
     }
 
     @Override
@@ -93,7 +90,7 @@ public class LocalProLineAdapter extends RecyclerView.Adapter<LocalProLineAdapte
         }
 
         public void setData(final int position) {
-            final ProLineInfo temp = data.get(position);
+            final DbProLineInfo temp = data.get(position);
             idTv.setText(temp.id + "");
             departmentTv.setText(temp.departmentName);
             prolineTv.setText(temp.proLineName);

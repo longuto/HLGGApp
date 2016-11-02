@@ -1,5 +1,8 @@
 package com.simpotech.app.hlgg.entity.net;
 
+import com.simpotech.app.hlgg.db.dao.ProLineDb;
+import com.simpotech.app.hlgg.entity.DbProLineInfo;
+
 import java.util.List;
 
 /**

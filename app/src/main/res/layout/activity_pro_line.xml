@@ -94,6 +94,7 @@
         android:id="@+id/recy_local_proline"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp"
         android:background="#D6D7D7"/>
 
     <View

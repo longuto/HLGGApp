@@ -5,13 +5,15 @@ package com.simpotech.app.hlgg.entity.net;
  * Created by longuto on 2016/10/27.
  */
 
-public class BaseInfo<T> {
+public class BaseJsonInfo<T> {
 
     public String code;
     public String msg;
     public T result;
 
-    public BaseInfo(T result, String code, String msg) {
+    public BaseJsonInfo() {}
+
+    public BaseJsonInfo(T result, String code, String msg) {
         this.result = result;
         this.code = code;
         this.msg = msg;

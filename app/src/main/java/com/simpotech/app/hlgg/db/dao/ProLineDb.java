@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
 
 import com.simpotech.app.hlgg.db.ProLineDbHelp;
-import com.simpotech.app.hlgg.entity.ProLineInfo;
+import com.simpotech.app.hlgg.entity.DbProLineInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,12 +46,12 @@ public class ProLineDb {
     /**
      * 获取本地所有的生产线集合,调用queryProLineTable()接口游标
      */
-    public List<ProLineInfo> getAllProLines() {
-        List<ProLineInfo> proLineInfos = new ArrayList<ProLineInfo>();
+    public List<DbProLineInfo> getAllProLines() {
+        List<DbProLineInfo> proLineInfos = new ArrayList<DbProLineInfo>();
         Cursor cursor = queryProLineTable();    //游标
-        ProLineInfo temp = null;
+        DbProLineInfo temp = null;
         while (cursor.moveToNext()) {
-            temp = new ProLineInfo();
+            temp = new DbProLineInfo();
             temp.id = cursor.getInt(cursor.getColumnIndex(ID));
             temp.departmentId = cursor.getString(cursor.getColumnIndex(DEPARTMENT_ID));
             temp.departmentName = cursor.getString(cursor.getColumnIndex(DEPARTMENT_NAME));
@@ -100,21 +100,21 @@ public class ProLineDb {
      * @param name 部门或者生产线名称
      * @return 生产线信息集合
      */
-    public List<ProLineInfo> queryProlineByName(String name) {
-        List<ProLineInfo> proLineInfos = null;
+    public List<DbProLineInfo> queryProlineByName(String name) {
+        List<DbProLineInfo> proLineInfos = null;
         if(TextUtils.isEmpty(name)) {
             proLineInfos = getAllProLines();
         }else {
-            proLineInfos = new ArrayList<ProLineInfo>();
+            proLineInfos = new ArrayList<DbProLineInfo>();
             SQLiteDatabase db = dbHelp.getReadableDatabase();
             Cursor cursor = db.query(TABLE_NAME, new String[]{ID, DEPARTMENT_ID, DEPARTMENT_NAME,
                     PROLINE_ID,
                     PROLINE_NAME}, DEPARTMENT_NAME + " = ? or " + PROLINE_NAME + " = ?", new
                     String[]{name, name}, null, null, DEPARTMENT_ID + " , " +
                     PROLINE_ID + " ASC");
-            ProLineInfo temp = null;
+            DbProLineInfo temp = null;
             while (cursor.moveToNext()) {
-                temp = new ProLineInfo();
+                temp = new DbProLineInfo();
                 temp.id = cursor.getInt(cursor.getColumnIndex(ID));
                 temp.departmentId = cursor.getString(cursor.getColumnIndex(DEPARTMENT_ID));
                 temp.departmentName = cursor.getString(cursor.getColumnIndex(DEPARTMENT_NAME));

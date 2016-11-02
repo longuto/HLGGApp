@@ -9,7 +9,7 @@ import android.widget.EditText;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.simpotech.app.hlgg.R;
-import com.simpotech.app.hlgg.entity.net.BaseInfo;
+import com.simpotech.app.hlgg.entity.net.BaseJsonInfo;
 import com.simpotech.app.hlgg.util.LogUtils;
 import com.simpotech.app.hlgg.business.SharedManager;
 import com.simpotech.app.hlgg.util.UiUtils;
@@ -64,23 +64,26 @@ public class LoginActivity extends BaseActivity {
                         LogUtils.i(TAG, "请求网络成功");
                         //用Gson解析
                         Gson gson = new Gson();
-                        BaseInfo<String> loginInfo = gson.fromJson(response, new
-                                TypeToken<BaseInfo<String>>() {
+                        BaseJsonInfo<String> loginInfo = gson.fromJson(response, new
+                                TypeToken<BaseJsonInfo<String>>() {
                                 }.getType());
-                        if (loginInfo.code.equals("success")) {
-                            //保存用户名至SharedPreferences
-                            spManager.putStringToXml(SharedManager.USERNAME, username);
+                        //如果解析成功
+                        if(loginInfo != null) {
+                            if (loginInfo.code.equals("success")) {
+                                //保存用户名至SharedPreferences
+                                spManager.putStringToXml(SharedManager.USERNAME, username);
 
-                            //携带result跳转至MainActivity
-                            String result = loginInfo.result;
-                            Intent intent = new Intent(context, MainActivity.class);
-                            intent.putExtra("RESULT", result);
-                            startActivity(intent);
-                            //销毁此Activity
-                            finish();
-                        } else {
-                            // 显示错误原因
-                            UiUtils.showToast(loginInfo.msg);
+                                //携带result跳转至MainActivity
+                                String result = loginInfo.result;
+                                Intent intent = new Intent(context, MainActivity.class);
+                                intent.putExtra("RESULT", result);
+                                startActivity(intent);
+                                //销毁此Activity
+                                finish();
+                            } else {
+                                // 显示错误原因
+                                UiUtils.showToast(loginInfo.msg);
+                            }
                         }
                     }
                 });
