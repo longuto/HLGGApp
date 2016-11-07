@@ -43,7 +43,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @BindView(R.id.tv_right)
     TextView mRightTv;
 
-    Context context;    // 上下文
+    public Context context;    // 上下文
     SharedManager spManager;    //SharedPreferences
 
     @Override

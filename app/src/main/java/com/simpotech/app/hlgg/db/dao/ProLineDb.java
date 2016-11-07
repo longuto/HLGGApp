@@ -78,7 +78,7 @@ public class ProLineDb {
         ContentValues values = new ContentValues();
         values.put(DEPARTMENT_ID, department_id);
         values.put(DEPARTMENT_NAME, department_name);
-        values.put(DEPARTMENT_ID, department_id);
+        values.put(PROLINE_ID, proline_id);
         values.put(PROLINE_NAME, proline_name);
         db.insert(TABLE_NAME, null, values);
         db.close();
@@ -97,19 +97,20 @@ public class ProLineDb {
 
     /**
      * 按照部门名称或者生产线名称进行查询,获取集合(如果查询条件为null,则调用getAllProLines()方法)
+     *
      * @param name 部门或者生产线名称
      * @return 生产线信息集合
      */
     public List<DbProLineInfo> queryProlineByName(String name) {
         List<DbProLineInfo> proLineInfos = null;
-        if(TextUtils.isEmpty(name)) {
+        if (TextUtils.isEmpty(name)) {
             proLineInfos = getAllProLines();
-        }else {
+        } else {
             proLineInfos = new ArrayList<DbProLineInfo>();
             SQLiteDatabase db = dbHelp.getReadableDatabase();
             Cursor cursor = db.query(TABLE_NAME, new String[]{ID, DEPARTMENT_ID, DEPARTMENT_NAME,
                     PROLINE_ID,
-                    PROLINE_NAME}, DEPARTMENT_NAME + " = ? or " + PROLINE_NAME + " = ?", new
+                    PROLINE_NAME}, DEPARTMENT_NAME + " = ? or " + PROLINE_NAME + " = ? ", new
                     String[]{name, name}, null, null, DEPARTMENT_ID + " , " +
                     PROLINE_ID + " ASC");
             DbProLineInfo temp = null;
@@ -126,5 +127,27 @@ public class ProLineDb {
             db.close();
         }
         return proLineInfos;
+    }
+
+    /**
+     * 判断数据库中是否存在指定的DbProLineInfo
+     *
+     * @param dbProLineInfo 传入的数据
+     * @return 存在true
+     */
+    public boolean isExistProline(DbProLineInfo dbProLineInfo) {
+        boolean flag = false;
+
+        SQLiteDatabase db = dbHelp.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME, new String[]{DEPARTMENT_ID, PROLINE_ID},
+                DEPARTMENT_ID + " = ? AND "
+                + PROLINE_ID + " = ? ", new String[]{dbProLineInfo.departmentId, dbProLineInfo
+                .proLineId}, null, null, null);
+        if (cursor.moveToNext()) {
+            flag = true;
+        }
+        cursor.close();
+        db.close();
+        return flag;
     }
 }

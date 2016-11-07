@@ -31,6 +31,10 @@
         </activity>
         <activity android:name=".ui.activity.ProlineNetActivity">
         </activity>
+        <activity android:name=".ui.activity.ProcessActivity">
+        </activity>
+        <activity android:name=".ui.activity.ContructionActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -5,15 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.simpotech.app.hlgg.R;
+import com.simpotech.app.hlgg.db.dao.ProLineDb;
 import com.simpotech.app.hlgg.entity.DbProLineInfo;
-import com.simpotech.app.hlgg.util.LogUtils;
+import com.simpotech.app.hlgg.ui.adapter.interfaces.OnRecyclerViewItemClickListener;
 import com.simpotech.app.hlgg.util.UiUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -22,21 +21,35 @@ import butterknife.ButterKnife;
 /**
  * Created by longuto on 2016/11/1.
  * 本地生产线的适配器
+ * 通过观察者模式提供自定义ItemView的点击事件,暴露setOnItemClickListener
  */
 public class LocalProLineAdapter extends RecyclerView.Adapter<LocalProLineAdapter
-        .LocalProLineHolder> {
+        .LocalProLineHolder> implements View.OnClickListener{
+
+    //是否为Adapter设置条目点击事件
+    private OnRecyclerViewItemClickListener mOnItemClickListener = null;
+
+    public void setOnItemClickListener(OnRecyclerViewItemClickListener listener) {
+        this.mOnItemClickListener = listener;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(mOnItemClickListener != null) {
+            mOnItemClickListener.onItemClick(v, (Integer) v.getTag());
+        }
+    }
+
+
     private final String TAG = "LocalProLineAdapter";
 
     public List<DbProLineInfo> data;  //本地生产线的集合
 
-    public List<DbProLineInfo> delData;   //删除数据的集合
-
     public LocalProLineAdapter() {
         //从数据库中取出所有生产线的集合
-//        data = new ProLineDb().getAllProLines();
-//        delData = new ArrayList<>();
+        data = new ProLineDb().getAllProLines();
 
-        // 模拟数据
+        /*// 模拟数据
         data = new ArrayList<DbProLineInfo>();
         data.add(new DbProLineInfo("b01", "部门1", "p01", "生产线1"));
         data.add(new DbProLineInfo("b01", "部门1", "p02", "生产线2"));
@@ -50,20 +63,27 @@ public class LocalProLineAdapter extends RecyclerView.Adapter<LocalProLineAdapte
         data.add(new DbProLineInfo("b04", "部门4", "p01", "生产线1"));
         data.add(new DbProLineInfo("b04", "部门4", "p02", "生产线2"));
         data.add(new DbProLineInfo("b04", "部门4", "p03", "生产线3"));
-        delData = new ArrayList<DbProLineInfo>();
+        data.add(new DbProLineInfo("b05", "部门5", "p01", "生产线1"));
+        data.add(new DbProLineInfo("b05", "部门5", "p02", "生产线2"));
+        data.add(new DbProLineInfo("b05", "部门5", "p03", "生产线3"));
+        data.add(new DbProLineInfo("b06", "部门6", "p01", "生产线1"));
+        data.add(new DbProLineInfo("b06", "部门6", "p02", "生产线2"));
+        data.add(new DbProLineInfo("b06", "部门6", "p03", "生产线3"));*/
     }
 
     @Override
     public LocalProLineHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(UiUtils.getContext()).inflate(R.layout
-                .item_local_proline_recy,
+                        .item_local_proline_recy,
                 parent, false);
+        view.setOnClickListener(this);  //添加每个条目的点击事件------item点击事件
         return new LocalProLineHolder(view);
     }
 
     @Override
     public void onBindViewHolder(LocalProLineHolder holder, int position) {
         holder.setData(position);
+        holder.itemView.setTag(position);       //将当前位置保存至itemView---------item点击事件
     }
 
     @Override
@@ -71,12 +91,9 @@ public class LocalProLineAdapter extends RecyclerView.Adapter<LocalProLineAdapte
         return data.size();
     }
 
-    /**
-     * HolderView
-     */
+
+    /**HolderView*/
     class LocalProLineHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.tv_id)
-        TextView idTv;
         @BindView(R.id.tv_department)
         TextView departmentTv;
         @BindView(R.id.tv_proline)
@@ -91,24 +108,15 @@ public class LocalProLineAdapter extends RecyclerView.Adapter<LocalProLineAdapte
 
         public void setData(final int position) {
             final DbProLineInfo temp = data.get(position);
-            idTv.setText(temp.id + "");
+
             departmentTv.setText(temp.departmentName);
             prolineTv.setText(temp.proLineName);
-            //设置为未选中状态.因为有时候刷新数据时,CheckBox会有自动选中的情况
-            chooseCkb.setChecked(false);
-            //设置按钮选择事件
-            chooseCkb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if(isChecked) {
-                        LogUtils.i(TAG, "add : " + temp.departmentName + " + " + temp.proLineName);
-                        delData.add(temp);
-                    }else {
-                        LogUtils.i(TAG, "remove : " + temp.departmentName + " + " + temp.proLineName);
-                        delData.remove(temp);
-                    }
-                }
-            });
+            //设置初始状态是否选中
+            if(temp.isChecked) {
+                chooseCkb.setChecked(true);
+            }else {
+                chooseCkb.setChecked(false);
+            }
         }
     }
 }

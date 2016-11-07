@@ -7,13 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.simpotech.app.hlgg.R;
-import com.simpotech.app.hlgg.api.NetProlineParse;
 import com.simpotech.app.hlgg.entity.DbProLineInfo;
+import com.simpotech.app.hlgg.entity.RecyProLineInfo;
 import com.simpotech.app.hlgg.entity.net.NetProLineInfo;
+import com.simpotech.app.hlgg.ui.adapter.interfaces.OnRecyclerViewItemClickListener;
 import com.simpotech.app.hlgg.ui.widget.ChildRecyclerView;
 import com.simpotech.app.hlgg.util.UiUtils;
 
@@ -30,12 +30,10 @@ import butterknife.ButterKnife;
 
 public class NetProLineAdapter extends RecyclerView.Adapter<NetProLineAdapter.NetProlineHolder> {
 
-    List<NetProLineInfo> data;
-    List<DbProLineInfo> prolineList;
+    public List<RecyProLineInfo> data;
 
-    public NetProLineAdapter(List<NetProLineInfo> data) {
+    public NetProLineAdapter(List<RecyProLineInfo> data) {
         this.data = data;
-        prolineList = new ArrayList<>();
     }
 
     @Override
@@ -60,8 +58,6 @@ public class NetProLineAdapter extends RecyclerView.Adapter<NetProLineAdapter.Ne
      */
     class NetProlineHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.tv_departmentId)
-        TextView departmentIdTv;
         @BindView(R.id.tv_departmentName)
         TextView departmentNameTv;
         @BindView(R.id.crecy_prolines)
@@ -73,8 +69,7 @@ public class NetProLineAdapter extends RecyclerView.Adapter<NetProLineAdapter.Ne
         }
 
         public void setData(int position) {
-            NetProLineInfo temp = data.get(position);   //获取当前列数据
-            departmentIdTv.setText(temp.id);
+            final RecyProLineInfo temp = data.get(position);   //获取当前列数据
             departmentNameTv.setText("部门名称: " + temp.name);
 
             // 设置ChildRecyclerView
@@ -82,39 +77,72 @@ public class NetProLineAdapter extends RecyclerView.Adapter<NetProLineAdapter.Ne
                     LinearLayoutManager.VERTICAL);
             childRecyclerView.setLayoutManager(layoutManager);
             NetProlineChildAdapter childAdapter = new NetProlineChildAdapter(temp);
+            //设置每一个子Adapter的item点击事件
+            childAdapter.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    DbProLineInfo info = temp.prolines.get(position);
+                    CheckBox checkBox = (CheckBox) view.findViewById(R.id.ckb_childProline);
+                    if(info.isChecked) {
+                        checkBox.setChecked(false);
+                        info.isChecked = false;
+                    }else {
+                        checkBox.setChecked(true);
+                        info.isChecked = true;
+                    }
+                }
+            });
             childRecyclerView.setAdapter(childAdapter);
         }
     }
+
+
+    //----------------------------------嵌套的Adapter-------------------------------
+
 
     /**
      * 部门下的生产线适配器
      */
     class NetProlineChildAdapter extends ChildRecyclerView.Adapter<NetProlineChildAdapter
-            .NetProlineChildHolder> {
+            .NetProlineChildHolder> implements View.OnClickListener {
+        //是否为Adapter设置条目点击事件
+        private OnRecyclerViewItemClickListener mOnItemClickListener = null;
 
-        NetProLineInfo netProLineInfo;
-        List<DbProLineInfo> prolines;
+        public void setOnItemClickListener(OnRecyclerViewItemClickListener listener) {
+            this.mOnItemClickListener = listener;
+        }
 
-        public NetProlineChildAdapter(NetProLineInfo netProLineInfo) {
-            this.netProLineInfo = netProLineInfo;
-            prolines = new ArrayList<>();
+        @Override
+        public void onClick(View v) {
+            if(mOnItemClickListener != null) {
+                mOnItemClickListener.onItemClick(v, (Integer) v.getTag());
+            }
+        }
+
+
+        RecyProLineInfo recyProLineInfo;  //适配器的数据
+
+        public NetProlineChildAdapter(RecyProLineInfo recyProLineInfo) {
+            this.recyProLineInfo = recyProLineInfo;
         }
 
         @Override
         public NetProlineChildHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = LayoutInflater.from(UiUtils.getContext()).inflate(R.layout
                     .item_net_proline_child_recy, parent, false);
+            view.setOnClickListener(this);
             return new NetProlineChildHolder(view);
         }
 
         @Override
         public void onBindViewHolder(NetProlineChildHolder holder, int position) {
             holder.setData(position);
+            holder.itemView.setTag(position);
         }
 
         @Override
         public int getItemCount() {
-            return netProLineInfo.organList.size();
+            return recyProLineInfo.prolines.size();
         }
 
         class NetProlineChildHolder extends ChildRecyclerView.ViewHolder {
@@ -130,25 +158,14 @@ public class NetProLineAdapter extends RecyclerView.Adapter<NetProLineAdapter.Ne
 
             public void setData(int position) {
                 //将网络生产线的数据转换成数据库的生产线
-                final DbProLineInfo temp = new DbProLineInfo(netProLineInfo.id, netProLineInfo.name,
-                        netProLineInfo.organList.get(position).id, netProLineInfo.organList.get
-                        (position).name);
+                final DbProLineInfo temp = recyProLineInfo.prolines.get(position);
 
-                prolineChooseCkb.setChecked(false);
+                if(temp.isChecked) {
+                    prolineChooseCkb.setChecked(true);
+                }else {
+                    prolineChooseCkb.setChecked(false);
+                }
                 prolineNameTv.setText(temp.proLineName);
-
-                //为CheckBox设置点击事件
-                prolineChooseCkb.setOnCheckedChangeListener(new CompoundButton
-                        .OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if (isChecked) {
-                            prolines.add(temp);
-                        } else {
-                            prolines.remove(temp);
-                        }
-                    }
-                });
             }
         }
     }

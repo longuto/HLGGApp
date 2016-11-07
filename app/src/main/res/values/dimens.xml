@@ -6,4 +6,7 @@
     <!--item的margins-->
     <dimen name="item_horizontal_margin">10dp</dimen>
     <dimen name="item_vertical_margin">2dp</dimen>
+
+    <!--条形码获取构件信息的高度-->
+    <dimen name="contruction_height">250dp</dimen>
 </resources>

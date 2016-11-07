@@ -66,6 +66,7 @@
             android:layout_weight="2"
             android:gravity="center"
             android:text="部门"
+            android:textColor="@color/item_text_parent"
             android:textSize="16sp"/>
 
         <View
@@ -81,6 +82,7 @@
             android:layout_weight="2"
             android:gravity="center"
             android:text="生产线"
+            android:textColor="@color/item_text_parent"
             android:textSize="16sp"/>
 
     </LinearLayout>
@@ -95,7 +97,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="1dp"
-        android:background="#D6D7D7"/>
+        android:background="@color/item_background"/>
 
     <View
         android:layout_width="match_parent"

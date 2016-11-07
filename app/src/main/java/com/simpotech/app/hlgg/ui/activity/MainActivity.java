@@ -90,14 +90,16 @@ public class MainActivity extends BaseActivity {
 
                 break;
             case R.id.btn_contruction_query:    //构件查询
-
+                Intent inetntContruction = new Intent(context, ContructionActivity.class);
+                startActivity(inetntContruction);
                 break;
             case R.id.btn_process:  //流程设置
-
+                Intent intentProcess = new Intent(context, ProcessActivity.class);
+                startActivity(intentProcess);
                 break;
             case R.id.btn_proLine:  //生产线配置
-                Intent intent = new Intent(context, ProLineActivity.class);
-                startActivity(intent);
+                Intent intentProLine = new Intent(context, ProLineActivity.class);
+                startActivity(intentProLine);
                 break;
             default:
                 break;

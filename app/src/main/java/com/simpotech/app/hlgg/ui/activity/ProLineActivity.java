@@ -4,14 +4,17 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.simpotech.app.hlgg.R;
 import com.simpotech.app.hlgg.db.dao.ProLineDb;
 import com.simpotech.app.hlgg.entity.DbProLineInfo;
 import com.simpotech.app.hlgg.ui.adapter.LocalProLineAdapter;
+import com.simpotech.app.hlgg.ui.adapter.interfaces.OnRecyclerViewItemClickListener;
 import com.simpotech.app.hlgg.util.LogUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -21,7 +24,6 @@ public class ProLineActivity extends BaseActivity {
 
     private final String TAG = "ProLineActivity";
 
-    LinearLayoutManager mLinearLayoutManager;
     LocalProLineAdapter mAdapter;
 
     @BindView(R.id.edt_search_local)
@@ -31,8 +33,6 @@ public class ProLineActivity extends BaseActivity {
 
     @OnClick(R.id.btn_search)
     public void searchProLines() {
-        mAdapter.delData.clear();   //清空delData
-
         String name = mSearchEdt.getText().toString().trim();
         List<DbProLineInfo> proLineInfos = new ProLineDb().queryProlineByName(name);
         mAdapter.data = proLineInfos;
@@ -68,37 +68,46 @@ public class ProLineActivity extends BaseActivity {
         getRightLly().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mAdapter.data.removeAll(mAdapter.delData);  //删除已经选中的数据
-                mAdapter.notifyDataSetChanged();    //通知数据改变
-                //删除数据库中对应的数据
-                for(DbProLineInfo info : mAdapter.delData) {
-                    new ProLineDb().deleteProLineById(info.id);
+                List<DbProLineInfo> delProlineInfos = new ArrayList<DbProLineInfo>();   //删除数据的集合
+                for (DbProLineInfo temp : mAdapter.data) {
+                    if(temp.isChecked) {
+                        delProlineInfos.add(temp);
+                        new ProLineDb().deleteProLineById(temp.id); //删除数据库中的对象
+                    }
                 }
-
-                for (DbProLineInfo info : mAdapter.delData) {
-                    LogUtils.i(TAG, "delData-----------------" + info.departmentName + " = " + info.proLineName);
-                }
-                for (DbProLineInfo info : mAdapter.data) {
-                    LogUtils.i(TAG, "data-----------------" + info.departmentName + " = " + info.proLineName);
-                }
-
-                mAdapter.delData.clear();       //清空delData数据
+                mAdapter.data.removeAll(delProlineInfos);
+                mAdapter.notifyDataSetChanged();
             }
         });
     }
 
     @Override
     protected void initData() {
-        mLinearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager
-                .VERTICAL, false);
-        mLocalProlineRecy.setLayoutManager(mLinearLayoutManager);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context,
+                LinearLayoutManager.VERTICAL, false);
+        mLocalProlineRecy.setLayoutManager(linearLayoutManager);
     }
 
-    /**Activity变为可见时*/
     @Override
     protected void onStart() {
         super.onStart();
         mAdapter = new LocalProLineAdapter();
+        //设置自定义的item点击事件
+        mAdapter.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                LogUtils.i(TAG, "当前位置为: " + position);
+                DbProLineInfo temp = mAdapter.data.get(position);
+                CheckBox isCheckCkb = (CheckBox) view.findViewById(R.id.ckb_choose);
+                if(temp.isChecked) {
+                    temp.isChecked = false;
+                    isCheckCkb.setChecked(false);
+                }else {
+                    temp.isChecked = true;
+                    isCheckCkb.setChecked(true);
+                }
+            }
+        });
         mLocalProlineRecy.setAdapter(mAdapter);
     }
 }

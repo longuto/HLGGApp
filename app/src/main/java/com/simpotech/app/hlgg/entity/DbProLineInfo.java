@@ -1,5 +1,6 @@
 package com.simpotech.app.hlgg.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -14,6 +15,8 @@ public class DbProLineInfo {
     public String departmentName;   //部门名称
     public String proLineId;    //生产线id
     public String proLineName;  //生产线名称
+
+    public boolean isChecked;   //是否选中(使用与RecyclerView展示的判断)
 
     public DbProLineInfo() {}
 
