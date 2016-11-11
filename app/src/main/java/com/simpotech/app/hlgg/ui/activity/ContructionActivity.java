@@ -29,6 +29,4 @@ public class ContructionActivity extends BaseActivity {
     protected void initData() {
 
     }
-
-
 }

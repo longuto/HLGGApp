@@ -8,10 +8,10 @@ package com.simpotech.app.hlgg.api;
 public class Constant {
 
     //主机地址
-    public static final String HOST = "http://127.0.0.1:8080/HLGG";
+    public static final String HOST = "http://10.110.1.232:8080/simpo";
 
     //登录系统,并返回权限
-    public static final String LOGIN = "/ec/app/doLogin.html";  //在LoginActivity中
+    public static final String LOGIN = "/ec/app/purview.html";  //在LoginActivity中
 
     //生产线获取
     public static final String PROLINE = "/ec/app/proLine.html";    //在NetProlineParse
@@ -21,4 +21,12 @@ public class Constant {
 
     //构件明细
     public static final String CONTRUCTION = "/ec/app/contruction.html";
+
+    //发货单下载地址
+    public static final String INVOICE = "/ec/app/invoiceSearch.html";  //在NetInvoiceParse
+
+    //查询已出库的发货单地址
+    public static final String INVOICE_STOCK_OUT = "/ec/app/invoiceJudge.html";  //在NetInvoiceParse
+
+
 }

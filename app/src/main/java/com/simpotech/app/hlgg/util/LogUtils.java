@@ -26,6 +26,6 @@ public class LogUtils {
 			Log.w(tag, msg);
 		}
 	}
-	
-	
+
+	private LogUtils(){}	//私有构造方法
 }

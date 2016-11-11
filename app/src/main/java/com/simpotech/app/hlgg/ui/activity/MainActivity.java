@@ -24,12 +24,8 @@ public class MainActivity extends BaseActivity {
 
     @BindView(R.id.btn_stockin)
     Button mStockInBtn; //入库
-    @BindView(R.id.btn_stockin_manager)
-    Button mStockInManBtn;  //入库管理
     @BindView(R.id.btn_stockout)
     Button mStockOutBtn;    //出库
-    @BindView(R.id.btn_stockout_manager)
-    Button mStockOutManBtn; //出库管理
     @BindView(R.id.btn_quality)
     Button mQualityBtn; //质检
     @BindView(R.id.btn_quality_query)
@@ -51,10 +47,10 @@ public class MainActivity extends BaseActivity {
 
     /**
      * 所有功能按钮的点击事件
+     *
      * @param button
      */
-    @OnClick({R.id.btn_stockin, R.id.btn_stockin_manager, R.id.btn_stockout, R.id
-            .btn_stockout_manager, R.id.btn_quality, R.id.btn_quality_query, R.id
+    @OnClick({R.id.btn_stockin, R.id.btn_stockout, R.id.btn_quality, R.id.btn_quality_query, R.id
             .btn_stockin_query, R.id.btn_stockout_query, R.id.btn_Invoice, R.id
             .btn_Invoice_manager, R.id.btn_contruction_query, R.id.btn_process, R.id.btn_proLine})
     public void functions(Button button) {
@@ -62,13 +58,14 @@ public class MainActivity extends BaseActivity {
             case R.id.btn_stockin:  //入库
 
                 break;
-            case R.id.btn_stockin_manager:  //入库管理
+            case R.id.btn_stockin_query:    //入库查询
 
                 break;
             case R.id.btn_stockout: //出库
-
+                Intent intentStockout = new Intent(context, StockoutActivity.class);
+                startActivity(intentStockout);
                 break;
-            case R.id.btn_stockout_manager: //出库管理
+            case R.id.btn_stockout_query:   //出库查询
 
                 break;
             case R.id.btn_quality:  //质检
@@ -77,17 +74,13 @@ public class MainActivity extends BaseActivity {
             case R.id.btn_quality_query:    //质检查询
 
                 break;
-            case R.id.btn_stockin_query:    //入库查询
-
-                break;
-            case R.id.btn_stockout_query:   //出库查询
-
-                break;
             case R.id.btn_Invoice:  //下载发货单
-
+                Intent intentInvoice = new Intent(context, InvoiceActivity.class);
+                startActivity(intentInvoice);
                 break;
             case R.id.btn_Invoice_manager:  //发货单管理
-
+                Intent intentInvoiceManager = new Intent(context, InvoiceManagerActivity.class);
+                startActivity(intentInvoiceManager);
                 break;
             case R.id.btn_contruction_query:    //构件查询
                 Intent inetntContruction = new Intent(context, ContructionActivity.class);
@@ -180,14 +173,8 @@ public class MainActivity extends BaseActivity {
                 case "入库":
                     mStockInBtn.setClickable(true);
                     break;
-                case "入库管理":
-                    mStockInManBtn.setClickable(true);
-                    break;
                 case "出库":
                     mStockOutBtn.setClickable(true);
-                    break;
-                case "出库管理":
-                    mStockOutManBtn.setClickable(true);
                     break;
                 case "质检":
                     mQualityBtn.setClickable(true);

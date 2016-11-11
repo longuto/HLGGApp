@@ -87,4 +87,6 @@ public class UiUtils {
         float density = getContext().getResources().getDisplayMetrics().density;
         return px / density;
     }
+
+    private UiUtils() {}    //私有构造方法
 }

@@ -22,7 +22,7 @@
                 android:id="@+id/tv_departmentName"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:background="@color/item_background"
+                android:background="@color/item_parent_background"
                 android:gravity="center_vertical"
                 android:text="部门:部门名称"
                 android:textColor="@color/item_text_parent"

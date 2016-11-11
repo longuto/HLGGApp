@@ -80,7 +80,7 @@ public class NetProcessAdapter extends RecyclerView.Adapter<NetProcessAdapter.Ne
 
         public void setData(int position) {
             final NetProcessInfo temp = data.get(position);
-            businessNameTv.setText("业务模块:构件入库录入（" + temp.businessName + ")");
+            businessNameTv.setText("业务模块:（" + temp.businessName + ")");
 
             //为每一个ChildRecyclerView设置数据
             final List<NetProcessInfo.FlowListBean> itemTemp = temp.flowList;
@@ -96,7 +96,7 @@ public class NetProcessAdapter extends RecyclerView.Adapter<NetProcessAdapter.Ne
                     if (!bean.isDef) {
                         new AlertDialog.Builder(context)
                                 .setTitle("确定设置")
-                                .setMessage("是否设置构件入库_" + bean.flowName + "流程为默认设置")
+                                .setMessage("是否设置" + bean.flowName + "为默认设置")
                                 .setPositiveButton("取消", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
@@ -182,7 +182,7 @@ public class NetProcessAdapter extends RecyclerView.Adapter<NetProcessAdapter.Ne
 
             public void setData(final int position) {
                 NetProcessInfo.FlowListBean info = childData.get(position);
-                followTv.setText("构件入库_" + info.flowName);
+                followTv.setText(info.flowName);
 
                 //获取本地Xml文件,看是否有默认值,没有的话,将第一个设置为默认值
                 String followId = sp.getStringFromXml(info.businessNo, childData.get(0).flowId);

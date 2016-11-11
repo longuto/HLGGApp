@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    card_view:cardBackgroundColor="@android:color/white"
+    card_view:cardCornerRadius="1dp"
+    card_view:cardElevation="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/item_background"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/tv_barCode"
+                android:layout_weight="3"
+                style="@style/contruction_textView"
+                android:text="条码 :"/>
+            <TextView
+                android:id="@+id/tv_qty"
+                style="@style/contruction_textView"
+                android:layout_weight="1"
+                android:text="数量 :"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:id="@+id/tv_contruction_code"
+                android:layout_weight="3"
+                style="@style/contruction_textView"
+                android:text="构件编号 :"/>
+            <TextView
+                android:id="@+id/tv_spec"
+                android:layout_weight="2"
+                style="@style/contruction_textView"
+                android:text="规格 :"/>
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

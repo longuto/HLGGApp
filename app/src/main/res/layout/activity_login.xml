@@ -39,18 +39,20 @@
                 android:text="@string/password"/>
             <EditText
                 android:id="@+id/edt_password"
-                style="@style/login_editText"/>
+                style="@style/login_editText">
+                <requestFocus/>
+            </EditText>
         </LinearLayout>
 
         <Button
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_below="@id/lly_password"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
+            android:layout_marginTop="10dp"
             android:onClick="login"
-            android:layout_below="@id/lly_password"
             android:text="@string/login"/>
     </RelativeLayout>
 

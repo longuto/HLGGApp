@@ -6,12 +6,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.simpotech.app.hlgg.R;
-import com.simpotech.app.hlgg.entity.net.BaseJsonInfo;
-import com.simpotech.app.hlgg.util.LogUtils;
+import com.simpotech.app.hlgg.api.Constant;
 import com.simpotech.app.hlgg.business.SharedManager;
+import com.simpotech.app.hlgg.entity.net.BaseJsonInfo;
+import com.simpotech.app.hlgg.util.GsonUtils;
+import com.simpotech.app.hlgg.util.LogUtils;
 import com.simpotech.app.hlgg.util.UiUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
@@ -25,8 +26,8 @@ import okhttp3.Call;
  */
 public class LoginActivity extends BaseActivity {
 
-//    private static final String URL_LOGIN = Constant.HOST + Constant.LOGIN;
-    private static final String URL_LOGIN = "http://10.110.1.98:8080/login.json";
+    private static final String URL_LOGIN = Constant.HOST + Constant.LOGIN;
+//    private static final String URL_LOGIN = "http://10.110.1.98:8080/login.json";
     private static final String TAG = "LoginActivity";
 
     @BindView(R.id.edt_username)
@@ -63,12 +64,11 @@ public class LoginActivity extends BaseActivity {
                     public void onResponse(String response, int id) {
                         LogUtils.i(TAG, "请求网络成功");
                         //用Gson解析
-                        Gson gson = new Gson();
-                        BaseJsonInfo<String> loginInfo = gson.fromJson(response, new
-                                TypeToken<BaseJsonInfo<String>>() {
-                                }.getType());
+                        BaseJsonInfo<String> loginInfo = (BaseJsonInfo<String>) GsonUtils
+                                .fromJson(response, new TypeToken<BaseJsonInfo<String>>() {
+                        }.getType());
                         //如果解析成功
-                        if(loginInfo != null) {
+                        if (loginInfo != null) {
                             if (loginInfo.code.equals("success")) {
                                 //保存用户名至SharedPreferences
                                 spManager.putStringToXml(SharedManager.USERNAME, username);

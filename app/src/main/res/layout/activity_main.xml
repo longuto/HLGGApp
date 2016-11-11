@@ -29,9 +29,9 @@
             style="@style/main_button"
             android:text="@string/stockin"/>
         <Button
-            android:id="@+id/btn_stockin_manager"
+            android:id="@+id/btn_stockin_query"
             style="@style/main_button"
-            android:text="@string/stockin_manager"/>
+            android:text="@string/stockin_query"/>
     </LinearLayout>
 
     <LinearLayout
@@ -45,9 +45,9 @@
             style="@style/main_button"
             android:text="@string/stockout"/>
         <Button
-            android:id="@+id/btn_stockout_manager"
+            android:id="@+id/btn_stockout_query"
             style="@style/main_button"
-            android:text="@string/stockout_manager"/>
+            android:text="@string/stockout_query"/>
     </LinearLayout>
 
     <LinearLayout
@@ -66,24 +66,6 @@
             style="@style/main_button"
             android:text="@string/quality_query"/>
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/btn_stockin_query"
-            style="@style/main_button"
-            android:text="@string/stockin_query"
-        />
-        <Button
-            android:id="@+id/btn_stockout_query"
-            style="@style/main_button"
-            android:text="@string/stockout_query"/>
-    </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="match_parent"

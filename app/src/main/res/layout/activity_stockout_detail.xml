@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_stockout_detail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.simpotech.app.hlgg.ui.activity.StockoutDetailActivity">
+
+    <include layout="@layout/layout_title"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:background="@color/item_parent_background"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_code"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2"
+            android:gravity="center_vertical"
+            android:text="发货单号 : "
+            android:textColor="@color/item_text_parent"
+            android:textSize="18sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                style="@style/contruction_textView"
+                android:layout_weight="1"
+                android:text="项目名称 :"/>
+            <TextView
+                android:id="@+id/tv_proj_name"
+                style="@style/contruction_textView"
+                android:layout_weight="3"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                style="@style/contruction_textView"
+                android:layout_weight="1"
+                android:text="加工厂 :"/>
+            <TextView
+                android:id="@+id/tv_organName"
+                style="@style/contruction_textView"
+                android:layout_weight="3"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                style="@style/contruction_textView"
+                android:layout_weight="1"
+                android:text="营销员 :"/>
+            <TextView
+                android:id="@+id/tv_saleName"
+                style="@style/contruction_textView"
+                android:layout_weight="3"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recy_detail_stockout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

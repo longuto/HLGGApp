@@ -11,6 +11,7 @@ import com.simpotech.app.hlgg.entity.RecyProLineInfo;
 import com.simpotech.app.hlgg.entity.net.BaseJsonInfo;
 import com.simpotech.app.hlgg.entity.net.NetProLineInfo;
 import com.simpotech.app.hlgg.ui.adapter.NetProLineAdapter;
+import com.simpotech.app.hlgg.util.GsonUtils;
 import com.simpotech.app.hlgg.util.LogUtils;
 import com.simpotech.app.hlgg.util.UiUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
@@ -22,8 +23,6 @@ import java.util.List;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import okhttp3.Call;
 
-import static android.os.Build.VERSION_CODES.N;
-
 /**
  * Created by longuto on 2016/11/2.
  * 获取网络生产线的数据
@@ -33,8 +32,8 @@ public class NetProlineParse {
 
     private static final String TAG = "NetProlineParse";
 
-    //public static final String URL_PROLINE = Constant.HOST + Constant.PROLINE; //流水线地址
-    public static final String URL_PROLINE = "http://10.110.1.98:8080/proline.json"; //测试流水线地址
+    public static final String URL_PROLINE = Constant.HOST + Constant.PROLINE; //流水线地址
+//  public static final String URL_PROLINE = "http://10.110.1.98:8080/proline.json"; //测试流水线地址
 
 
     /**
@@ -97,10 +96,9 @@ public class NetProlineParse {
      */
     private static void ParseResponse(String response, RecyclerView recyclerView, final
     PtrClassicFrameLayout refreshPtr) {
-        Gson gson = new Gson();
-        BaseJsonInfo<List<NetProLineInfo>> temp = gson.fromJson(response, new
-                TypeToken<BaseJsonInfo<List<NetProLineInfo>>>() {
-                }.getType());
+        BaseJsonInfo<List<NetProLineInfo>> temp = (BaseJsonInfo<List<NetProLineInfo>>) GsonUtils
+                .fromJson(response, new TypeToken<BaseJsonInfo<List<NetProLineInfo>>>() {
+        }.getType());
         //如果解析成功
         if (temp != null) {
             if (temp.code.equals("success")) {
