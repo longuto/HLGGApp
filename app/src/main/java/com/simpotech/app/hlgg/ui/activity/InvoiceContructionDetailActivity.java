@@ -40,6 +40,7 @@ public class InvoiceContructionDetailActivity extends BaseActivity {
     @Override
     protected void initTitle() {
         showLeftIv(R.drawable.vector_proline_back);
+        showMiddleTv("发货单详情");
         showRightTv("出库");
         showRightIv(R.drawable.vector_invoice_stockout);
         getLeftLly().setOnClickListener(new View.OnClickListener() {

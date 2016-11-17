@@ -8,11 +8,9 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.simpotech.app.hlgg.R;
 import com.simpotech.app.hlgg.api.NetInvoiceParse;
-import com.simpotech.app.hlgg.db.InvoiceDbHelp;
+import com.simpotech.app.hlgg.db.dao.InvoiceConStockoutDb;
 import com.simpotech.app.hlgg.db.dao.InvoiceContructionDb;
 import com.simpotech.app.hlgg.db.dao.InvoiceDb;
 import com.simpotech.app.hlgg.entity.net.NetInvoiceInfo;
@@ -20,9 +18,7 @@ import com.simpotech.app.hlgg.ui.adapter.LocalInvoiceAdapter;
 import com.simpotech.app.hlgg.ui.adapter.interfaces.OnRecyclerViewItemClickListener;
 import com.simpotech.app.hlgg.ui.adapter.interfaces.OnRecyclerViewItemLongClickListener;
 import com.simpotech.app.hlgg.util.GsonUtils;
-import com.simpotech.app.hlgg.util.UiUtils;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,8 +27,6 @@ import butterknife.OnClick;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
-
-import static android.R.attr.data;
 
 public class InvoiceManagerActivity extends BaseActivity {
 
@@ -62,6 +56,7 @@ public class InvoiceManagerActivity extends BaseActivity {
         mAdapter.notifyDataSetChanged();    //通知适配器数据已改变
         new InvoiceDb().delAllData();   //清空数据库信息
         new InvoiceContructionDb().delAllData();    //清空附属表的数据
+        new InvoiceConStockoutDb().delAllData();    //清空附属出库的构件表
     }
 
     //删除已出库
@@ -89,9 +84,11 @@ public class InvoiceManagerActivity extends BaseActivity {
         }
         InvoiceDb db = new InvoiceDb();
         InvoiceContructionDb dbCon = new InvoiceContructionDb();
+        InvoiceConStockoutDb dbStock = new InvoiceConStockoutDb();
         for (String str : codes) {
             db.delInvoice(str); //删除选中项的表记录
             dbCon.delInvoiceConByInvoiceCode(str);  //删除附属表的表记录
+            dbStock.getInvoiceConByInvoiceCode(str);    //删除附属出库的构件表
         }
         mAdapter.data = db.getAllInvoices();
         mAdapter.notifyDataSetChanged();
@@ -146,7 +143,6 @@ public class InvoiceManagerActivity extends BaseActivity {
                     @Override
                     public void onItemLongClick(View view, int position) {
                         CheckBox checkBox = (CheckBox) view.findViewById(R.id.ckb_choose_invoice);
-                        //将itemData通过意图传递给下一个Activity
                         NetInvoiceInfo itemData = mAdapter.getItemData(position);
                         if(itemData.isChecked) {
                             checkBox.setChecked(false);

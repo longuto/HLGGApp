@@ -30,12 +30,16 @@ import com.google.zxing.DecodeHintType;
 import com.google.zxing.Result;
 import com.google.zxing.client.result.ResultParser;
 import com.simpotech.app.hlgg.R;
+import com.simpotech.app.hlgg.business.ParseScanner;
+import com.simpotech.app.hlgg.entity.StockConInfo;
+import com.simpotech.app.hlgg.entity.StockinConInfo;
 import com.simpotech.app.hlgg.scanner.camera.CameraManager;
 import com.simpotech.app.hlgg.scanner.common.BitmapUtils;
 import com.simpotech.app.hlgg.scanner.decode.BitmapDecoder;
 import com.simpotech.app.hlgg.scanner.decode.CaptureActivityHandler;
 import com.simpotech.app.hlgg.scanner.view.ViewfinderView;
 import com.simpotech.app.hlgg.ui.activity.StockoutDetailActivity;
+import com.simpotech.app.hlgg.util.GsonUtils;
 import com.simpotech.app.hlgg.util.LogUtils;
 import com.simpotech.app.hlgg.util.UiUtils;
 
@@ -43,6 +47,8 @@ import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.Collection;
 import java.util.Map;
+
+import static com.simpotech.app.hlgg.business.ParseScanner.scan2stockinContru;
 
 /**
  * This activity opens the camera and does the actual scanning on a background
@@ -422,13 +428,25 @@ public final class CaptureActivity extends Activity implements
 		lastResult = rawResult;
 
 		// 把图片画到扫描框
-		viewfinderView.drawResultBitmap(barcode);
+//		viewfinderView.drawResultBitmap(barcode);
 
 		beepManager.playBeepSoundAndVibrate();
 
-		Toast.makeText(this,
-				"识别结果:" + ResultParser.parseResult(rawResult).toString(),
-				Toast.LENGTH_SHORT).show();
+//		Toast.makeText(this,
+//				"识别结果:" + ResultParser.parseResult(rawResult).toString(),
+//				Toast.LENGTH_SHORT).show();
+		String data = ResultParser.parseResult(rawResult).toString().trim();
+		StockConInfo info = ParseScanner.scan2stockContru(data);//出库信息
+		//解析构件信息成功
+		if(info != null) {
+			Intent intent = new Intent();
+			String json = GsonUtils.toJson(info);
+			intent.putExtra("SCAN", json);
+			setResult(6, intent);
+			finish();
+		}else {
+			UiUtils.showToast(data);
+		}
 
 	}
 

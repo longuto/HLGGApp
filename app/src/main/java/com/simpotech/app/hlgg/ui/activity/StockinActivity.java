@@ -5,26 +5,29 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.simpotech.app.hlgg.R;
-import com.simpotech.app.hlgg.api.NetStockoutParse;
+import com.simpotech.app.hlgg.api.NetStockinparse;
 import com.simpotech.app.hlgg.business.ParseScanner;
 import com.simpotech.app.hlgg.business.SharedManager;
-import com.simpotech.app.hlgg.db.dao.InvoiceConStockoutDb;
-import com.simpotech.app.hlgg.db.dao.InvoiceDb;
+import com.simpotech.app.hlgg.db.dao.ProLineDb;
+import com.simpotech.app.hlgg.db.dao.StockinConSubDb;
+import com.simpotech.app.hlgg.entity.DbProLineInfo;
 import com.simpotech.app.hlgg.entity.StockConInfo;
-import com.simpotech.app.hlgg.entity.StockoutConInfo;
-import com.simpotech.app.hlgg.entity.net.NetInvoiceInfo;
+import com.simpotech.app.hlgg.entity.StockinConInfo;
 import com.simpotech.app.hlgg.scanner.CaptureActivity;
-import com.simpotech.app.hlgg.ui.adapter.LocalInvoiceStockDetailAdapter;
+import com.simpotech.app.hlgg.ui.adapter.LocalStockinConAdapter;
+import com.simpotech.app.hlgg.ui.adapter.SpinnerAdapter;
 import com.simpotech.app.hlgg.ui.adapter.interfaces.OnRecyclerViewItemClickListener;
 import com.simpotech.app.hlgg.ui.adapter.interfaces.OnRecyclerViewItemLongClickListener;
 import com.simpotech.app.hlgg.util.GsonUtils;
@@ -37,62 +40,56 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class StockoutDetailActivity extends BaseActivity {
+public class StockinActivity extends BaseActivity {
 
-    private static final String TAG = "StockoutDetailActivity";
+    boolean isAllChoose;    //反选
+    LocalStockinConAdapter mAdapter;    //适配器
 
-    NetInvoiceInfo netInvoiceInfo;  //出库单信息
-    LocalInvoiceStockDetailAdapter mAdapter; //适配器
+    @BindView(R.id.edt_search_stockin)
+    EditText mSearchStockinEdt;
+    @BindView(R.id.btn_search)
+    Button mSearchBtn;
+    @BindView(R.id.recy_local_stockin)
+    RecyclerView mLocalStockinRecy;
 
-    boolean isAllChoose;    //是否全选
-
-    @BindView(R.id.tv_code)
-    TextView codeTv;
-    @BindView(R.id.tv_proj_name)
-    TextView projNameTv;
-    @BindView(R.id.tv_organName)
-    TextView organNameTv;
-    @BindView(R.id.tv_saleName)
-    TextView saleNameTv;
-    @BindView(R.id.recy_detail_stockout)
-    RecyclerView stockoutDetailRecy;
-
-    @OnClick(R.id.btn_choose_all)
-    public void chooseAll() {
-        List<StockoutConInfo> infos = mAdapter.data;
-        if (isAllChoose) {
-            isAllChoose = false;
-            for (StockoutConInfo info : infos) {
-                info.isChecked = false;
-            }
-        } else {
-            isAllChoose = true;
-            for (StockoutConInfo info : infos) {
-                info.isChecked = true;
-            }
-        }
-        mAdapter.notifyDataSetChanged();
-    }
-
-    @OnClick(R.id.btn_del_choose)
-    public void delChoose() {
-        List<StockoutConInfo> infos = mAdapter.data;
-        InvoiceConStockoutDb db = new InvoiceConStockoutDb();
-        for (StockoutConInfo info : infos) {
-            if (info.isChecked) {
-                int rows = db.delInvoiceConById(info.id);
-                if (rows < 1) {
-                    UiUtils.showToast("条形码为" + info.barcode + "的构件删除失败");
+    @OnClick({R.id.btn_choose_all, R.id.btn_del_choose})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.btn_choose_all:   //反选
+                List<StockinConInfo> infosChs = mAdapter.data;
+                if (isAllChoose) {
+                    isAllChoose = false;
+                    for (StockinConInfo info : infosChs) {
+                        info.isChecked = false;
+                    }
+                } else {
+                    isAllChoose = true;
+                    for (StockinConInfo info : infosChs) {
+                        info.isChecked = true;
+                    }
                 }
-            }
+                mAdapter.notifyDataSetChanged();
+                break;
+            case R.id.btn_del_choose:   //删除选中项
+                List<StockinConInfo> infosDel = mAdapter.data;
+                StockinConSubDb db = new StockinConSubDb();
+                for (StockinConInfo info : infosDel) {
+                    if (info.isChecked) {
+                        int rows = db.delStockinConById(info.id);
+                        if (rows < 1) {
+                            UiUtils.showToast("条形码为" + info.barcode + "的构件删除失败");
+                        }
+                    }
+                }
+                mAdapter.data = db.getAllStockinCon();
+                mAdapter.notifyDataSetChanged();
+                break;
         }
-        mAdapter.data = db.getInvoiceConByInvoiceCode(netInvoiceInfo.code);
-        mAdapter.notifyDataSetChanged();
     }
 
     @Override
     protected void toSetContentView() {
-        setContentView(R.layout.activity_stockout_detail);
+        setContentView(R.layout.activity_stockin);
     }
 
     @Override
@@ -100,7 +97,6 @@ public class StockoutDetailActivity extends BaseActivity {
         showLeftIv(R.drawable.vector_proline_back);
         showMiddleIv(R.drawable.vector_stockout_scan);
         showRightIv(R.drawable.vector_proline_get);
-        showRightTv("提交");
         getLeftLly().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,13 +113,12 @@ public class StockoutDetailActivity extends BaseActivity {
         getRightLly().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<StockoutConInfo> stockoutConInfos = new InvoiceConStockoutDb()
-                        .getInvoiceConByInvoiceCode(netInvoiceInfo.code);
-                NetStockoutParse.getDataFromNet(netInvoiceInfo, stockoutConInfos);
+                NetStockinparse.getDataFromNet(mAdapter);
             }
         });
     }
 
+    /** 扫描二维码返回的构件信息处理*/
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -131,24 +126,17 @@ public class StockoutDetailActivity extends BaseActivity {
             String json = data.getStringExtra("SCAN");
             StockConInfo info = (StockConInfo) GsonUtils.fromJson(json, StockConInfo.class);
             if(info != null) {
-                showDialogDetail(ParseScanner.stockCon2StockoutInfo(info), false);
+                showDialogDetail(ParseScanner.stockCon2StockinInfo(info), false);
             }
         }
     }
 
     @Override
     protected void initData() {
-        String code = getIntent().getStringExtra("CODE");
-        netInvoiceInfo = new InvoiceDb().queryInvoicesByCode(code);
-        codeTv.setText("发货单号 :" + netInvoiceInfo.code);
-        projNameTv.setText(netInvoiceInfo.proj_name);
-        organNameTv.setText(netInvoiceInfo.organName);
-        saleNameTv.setText(netInvoiceInfo.saleName);
-
         LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager
                 .VERTICAL, false);
-        stockoutDetailRecy.setLayoutManager(manager);
-        mAdapter = new LocalInvoiceStockDetailAdapter(netInvoiceInfo.code);
+        mLocalStockinRecy.setLayoutManager(manager);
+        mAdapter = new LocalStockinConAdapter();
         mAdapter.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -158,7 +146,7 @@ public class StockoutDetailActivity extends BaseActivity {
         mAdapter.setOnItemLongClickListener(new OnRecyclerViewItemLongClickListener() {
             @Override
             public void onItemLongClick(View view, int position) {
-                StockoutConInfo temp = mAdapter.data.get(position);
+                StockinConInfo temp = mAdapter.getItemData(position);
                 CheckBox checkBox = (CheckBox) view.findViewById(R.id.ckb_choose);
                 if (temp.isChecked) {
                     checkBox.setChecked(false);
@@ -169,9 +157,9 @@ public class StockoutDetailActivity extends BaseActivity {
                 }
             }
         });
-        stockoutDetailRecy.setAdapter(mAdapter);
+        mLocalStockinRecy.setAdapter(mAdapter);
 
-        // ------------------------------- by 红外 ---------------------------------
+        //-------------------------------------by 红外
 
         IntentFilter iFilter = new IntentFilter();
         //注册系统广播  接受扫描到的数据
@@ -191,7 +179,7 @@ public class StockoutDetailActivity extends BaseActivity {
             if (action.equals(RECE_DATA_ACTION)) {
                 String data = intent.getStringExtra("se4500");
 
-                StockoutConInfo info = ParseScanner.scan2stockoutContru(data);
+                StockinConInfo info = ParseScanner.scan2stockinContru(data);
                 if (info != null) {
                     //显示对话框
                     showDialogDetail(info, false);
@@ -205,18 +193,19 @@ public class StockoutDetailActivity extends BaseActivity {
     /**
      * 显示扫描后的弹框信息
      *
-     * @param isEditContruction true表示之后的修改, false表示第一次的扫描
      * @param info              构件信息
+     * @param isEditContruction true表示之后的修改, false表示第一次的扫描
      */
-    private void showDialogDetail(final StockoutConInfo info, final boolean isEditContruction) {
-        View view = View.inflate(context, R.layout.view_scanout_info, null);
+    private void showDialogDetail(final StockinConInfo info, final boolean isEditContruction) {
+        View view = View.inflate(context, R.layout.view_scanin_info, null);
         TextView barCodeTv = (TextView) view.findViewById(R.id.tv_barCode);
-        final TextView cmlCodeTv = (TextView) view.findViewById(R.id.tv_cml_code);
+        TextView cmlCodeTv = (TextView) view.findViewById(R.id.tv_cml_code);
         TextView nameTv = (TextView) view.findViewById(R.id.tv_name);
         TextView codeTv = (TextView) view.findViewById(R.id.tv_code);
         TextView specTv = (TextView) view.findViewById(R.id.tv_spec);
         TextView qtyTv = (TextView) view.findViewById(R.id.tv_qty);
-        final EditText stockoutEdt = (EditText) view.findViewById(R.id.edt_stockout);
+        final EditText stockinEdt = (EditText) view.findViewById(R.id.edt_stockin);
+        Spinner prolineSpin = (Spinner) view.findViewById(R.id.spin_proline);
 
         barCodeTv.setText(info.barcode);
         cmlCodeTv.setText(info.cml_code);
@@ -225,16 +214,32 @@ public class StockoutDetailActivity extends BaseActivity {
         specTv.setText(info.spec);
         qtyTv.setText(info.qty);
         if (!isEditContruction) {
-            stockoutEdt.setText(info.qty);
+            stockinEdt.setText(info.qty);
         } else {
-            stockoutEdt.setText(info.stock_qty);
+            stockinEdt.setText(info.stock_qty);
         }
 
-        //扫描的构件信息是否是本清单的构件
-        final boolean isThisCmlCode = info.cml_code.equals(netInvoiceInfo.cml_code);
-        if (!isThisCmlCode) {
-            cmlCodeTv.setBackgroundColor(Color.RED);
+        final List<DbProLineInfo> proLines = new ProLineDb().getAllProLines();
+        SpinnerAdapter adapter = new SpinnerAdapter(proLines);
+        prolineSpin.setAdapter(adapter);
+        prolineSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                spManager.putIntegerToXml(SharedManager.PROLINE_POSITION, position);//将选择的位置存入xml
+                info.prolineId = proLines.get(position).proLineId;
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+        //获取xml中存取的默认的生产线的id
+        int prolinePos = spManager.getIntegerFromXml(SharedManager.PROLINE_POSITION);
+        //如果当前位置大于存储的位置
+        if(prolinePos >= proLines.size()) {
+            prolinePos = 0;
         }
+        prolineSpin.setSelection(prolinePos);
+        info.prolineId = proLines.get(prolinePos).proLineId;
 
         new AlertDialog.Builder(context)
                 .setView(view)
@@ -247,40 +252,31 @@ public class StockoutDetailActivity extends BaseActivity {
                 .setNegativeButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-//                        //如果扫描的构件清单不等于当前的构件清单
-//                        if (!isThisCmlCode) {
-//                            UiUtils.showToast("采集的构件号不是本单的构件");
-//                            return;
-//                        }
-                        String stockoutQty = stockoutEdt.getText().toString().trim();
-                        if (Integer.valueOf(stockoutQty) > Integer.valueOf(info.qty)) {
+                        String stockinQty = stockinEdt.getText().toString().trim();
+                        if (Integer.valueOf(stockinQty) > Integer.valueOf(info.qty)) {
                             UiUtils.showToast("出库件数不能大于清单数量");
                             return;
                         }
-                        info.stock_qty = stockoutQty;     //发货件数
+                        info.stock_qty = stockinQty;     //发货件数
                         if (!isEditContruction) {
                             info.scannerPeople = spManager.getStringFromXml(SharedManager.USERNAME);
                             info.scannerTime = TimeUtils.DateToStr(new Date());
-                            info.invoice_code = netInvoiceInfo.code;    //发货单号
                         }
-                        InvoiceConStockoutDb db = new InvoiceConStockoutDb();
-                        // 如果是扫描时显示,则将数据数据插入数据库
-                        if (!isEditContruction) {
-                            // 将信息存储至数据库
-                            if (db.addInvoiceContruction(info)) {
+                        StockinConSubDb db = new StockinConSubDb();
+                        if(!isEditContruction) {
+                            if(db.addStockinCon(info)) {
                                 UiUtils.showToast("插入数据成功");
-                            } else {
+                            }else {
                                 UiUtils.showToast("插入数据失败");
                             }
-                        // 如果是修改,则修改出库数量
-                        } else {
-                            if (db.upDataByStockoutQty(info) > 0) {
-                                UiUtils.showToast("修改成功");
-                            } else {
-                                UiUtils.showToast("修改失败");
+                        }else {
+                            if(db.upDataByStockinQty(info) > 0) {
+                                UiUtils.showToast("修改数据成功");
+                            }else {
+                                UiUtils.showToast("修改数据失败");
                             }
                         }
-                        mAdapter.data = db.getInvoiceConByInvoiceCode(netInvoiceInfo.code);
+                        mAdapter.data = db.getAllStockinCon();
                         mAdapter.notifyDataSetChanged();
                     }
                 })
@@ -327,4 +323,5 @@ public class StockoutDetailActivity extends BaseActivity {
         unregisterReceiver(receiver);
         super.onDestroy();
     }
+
 }

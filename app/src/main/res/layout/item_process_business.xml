@@ -16,6 +16,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/item_background"
             android:orientation="vertical">
 
             <TextView
@@ -28,16 +29,10 @@
                 android:textColor="@android:color/black"
                 android:textSize="18sp"/>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/cuttle_line_backgroud"/>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@color/item_background">
+                android:orientation="horizontal">
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -73,13 +68,7 @@
             <com.simpotech.app.hlgg.ui.widget.ChildRecyclerView
                 android:id="@+id/recy_child_process"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/item_background"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/cuttle_line_backgroud"/>
+                android:layout_height="wrap_content"/>
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

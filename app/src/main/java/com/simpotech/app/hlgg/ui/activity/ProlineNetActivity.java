@@ -58,6 +58,7 @@ public class ProlineNetActivity extends BaseActivity {
     @Override
     protected void initTitle() {
         showLeftIv(R.drawable.vector_proline_back);
+        showMiddleTv("网络生产线");
         showRightTv("提交");
         showRightIv(R.drawable.vector_proline_get);
         getLeftLly().setOnClickListener(new View.OnClickListener() {

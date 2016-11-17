@@ -6,19 +6,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
 
 import com.simpotech.app.hlgg.db.InvoiceDbHelp;
-import com.simpotech.app.hlgg.entity.DbProLineInfo;
 import com.simpotech.app.hlgg.entity.net.NetInvoiceInfo;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.sql.RowSet;
-
-import static android.R.attr.name;
-import static com.simpotech.app.hlgg.db.dao.ProLineDb.DEPARTMENT_ID;
-import static com.simpotech.app.hlgg.db.dao.ProLineDb.DEPARTMENT_NAME;
-import static com.simpotech.app.hlgg.db.dao.ProLineDb.PROLINE_ID;
-import static com.simpotech.app.hlgg.db.dao.ProLineDb.PROLINE_NAME;
 
 /**
  * Created by longuto on 2016/11/8.
@@ -87,6 +78,7 @@ public class InvoiceDb {
             temp.addUserName = cursor.getString(cursor.getColumnIndex(ADDUSERNAME));
             invoiceInfos.add(temp);
         }
+        cursor.close();
         return invoiceInfos;
     }
 

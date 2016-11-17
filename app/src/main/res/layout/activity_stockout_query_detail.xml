@@ -2,11 +2,11 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_stockout_detail"
+    android:id="@+id/activity_stockout_query_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.simpotech.app.hlgg.ui.activity.StockoutDetailActivity">
+    tools:context="com.simpotech.app.hlgg.ui.activity.StockoutQueryDetailActivity">
 
     <include layout="@layout/layout_title"/>
 
@@ -18,14 +18,28 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/tv_code"
+            android:id="@+id/tv_stockout_code"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
             android:gravity="center_vertical"
-            android:text="发货单号 : "
+            android:text="出库单号 : "
             android:textColor="@color/item_text_parent"
             android:textSize="18sp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                style="@style/contruction_textView"
+                android:layout_weight="1"
+                android:text="发货单号 :"/>
+            <TextView
+                android:id="@+id/tv_invoice_code"
+                style="@style/contruction_textView"
+                android:layout_weight="3"/>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,7 +54,6 @@
                 style="@style/contruction_textView"
                 android:layout_weight="3"/>
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -50,7 +63,7 @@
                 android:layout_weight="1"
                 android:text="加工厂 :"/>
             <TextView
-                android:id="@+id/tv_organName"
+                android:id="@+id/tv_organ_name"
                 style="@style/contruction_textView"
                 android:layout_weight="3"/>
         </LinearLayout>
@@ -67,34 +80,37 @@
                 style="@style/contruction_textView"
                 android:layout_weight="3"/>
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                style="@style/contruction_textView"
+                android:layout_weight="1"
+                android:text="创建人 :"/>
+            <TextView
+                android:id="@+id/tv_addName"
+                style="@style/contruction_textView"
+                android:layout_weight="3"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                style="@style/contruction_textView"
+                android:layout_weight="1"
+                android:text="创建时间 :"/>
+            <TextView
+                android:id="@+id/tv_addTime"
+                style="@style/contruction_textView"
+                android:layout_weight="3"/>
+        </LinearLayout>
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recy_detail_stockout"
+        android:id="@+id/recy_stockout_detail"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/btn_choose_all"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="30dp"
-            android:text="反选"/>
-        <Button
-            android:id="@+id/btn_del_choose"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="10dp"
-            android:text="删除"/>
-    </LinearLayout>
+        android:layout_height="match_parent"/>
 
 </LinearLayout>

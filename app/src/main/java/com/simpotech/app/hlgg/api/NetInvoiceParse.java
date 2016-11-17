@@ -1,29 +1,21 @@
 package com.simpotech.app.hlgg.api;
 
-import android.text.InputFilter;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.simpotech.app.hlgg.db.dao.InvoiceConStockoutDb;
 import com.simpotech.app.hlgg.db.dao.InvoiceContructionDb;
 import com.simpotech.app.hlgg.db.dao.InvoiceDb;
 import com.simpotech.app.hlgg.entity.net.BaseJsonInfo;
 import com.simpotech.app.hlgg.entity.net.NetInvoiceInfo;
-import com.simpotech.app.hlgg.entity.net.NetProcessInfo;
 import com.simpotech.app.hlgg.ui.adapter.LocalInvoiceAdapter;
 import com.simpotech.app.hlgg.util.LogUtils;
 import com.simpotech.app.hlgg.util.UiUtils;
 import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
-import java.nio.charset.CoderMalfunctionError;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import okhttp3.Call;
-
-import static android.provider.ContactsContract.CommonDataKinds.Website.URL;
-import static com.zhy.http.okhttp.log.LoggerInterceptor.TAG;
 
 /**
  * Created by longuto on 2016/11/8.
@@ -119,9 +111,11 @@ public class NetInvoiceParse {
                         int len = codes.length;
                         InvoiceDb db = new InvoiceDb();
                         InvoiceContructionDb dbCon = new InvoiceContructionDb();
+                        InvoiceConStockoutDb dbStock = new InvoiceConStockoutDb();
                         for (int i = 0; i < len; i++) {
                             db.delInvoice(codes[i]);
                             dbCon.delInvoiceConByInvoiceCode(codes[i]);
+                            dbStock.delInvoiceConByInvoiceCode(codes[i]);
                         }
                         mAdapter.data = db.getAllInvoices();
                         mAdapter.notifyDataSetChanged();

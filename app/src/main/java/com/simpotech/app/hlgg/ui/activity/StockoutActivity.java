@@ -1,7 +1,6 @@
 package com.simpotech.app.hlgg.ui.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
@@ -11,7 +10,6 @@ import com.simpotech.app.hlgg.entity.net.NetInvoiceInfo;
 import com.simpotech.app.hlgg.util.UiUtils;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class StockoutActivity extends BaseActivity {
 

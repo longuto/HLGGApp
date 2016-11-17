@@ -56,7 +56,8 @@ public class MainActivity extends BaseActivity {
     public void functions(Button button) {
         switch (button.getId()) {
             case R.id.btn_stockin:  //入库
-
+                Intent intentStockin = new Intent(context, StockinActivity.class);
+                startActivity(intentStockin);
                 break;
             case R.id.btn_stockin_query:    //入库查询
 
@@ -66,7 +67,8 @@ public class MainActivity extends BaseActivity {
                 startActivity(intentStockout);
                 break;
             case R.id.btn_stockout_query:   //出库查询
-
+                Intent intentStockoutQuery = new Intent(context, StockoutQueryActivity.class);
+                startActivity(intentStockoutQuery);
                 break;
             case R.id.btn_quality:  //质检
 

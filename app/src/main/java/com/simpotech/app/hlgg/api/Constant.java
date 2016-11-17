@@ -28,5 +28,10 @@ public class Constant {
     //查询已出库的发货单地址
     public static final String INVOICE_STOCK_OUT = "/ec/app/invoiceJudge.html";  //在NetInvoiceParse
 
+    //出库单地址
+    public static final String STOCK_OUT = "/ec/app/stockoutSave.html";     //在NetStockoutParse
+
+    //入库单地址
+    public static final String STOCKIN = "/ec/app/stockinSave.html";
 
 }

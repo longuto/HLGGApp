@@ -1,6 +1,5 @@
 package com.simpotech.app.hlgg.db;
 
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -8,8 +7,6 @@ import com.simpotech.app.hlgg.db.dao.InvoiceContructionDb;
 import com.simpotech.app.hlgg.db.dao.InvoiceDb;
 import com.simpotech.app.hlgg.util.LogUtils;
 import com.simpotech.app.hlgg.util.UiUtils;
-
-import static android.R.attr.version;
 
 /**
  * Created by longuto on 2016/11/8.
@@ -32,10 +29,10 @@ public class InvoiceContructionDbHelp extends SQLiteOpenHelper {
         String sql = "CREATE TABLE " + InvoiceContructionDb.TABLE_NAME + "(" +
                 InvoiceContructionDb.ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 InvoiceContructionDb.INVOICE_CODE + " TEXT NOT NULL, " +
-                InvoiceContructionDb.CONTRUCTION_CODE + " , " + InvoiceContructionDb
-                .SPEC + " , " + InvoiceContructionDb.QTY + " , " +
-                InvoiceContructionDb.TONNAGE + " , " + InvoiceContructionDb.BARCODE
-                + " , FOREIGN KEY(" + InvoiceContructionDb.INVOICE_CODE + ") " +
+                InvoiceContructionDb.CONTRUCTION_CODE + " TEXT, " + InvoiceContructionDb
+                .SPEC + " TEXT, " + InvoiceContructionDb.QTY + " TEXT, " +
+                InvoiceContructionDb.TONNAGE + " TEXT, " + InvoiceContructionDb.BARCODE
+                + " TEXT, FOREIGN KEY(" + InvoiceContructionDb.INVOICE_CODE + ") " +
                 "REFERENCES " + InvoiceDb.TABLE_NAME + "(" + InvoiceDb.CODE + "))";
         db.execSQL(sql);
     }

@@ -3,6 +3,8 @@ package com.simpotech.app.hlgg.util;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
+import android.support.design.widget.Snackbar;
+import android.view.View;
 import android.widget.Toast;
 
 import com.simpotech.app.hlgg.global.MyApplication;
@@ -12,6 +14,10 @@ import com.simpotech.app.hlgg.global.MyApplication;
  */
 
 public class UiUtils {
+    /**Snackbar简化写法*/
+    public static void showSnackbar(View view, String content) {
+        Snackbar.make(view, content, Snackbar.LENGTH_SHORT).show();
+    }
 
     /**获取上下文*/
     public static Context getContext() {

@@ -28,6 +28,8 @@
     <color name="item_text_parent">#000000</color>
     <!--item子项的文字颜色-->
     <color name="item_text_child">#808080</color>
+    <!--错误信息-->
+    <color name="item_error_msg">#FFAEB0</color>
 
 
     <!--扫一扫的颜色-->

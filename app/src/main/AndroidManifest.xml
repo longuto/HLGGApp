@@ -6,12 +6,13 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
 
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.camera.autofocus" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
+
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.FLASHLIGHT"/>
 
     <application
         android:name=".global.MyApplication"
@@ -55,12 +56,20 @@
         </activity>
         <activity
             android:name=".ui.activity.StockoutActivity"
-            android:launchMode="singleTask" >
+            android:launchMode="singleTask">
         </activity>
         <activity
             android:name=".ui.activity.StockoutDetailActivity"
             android:launchMode="singleTask"/>
         <activity android:name=".scanner.CaptureActivity"/>
+        <activity android:name=".ui.activity.StockoutQueryActivity">
+        </activity>
+        <activity android:name=".ui.activity.StockoutQueryDetailActivity">
+        </activity>
+        <activity
+            android:name=".ui.activity.StockinActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden">
+        </activity>
     </application>
 
 </manifest>
