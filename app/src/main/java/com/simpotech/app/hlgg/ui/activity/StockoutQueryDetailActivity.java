@@ -88,8 +88,7 @@ public class StockoutQueryDetailActivity extends BaseActivity {
                 .VERTICAL, false);
         mStockoutDetailRecy.setLayoutManager(manager);
         StockoutContruDb dbCon = new StockoutContruDb();
-        List<NetStockoutInfo.DetailsBean> details = dbCon
-                .getStockoutConByStockoutCode(mItemData.code);
+        List<NetStockoutInfo.DetailsBean> details = dbCon.getStockoutConByStockoutCode(mItemData.code);
         LocalStockQueryDetailAdapter adapter = new LocalStockQueryDetailAdapter(details);
         mStockoutDetailRecy.setAdapter(adapter);
     }

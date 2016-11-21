@@ -60,7 +60,8 @@ public class MainActivity extends BaseActivity {
                 startActivity(intentStockin);
                 break;
             case R.id.btn_stockin_query:    //入库查询
-
+                Intent intentStockinQuery = new Intent(context, StockinQueryActivity.class);
+                startActivity(intentStockinQuery);
                 break;
             case R.id.btn_stockout: //出库
                 Intent intentStockout = new Intent(context, StockoutActivity.class);

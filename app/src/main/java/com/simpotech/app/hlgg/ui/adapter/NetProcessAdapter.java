@@ -95,7 +95,7 @@ public class NetProcessAdapter extends RecyclerView.Adapter<NetProcessAdapter.Ne
                     final NetProcessInfo.FlowListBean bean = itemTemp.get(position);
                     if (!bean.isDef) {
                         new AlertDialog.Builder(context)
-                                .setTitle("确定设置")
+                                .setTitle("提示")
                                 .setMessage("是否设置" + bean.flowName + "为默认设置")
                                 .setPositiveButton("取消", new DialogInterface.OnClickListener() {
                                     @Override

@@ -26,7 +26,7 @@ import com.simpotech.app.hlgg.entity.DbProLineInfo;
 import com.simpotech.app.hlgg.entity.StockConInfo;
 import com.simpotech.app.hlgg.entity.StockinConInfo;
 import com.simpotech.app.hlgg.scanner.CaptureActivity;
-import com.simpotech.app.hlgg.ui.adapter.LocalStockinConAdapter;
+import com.simpotech.app.hlgg.ui.adapter.LocalStockinSubConAdapter;
 import com.simpotech.app.hlgg.ui.adapter.SpinnerAdapter;
 import com.simpotech.app.hlgg.ui.adapter.interfaces.OnRecyclerViewItemClickListener;
 import com.simpotech.app.hlgg.ui.adapter.interfaces.OnRecyclerViewItemLongClickListener;
@@ -43,7 +43,7 @@ import butterknife.OnClick;
 public class StockinActivity extends BaseActivity {
 
     boolean isAllChoose;    //反选
-    LocalStockinConAdapter mAdapter;    //适配器
+    LocalStockinSubConAdapter mAdapter;    //适配器
 
     @BindView(R.id.edt_search_stockin)
     EditText mSearchStockinEdt;
@@ -113,7 +113,7 @@ public class StockinActivity extends BaseActivity {
         getRightLly().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NetStockinparse.getDataFromNet(mAdapter);
+                NetStockinparse.getDataFromNet(mAdapter, context);
             }
         });
     }
@@ -136,7 +136,7 @@ public class StockinActivity extends BaseActivity {
         LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager
                 .VERTICAL, false);
         mLocalStockinRecy.setLayoutManager(manager);
-        mAdapter = new LocalStockinConAdapter();
+        mAdapter = new LocalStockinSubConAdapter();
         mAdapter.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {

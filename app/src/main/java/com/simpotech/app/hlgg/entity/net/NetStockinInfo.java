@@ -34,6 +34,7 @@ public class NetStockinInfo {
     public String addTime;
     public String addUserId;
     public String addUserName;
+    public boolean isCheck; //是否选中
     public List<DetailsBean> details;
 
 

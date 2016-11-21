@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
  * 本地入库的构件信息
  */
 
-public class LocalStockinConAdapter extends RecyclerView.Adapter<LocalStockinConAdapter
+public class LocalStockinSubConAdapter extends RecyclerView.Adapter<LocalStockinSubConAdapter
         .LocalStockinConHolder> implements View.OnClickListener, View.OnLongClickListener {
 
     //是否为Adapter设置条目点击事件
@@ -57,7 +57,7 @@ public class LocalStockinConAdapter extends RecyclerView.Adapter<LocalStockinCon
 
     public List<StockinConInfo> data;   //适配器数据
 
-    public LocalStockinConAdapter() {
+    public LocalStockinSubConAdapter() {
         StockinConSubDb db = new StockinConSubDb();
         data = db.getAllStockinCon();
     }
