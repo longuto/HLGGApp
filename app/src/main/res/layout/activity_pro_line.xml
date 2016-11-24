@@ -12,39 +12,41 @@
 
     <include layout="@layout/layout_title"/>
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/item_horizontal_margin"
-        android:orientation="horizontal">
+        android:layout_margin="@dimen/item_horizontal_margin">
 
         <EditText
             android:id="@+id/edt_search_local"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
             android:background="@drawable/shape_edit_background"
             android:hint="搜索生产线或部门信息"
+            android:singleLine="true"
             android:textSize="16sp"/>
 
-        <Button
+        <ImageView
             android:id="@+id/btn_search"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="搜索"/>
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="6dp"
+            android:background="@drawable/vector_search_icon"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_marginTop="5dp"
         android:background="@color/cuttle_line_backgroud"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/item_parent_background"
         android:orientation="horizontal">
 
         <CheckBox

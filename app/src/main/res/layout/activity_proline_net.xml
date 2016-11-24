@@ -17,27 +17,29 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/item_horizontal_margin"
-            android:orientation="horizontal">
+            android:layout_margin="@dimen/item_horizontal_margin">
             <EditText
                 android:id="@+id/edt_search_net"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
                 android:background="@drawable/shape_edit_background"
                 android:hint="搜索部门信息"
+                android:singleLine="true"
                 android:textSize="16sp"/>
-            <Button
+
+            <ImageView
                 android:id="@+id/btn_search_net"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_weight="1"
-                android:text="搜索"/>
-        </LinearLayout>
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="6dp"
+                android:background="@drawable/vector_search_icon"/>
+
+        </RelativeLayout>
 
         <in.srain.cube.views.ptr.PtrClassicFrameLayout
             android:id="@+id/ptr_net_proline"

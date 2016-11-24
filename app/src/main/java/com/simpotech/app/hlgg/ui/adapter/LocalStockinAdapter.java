@@ -17,6 +17,7 @@ import com.simpotech.app.hlgg.util.UiUtils;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by longuto on 2016/11/18.
@@ -108,6 +109,7 @@ public class LocalStockinAdapter extends RecyclerView.Adapter<LocalStockinAdapte
 
         public LocalStockinHolder(View itemView) {
             super(itemView);
+            ButterKnife.bind(this, itemView);
         }
 
         public void setData(int position) {
@@ -119,7 +121,7 @@ public class LocalStockinAdapter extends RecyclerView.Adapter<LocalStockinAdapte
             organNameTv.setText(info.organName);
             productLineTv.setText(info.productLine);
             addUserNameTv.setText("提交人 :" + info.addUserName);
-            addTimeTv.setText("提交时间 :" + info.addTime);
+            addTimeTv.setText(" 提交时间 :" + info.addTime);
             if(info.isCheck) {
                 chooseStockinCkb.setChecked(true);
             }else {

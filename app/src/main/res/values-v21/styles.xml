@@ -1,0 +1,23 @@
+<resources>
+    <!--转场动画登录界面from的Activity-->
+    <style name="fromTransitions" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowContentTransitions">true</item>
+        <!--<item name="android:windowAllowEnterTransitionOverlap">true</item>-->
+        <!--<item name="android:windowAllowReturnTransitionOverlap">true</item>-->
+        <!--<item name="android:windowEnterTransition">@transition/slide</item>-->
+        <item name="android:windowExitTransition">@transition/slide</item>
+        <!--<item name="android:windowReenterTransition">@transition/expload</item>-->
+        <!--<item name="android:windowReturnTransition">@transition/expload</item>-->
+    </style>
+
+    <!--转场动画登录界面to的Activity-->
+    <style name="toTransitions" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <!--<item name="android:windowAllowReturnTransitionOverlap">true</item>-->
+        <item name="android:windowEnterTransition">@transition/expload</item>
+        <!--<item name="android:windowExitTransition">@transition/expload</item>-->
+        <!--<item name="android:windowReenterTransition">@transition/expload</item>-->
+        <!--<item name="android:windowReturnTransition">@transition/expload</item>-->
+    </style>
+</resources>

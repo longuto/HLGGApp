@@ -110,9 +110,8 @@ public class ProLineDb {
             proLineInfos = new ArrayList<DbProLineInfo>();
             SQLiteDatabase db = dbHelp.getReadableDatabase();
             Cursor cursor = db.query(TABLE_NAME, new String[]{ID, DEPARTMENT_ID, DEPARTMENT_NAME,
-                    PROLINE_ID,
-                    PROLINE_NAME}, DEPARTMENT_NAME + " = ? or " + PROLINE_NAME + " = ? ", new
-                    String[]{name, name}, null, null, DEPARTMENT_ID + " , " +
+                    PROLINE_ID, PROLINE_NAME}, DEPARTMENT_NAME + " like ? or " + PROLINE_NAME + " like ? ", new
+                    String[]{"%" + name + "%", "%" + name + "%"}, null, null, DEPARTMENT_ID + " , " +
                     PROLINE_ID + " ASC");
             DbProLineInfo temp = null;
             while (cursor.moveToNext()) {

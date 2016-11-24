@@ -1,77 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_invoice_contruction_detail"
+    android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     tools:context="com.simpotech.app.hlgg.ui.activity.InvoiceContructionDetailActivity">
 
-    <include layout="@layout/layout_title"/>
-
-    <LinearLayout
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:background="@color/item_parent_background"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tv_code"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="2"
-            android:gravity="center_vertical"
-            android:text="发货单号 : "
-            android:textColor="@color/item_text_parent"
-            android:textSize="18sp"/>
+        <include layout="@layout/layout_title"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@color/item_parent_background"
+            android:orientation="vertical">
             <TextView
-                style="@style/contruction_textView"
-                android:layout_weight="1"
-                android:text="项目名称 :"/>
-            <TextView
-                android:id="@+id/tv_proj_name"
-                style="@style/contruction_textView"
-                android:layout_weight="3"/>
+                android:id="@+id/tv_code"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:gravity="center_vertical"
+                android:text="发货单号 : "
+                android:textColor="@color/item_text_parent"
+                android:textSize="18sp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                <TextView
+                    style="@style/contruction_textView"
+                    android:layout_weight="1"
+                    android:text="项目名称 :"/>
+                <TextView
+                    android:id="@+id/tv_proj_name"
+                    style="@style/contruction_textView"
+                    android:layout_weight="3"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                <TextView
+                    style="@style/contruction_textView"
+                    android:layout_weight="1"
+                    android:text="下载人 :"/>
+                <TextView
+                    android:id="@+id/tv_addUserName"
+                    style="@style/contruction_textView"
+                    android:layout_weight="3"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                <TextView
+                    style="@style/contruction_textView"
+                    android:layout_weight="1"
+                    android:text="创建时间 :"/>
+                <TextView
+                    android:id="@+id/tv_cjdate"
+                    style="@style/contruction_textView"
+                    android:layout_weight="3"/>
+            </LinearLayout>
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-            <TextView
-                style="@style/contruction_textView"
-                android:layout_weight="1"
-                android:text="下载人 :"/>
-            <TextView
-                android:id="@+id/tv_addUserName"
-                style="@style/contruction_textView"
-                android:layout_weight="3"/>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-            <TextView
-                style="@style/contruction_textView"
-                android:layout_weight="1"
-                android:text="创建时间 :"/>
-            <TextView
-                android:id="@+id/tv_cjdate"
-                style="@style/contruction_textView"
-                android:layout_weight="3"/>
-        </LinearLayout>
-    </LinearLayout>
+    </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:id="@+id/recy_detail_invoiceCon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

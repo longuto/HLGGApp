@@ -1,5 +1,7 @@
 package com.simpotech.app.hlgg.ui.activity;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
@@ -77,7 +79,7 @@ public class LoginActivity extends BaseActivity {
                                 String result = loginInfo.result;
                                 Intent intent = new Intent(context, MainActivity.class);
                                 intent.putExtra("RESULT", result);
-                                startActivity(intent);
+                                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) context).toBundle());
                                 //销毁此Activity
                                 finish();
                             } else {

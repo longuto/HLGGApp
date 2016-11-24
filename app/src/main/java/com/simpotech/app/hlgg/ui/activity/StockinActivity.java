@@ -1,5 +1,6 @@
 package com.simpotech.app.hlgg.ui.activity;
 
+import android.animation.ObjectAnimator;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,6 +9,7 @@ import android.content.IntentFilter;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -47,12 +49,10 @@ public class StockinActivity extends BaseActivity {
 
     @BindView(R.id.edt_search_stockin)
     EditText mSearchStockinEdt;
-    @BindView(R.id.btn_search)
-    Button mSearchBtn;
     @BindView(R.id.recy_local_stockin)
     RecyclerView mLocalStockinRecy;
 
-    @OnClick({R.id.btn_choose_all, R.id.btn_del_choose})
+    @OnClick({R.id.btn_choose_all, R.id.btn_del_choose, R.id.btn_search})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_choose_all:   //反选
@@ -82,6 +82,12 @@ public class StockinActivity extends BaseActivity {
                     }
                 }
                 mAdapter.data = db.getAllStockinCon();
+                mAdapter.notifyDataSetChanged();
+                break;
+            case R.id.btn_search:
+                String content = mSearchStockinEdt.getText().toString().trim();
+                StockinConSubDb dbSub = new StockinConSubDb();
+                mAdapter.data = dbSub.queryStockinConByInput(content);
                 mAdapter.notifyDataSetChanged();
                 break;
         }

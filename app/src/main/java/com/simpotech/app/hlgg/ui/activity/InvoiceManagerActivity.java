@@ -1,5 +1,7 @@
 package com.simpotech.app.hlgg.ui.activity;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,15 +30,17 @@ import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
+
 public class InvoiceManagerActivity extends BaseActivity {
 
     private LocalInvoiceAdapter mAdapter;   //适配器
     private String TAG = "InvoiceManagerActivity";  //数据库标记
 
+    private boolean isAllChoose;    //反选
+
     @BindView(R.id.edt_search_invoice)
     EditText mInvoiceEdt;   //发货单EditText
-    @BindView(R.id.btn_search)
-    Button mSearchBtn;  //发货单查询Button
     @BindView(R.id.ptr_local_invoice)
     PtrClassicFrameLayout mInvoicePtr;  //下拉刷新控件
     @BindView(R.id.recy_local_invoice)
@@ -49,27 +53,22 @@ public class InvoiceManagerActivity extends BaseActivity {
         mAdapter.notifyDataSetChanged();
     }
 
-    //清空数据库
-    @OnClick(R.id.btn_del_all)
+    //反选
+    @OnClick(R.id.btn_choose_all)
     public void delAllInvoice() {
-        mAdapter.data = new ArrayList<>();  //清空展板数据
-        mAdapter.notifyDataSetChanged();    //通知适配器数据已改变
-        new InvoiceDb().delAllData();   //清空数据库信息
-        new InvoiceContructionDb().delAllData();    //清空附属表的数据
-        new InvoiceConStockoutDb().delAllData();    //清空附属出库的构件表
-    }
-
-    //删除已出库
-    @OnClick(R.id.btn_del_stockout)
-    public void delStockOutInvoice() {
-        StringBuffer sb = new StringBuffer();
-        for (NetInvoiceInfo info : mAdapter.data) {
-            sb.append(info.code);
-            sb.append(",");
+        List<NetInvoiceInfo> netInvoiceInfos = mAdapter.data;
+        if (isAllChoose) {
+            isAllChoose = false;
+            for(NetInvoiceInfo info : netInvoiceInfos) {
+                info.isChecked = false;
+            }
+        }else {
+            isAllChoose = true;
+            for(NetInvoiceInfo info : netInvoiceInfos) {
+                info.isChecked = true;
+            }
         }
-        String codeStr = sb.toString();
-        codeStr.substring(0, codeStr.length() - 1);
-        NetInvoiceParse.delStockOutInvoiceCode(codeStr, mAdapter);
+        mAdapter.notifyDataSetChanged();
     }
 
     //删除选中的
@@ -103,10 +102,24 @@ public class InvoiceManagerActivity extends BaseActivity {
     protected void initTitle() {
         showLeftIv(R.drawable.vector_proline_back);
         showMiddleTv("发货单管理");
+        showRightTv("删除已出库");
         getLeftLly().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
+           }
+        });
+        getRightLly().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                StringBuffer sb = new StringBuffer();
+                for (NetInvoiceInfo info : mAdapter.data) {
+                    sb.append(info.code);
+                    sb.append(",");
+                }
+                String codeStr = sb.toString();
+                codeStr.substring(0, codeStr.length() - 1);
+                NetInvoiceParse.delStockOutInvoiceCode(codeStr, mAdapter);
             }
         });
     }

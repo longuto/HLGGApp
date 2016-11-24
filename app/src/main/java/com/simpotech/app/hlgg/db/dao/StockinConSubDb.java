@@ -140,7 +140,7 @@ public class StockinConSubDb {
         ContentValues values = new ContentValues();
         values.put(STOCK_QTY, bean.stock_qty);
         values.put(PROLINEID, bean.prolineId);
-        int rows = db.update(TABLE_NAME, values, ID + "=?", new String[]{bean.id + ""});
+        int rows = db.update(TABLE_NAME, values, ID + " = ? ", new String[]{bean.id + ""});
         return rows;
     }
 
@@ -187,8 +187,8 @@ public class StockinConSubDb {
             SQLiteDatabase db = dbHelp.getReadableDatabase();
             Cursor cursor = db.query(TABLE_NAME, new String[]{ID, CML_CODE, NAME, CODE, SPEC,
                             BARCODE, QTY, STOCK_QTY, SCANNERPEOPLE, SCANNERTIME, ISERROR,
-                            MESSAGE, PROLINEID}, CML_CODE + " = ? or " + CODE + " = ? ", new String[]{content,
-                            content}, null,
+                            MESSAGE, PROLINEID}, CML_CODE + " like ? or " + CODE + " like ? ", new String[]{"%" + content + "%",
+                            "%" + content + "%"}, null,
                     null, null);
             StockinConInfo temp = null;
             while (cursor.moveToNext()) {

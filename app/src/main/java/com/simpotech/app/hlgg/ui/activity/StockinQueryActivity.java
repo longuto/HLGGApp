@@ -130,7 +130,7 @@ public class StockinQueryActivity extends BaseActivity {
         mLocalStockinPtr.postDelayed(new Runnable() {
             @Override
             public void run() {
-                mLocalStockinPtr.refreshComplete();
+                mLocalStockinPtr.autoRefresh();
             }
         }, 100);
 

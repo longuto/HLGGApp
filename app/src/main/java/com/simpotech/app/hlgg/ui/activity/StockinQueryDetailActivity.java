@@ -1,6 +1,5 @@
 package com.simpotech.app.hlgg.ui.activity;
 
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -10,13 +9,12 @@ import com.google.gson.reflect.TypeToken;
 import com.simpotech.app.hlgg.R;
 import com.simpotech.app.hlgg.db.dao.StockinContruDb;
 import com.simpotech.app.hlgg.entity.net.NetStockinInfo;
-import com.simpotech.app.hlgg.ui.adapter.interfaces.LocalStockinConAdapter;
+import com.simpotech.app.hlgg.ui.adapter.LocalStockinConAdapter;
 import com.simpotech.app.hlgg.util.GsonUtils;
 
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class StockinQueryDetailActivity extends BaseActivity {
 
@@ -63,14 +61,14 @@ public class StockinQueryDetailActivity extends BaseActivity {
         String json = getIntent().getStringExtra("ITEMDATA");
         mItemData = (NetStockinInfo) GsonUtils.fromJson(json, new TypeToken<NetStockinInfo>() {
         }.getType());
-        mStockinCodeTv.setText("入库单号 :" + mItemData.code);
+        mStockinCodeTv.setText("入库单号: " + mItemData.code);
         mWoCodeTv.setText(mItemData.wo_code);
         mCmlCodeTv.setText(mItemData.cml_code);
         mProjNameTv.setText(mItemData.proj_name);
         mOrganNameTv.setText(mItemData.organName);
         mProductLineTv.setText(mItemData.productLine);
-        mAddUserNameTv.setText("提交人 :" + mItemData.addUserName);
-        mAddTimeTv.setText("提交时间" + mItemData.addTime);
+        mAddUserNameTv.setText("提交人: " + mItemData.addUserName);
+        mAddTimeTv.setText(" 提交时间: " + mItemData.addTime);
 
         LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager
                 .VERTICAL, false);

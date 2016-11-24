@@ -1,4 +1,4 @@
-package com.simpotech.app.hlgg.ui.adapter.interfaces;
+package com.simpotech.app.hlgg.ui.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

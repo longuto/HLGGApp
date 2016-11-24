@@ -6,12 +6,16 @@
 
     <stroke
         android:width="2dp"
-        android:color="#009688"/>
+        android:color="#D6D7D7"/>
 
     <padding
-        android:top="8dp"
-        android:bottom="8dp"
+        android:top="10dp"
+        android:bottom="10dp"
         android:left="2dp"
         android:right="2dp"/>
+
+    <!-- 填充 -->
+    <solid
+        android:color="#D6D7D7"/>
 
 </shape>

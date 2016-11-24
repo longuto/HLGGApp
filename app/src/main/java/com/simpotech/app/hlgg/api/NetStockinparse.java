@@ -34,7 +34,9 @@ import okhttp3.Call;
  */
 public class NetStockinparse {
 
-    public static final String URL_STOCKIN = Constant.HOST + Constant.STOCKIN;  //入库访问地址
+//    public static final String URL_STOCKIN = Constant.HOST + Constant.STOCKIN;  //入库访问地址
+    public static final String URL_STOCKIN = "http://10.110.1.98:8080/stockinInfo.json";   //测试地址
+
 
     private static String TAG = "NetStockinparse";
 
@@ -74,29 +76,27 @@ public class NetStockinparse {
                                                         + "的构件保存失败");
                                             }
                                         }
+                                        new AlertDialog.Builder(context)
+                                                .setTitle("提示")
+                                                .setMessage("入库成功,是否清空本地数据库")
+                                                .setPositiveButton("取消", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        dialog.dismiss();
+                                                    }
+                                                })
+                                                .setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialog, int which) {
+                                                        new StockinConSubDb().delAllData();
+                                                    }
+                                                })
+                                                .create()
+                                                .show();
                                     } else {
                                         UiUtils.showToast("添加入库单至本地失败");
                                     }
                                 }
-
-                                new AlertDialog.Builder(context)
-                                        .setTitle("提示")
-                                        .setMessage("入库成功,是否清空本地数据库")
-                                        .setPositiveButton("取消", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                dialog.dismiss();
-                                            }
-                                        })
-                                        .setNegativeButton("确定", new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                new StockinConSubDb().delAllData();
-                                            }
-                                        })
-                                        .create()
-                                        .show();
-
                             } else {
                                 BaseJsonInfo<List<NetStockinErrInfo>> tempE = (BaseJsonInfo<List
                                         <NetStockinErrInfo>>) GsonUtils.fromJson(response, new

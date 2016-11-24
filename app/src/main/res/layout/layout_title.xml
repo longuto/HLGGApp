@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    app:layout_scrollFlags="scroll|enterAlways"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:background="@color/title_background"
@@ -29,6 +31,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/button_left"
+            android:textColor="#AFFF"
             android:textSize="18sp"
             android:visibility="gone"/>
     </LinearLayout>
@@ -55,6 +58,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/button_middle"
+            android:textColor="#AFFF"
             android:textSize="20sp"
             android:visibility="gone"/>
     </LinearLayout>
@@ -81,6 +85,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:textSize="18sp"
+            android:textColor="#AFFF"
             android:visibility="gone"
             android:text="@string/button_right"/>
     </LinearLayout>

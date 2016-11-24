@@ -150,9 +150,8 @@ public class InvoiceDb {
             netInvoiceInfos = new ArrayList<NetInvoiceInfo>();
             SQLiteDatabase db = dbHelp.getReadableDatabase();
             Cursor cursor = db.query(TABLE_NAME, new String[]{CODE, WO_CODE, CML_CODE, PROJ_NAME,
-                            ORGAN_ID, STORAGE_CODE, ORGANNAME, SALENAME, CJDATE, ADDUSERID,
-                            ADDUSERNAME},
-                    CODE + " = ? or " + PROJ_NAME + " = ? ", new String[]{content, content}, null,
+                    ORGAN_ID, STORAGE_CODE, ORGANNAME, SALENAME, CJDATE, ADDUSERID, ADDUSERNAME},
+                    CODE + " like ? or " + PROJ_NAME + " like ? ", new String[]{"%" + content + "%", "%" + content + "%"}, null,
                     null, null);
             NetInvoiceInfo temp = null;
             while (cursor.moveToNext()) {

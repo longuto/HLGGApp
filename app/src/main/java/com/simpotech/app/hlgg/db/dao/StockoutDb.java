@@ -132,7 +132,7 @@ public class StockoutDb {
     /**
      * 按照出库单号或者项目名称查询相关条目(如果查询条件为null,则调用getAllStockouts()方法)
      *
-     * @param content 指定的发货单号或者项目名称
+     * @param content 指定的出库单号或者项目名称
      * @return 出库单信息集合
      */
     public List<NetStockoutInfo> queryStockoutsByInput(String content) {
@@ -144,7 +144,7 @@ public class StockoutDb {
             SQLiteDatabase db = dbHelp.getReadableDatabase();
             Cursor cursor = db.query(TABLE_NAME, new String[]{CODE, INVOICE_CODE, PROJ_NAME,
                     ORGAN_NAME, SALENAME, ADDTIME, ADDUSERID, ADDUSERNAME},
-                    CODE + " = ? or " + PROJ_NAME + " = ? ", new String[]{content, content}, null,
+                    CODE + " like ? or " + PROJ_NAME + " like ? ", new String[]{"%" + content + "%", "%" + content + "%"}, null,
                     null, null);
             NetStockoutInfo temp = null;
             while (cursor.moveToNext()) {

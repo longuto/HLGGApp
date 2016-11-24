@@ -13,47 +13,84 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/lly_username"
+        <EditText
+            android:id="@+id/edt_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
-            android:orientation="horizontal">
-            <TextView
-                style="@style/login_textView"
-                android:text="@string/username"/>
-            <EditText
-                android:id="@+id/edt_username"
-                style="@style/login_editText"/>
-        </LinearLayout>
+            android:layout_marginTop="120dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/item_text_child"
+            android:paddingLeft="88dp"
+            android:background="@drawable/shape_edit_login"/>
 
-        <LinearLayout
-            android:id="@+id/lly_password"
+        <TextView
+            android:layout_alignLeft="@id/edt_username"
+            android:layout_alignBaseline="@id/edt_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="@color/item_text_child"
+            android:layout_marginLeft="40dp"
+            android:text="账号:"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/edt_username"
+            android:layout_alignBottom="@id/edt_username"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/vector_login_user"/>
+
+        <EditText
+            android:id="@+id/edt_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/lly_username"
             android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-            <TextView
-                style="@style/login_textView"
-                android:text="@string/password"/>
-            <EditText
-                android:id="@+id/edt_password"
-                style="@style/login_editText">
-                <requestFocus/>
-            </EditText>
-        </LinearLayout>
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/item_text_child"
+            android:layout_below="@id/edt_username"
+            android:paddingLeft="88dp"
+            android:background="@drawable/shape_edit_login">
+            <requestFocus/>
+        </EditText>
+
+        <TextView
+            android:layout_alignLeft="@id/edt_password"
+            android:layout_alignBaseline="@id/edt_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="@color/item_text_child"
+            android:layout_marginLeft="40dp"
+            android:text="密码:"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/edt_password"
+            android:layout_alignBottom="@id/edt_password"
+            android:layout_marginLeft="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/vector_login_pwd"/>
 
         <Button
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/lly_password"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/selector_btn"
+            android:textColor="@android:color/white"
             android:onClick="login"
-            android:text="@string/login"/>
+            android:textSize="16sp"
+            android:text="@string/login"
+            android:layout_below="@+id/edt_password"/>
     </RelativeLayout>
 
 </LinearLayout>

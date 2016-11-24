@@ -1,5 +1,7 @@
 package com.simpotech.app.hlgg.ui.activity;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;

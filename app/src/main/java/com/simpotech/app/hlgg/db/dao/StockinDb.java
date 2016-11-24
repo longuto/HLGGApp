@@ -147,8 +147,9 @@ public class StockinDb {
             netStockinInfos = new ArrayList<NetStockinInfo>();
             SQLiteDatabase db = dbHelp.getReadableDatabase();
             Cursor cursor = db.query(TABLE_NAME, new String[]{CODE, WO_CODE, CML_CODE, PROJ_NAME,
-                    ORGANNAME, PRODUCTLINE, ADDTIME, ADDUSERID, ADDUSERNAME}, CODE + " = ? " +
-                    "or " + PROJ_NAME + " = ? ", new String[]{content, content}, null, null, null);
+                    ORGANNAME, PRODUCTLINE, ADDTIME, ADDUSERID, ADDUSERNAME}, CODE + " like ? " +
+                    "or " + PROJ_NAME + " like ? ", new String[]{"%" + content + "%", "%" +
+                    content + "%"}, null, null, null);
             NetStockinInfo temp = null;
             while (cursor.moveToNext()) {
                 temp = new NetStockinInfo();

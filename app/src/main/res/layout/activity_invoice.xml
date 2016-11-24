@@ -23,6 +23,7 @@
             android:background="@drawable/shape_edit_background"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:singleLine="true"
             android:hint="请录入发货单号"/>
     </RelativeLayout>
 </LinearLayout>

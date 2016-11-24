@@ -49,7 +49,7 @@
                 <TextView
                     style="@style/contruction_textView"
                     android:layout_weight="1"
-                    android:text="项目名称"/>
+                    android:text="项目名称:"/>
                 <TextView
                     android:id="@+id/tv_proj_name"
                     style="@style/contruction_textView"
@@ -63,7 +63,7 @@
                 <TextView
                     style="@style/contruction_textView"
                     android:layout_weight="1"
-                    android:text="加工成"/>
+                    android:text="加工成:"/>
                 <TextView
                     android:id="@+id/tv_organName"
                     style="@style/contruction_textView"
@@ -77,7 +77,7 @@
                 <TextView
                     style="@style/contruction_textView"
                     android:layout_weight="1"
-                    android:text="营销员"/>
+                    android:text="营销员:"/>
                 <TextView
                     android:id="@+id/tv_saleName"
                     style="@style/contruction_textView"
@@ -90,7 +90,7 @@
                 <TextView
                     style="@style/contruction_textView"
                     android:layout_weight="1"
-                    android:text="下载人"/>
+                    android:text="下载人:"/>
                 <TextView
                     android:id="@+id/tv_addUserName"
                     style="@style/contruction_textView"
@@ -103,7 +103,7 @@
                 <TextView
                     style="@style/contruction_textView"
                     android:layout_weight="1"
-                    android:text="创建时间"/>
+                    android:text="创建时间:"/>
                 <TextView
                     android:id="@+id/tv_cjdate"
                     style="@style/contruction_textView"

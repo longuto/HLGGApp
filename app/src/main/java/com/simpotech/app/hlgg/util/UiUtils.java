@@ -24,9 +24,14 @@ public class UiUtils {
         return MyApplication.getContext();
     }
 
+    private static Toast toast; //解决重复吐司造成的混乱
     /**Toast简化写法*/
     public static void showToast(String content) {
-        Toast.makeText(getContext(), content, Toast.LENGTH_SHORT).show();
+        if(toast == null) {
+            toast = Toast.makeText(getContext(), content, Toast.LENGTH_SHORT);
+        }
+        toast.setText(content);
+        toast.show();
     }
 
     /**获取UiTid*/
