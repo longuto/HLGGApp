@@ -88,7 +88,10 @@ public class NetStockinparse {
                                                 .setNegativeButton("确定", new DialogInterface.OnClickListener() {
                                                     @Override
                                                     public void onClick(DialogInterface dialog, int which) {
-                                                        new StockinConSubDb().delAllData();
+                                                        StockinConSubDb dbCon = new StockinConSubDb();
+                                                        dbCon.delAllData();
+                                                        mAdapter.data = dbCon.getAllStockinCon();
+                                                        mAdapter.notifyDataSetChanged();
                                                     }
                                                 })
                                                 .create()
