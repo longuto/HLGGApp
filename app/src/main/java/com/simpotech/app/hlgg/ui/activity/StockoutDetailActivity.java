@@ -148,7 +148,7 @@ public class StockoutDetailActivity extends BaseActivity {
         LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager
                 .VERTICAL, false);
         stockoutDetailRecy.setLayoutManager(manager);
-        mAdapter = new LocalInvoiceStockDetailAdapter(netInvoiceInfo.code);
+        mAdapter = new LocalInvoiceStockDetailAdapter(netInvoiceInfo.code, context);
         mAdapter.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {

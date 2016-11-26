@@ -20,4 +20,27 @@
         <!--<item name="android:windowReenterTransition">@transition/expload</item>-->
         <!--<item name="android:windowReturnTransition">@transition/expload</item>-->
     </style>
+
+
+    <style name="RedTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <!-- 状态栏颜色，会被statusBarColor效果覆盖-->
+        <item name="android:colorPrimaryDark">@color/status_red</item>
+        <!-- 状态栏颜色，继承自colorPrimaryDark -->
+        <item name="android:statusBarColor">@color/status_red</item>
+        <!-- actionBar颜色 -->
+        <item name="android:colorPrimary">@color/action_red</item>
+        <!-- 背景颜色 -->
+        <item name="android:windowBackground">@color/window_bg_white</item>
+        <!-- 底部栏颜色 -->
+        <!--<item name="android:navigationBarColor">@color/navigation_red</item>-->
+
+        <!--控件默认颜色 ，效果会被colorControlActivated取代-->
+        <item name="colorAccent">@color/control_activated_red</item>
+
+        <item name="android:colorControlNormal">@color/control_normal_red</item>
+        <item name="android:colorControlActivated">@color/control_activated_red</item>
+
+    </style>
+
 </resources>

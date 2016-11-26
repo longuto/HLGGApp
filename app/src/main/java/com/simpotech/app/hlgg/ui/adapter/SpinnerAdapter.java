@@ -1,5 +1,6 @@
 package com.simpotech.app.hlgg.ui.adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,6 @@ import com.simpotech.app.hlgg.entity.DbProLineInfo;
 import com.simpotech.app.hlgg.util.UiUtils;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by longuto on 2016/11/17.
@@ -20,8 +20,10 @@ import java.util.Map;
 
 public class SpinnerAdapter extends BaseAdapter {
     List<DbProLineInfo> data;    //适配器数据
+    private Context context;
 
-    public SpinnerAdapter(List<DbProLineInfo> data) {
+    public SpinnerAdapter(List<DbProLineInfo> data, Context context) {
+        this.context = context;
         this.data = data;
     }
 
@@ -45,7 +47,7 @@ public class SpinnerAdapter extends BaseAdapter {
         DbProLineInfo info = data.get(position);
         HolderView holderView = null;
         if (convertView == null) {
-            convertView = LayoutInflater.from(UiUtils.getContext()).inflate(R.layout
+            convertView = LayoutInflater.from(context).inflate(R.layout
                     .item_spinner, parent, false);
             holderView = new HolderView();
             holderView.prolineIdTv = (TextView) convertView.findViewById(R.id.tv_prolineId);

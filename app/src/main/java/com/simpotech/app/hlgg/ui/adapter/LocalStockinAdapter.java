@@ -1,5 +1,6 @@
 package com.simpotech.app.hlgg.ui.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,8 +57,10 @@ public class LocalStockinAdapter extends RecyclerView.Adapter<LocalStockinAdapte
     }
 
     public List<NetStockinInfo> data;   //适配器的数据
+    private Context context;
 
-    public LocalStockinAdapter() {
+    public LocalStockinAdapter(Context context) {
+        this.context = context;
         StockinDb db = new StockinDb();
         data = db.getAllStockins();
     }
@@ -69,7 +72,7 @@ public class LocalStockinAdapter extends RecyclerView.Adapter<LocalStockinAdapte
 
     @Override
     public LocalStockinHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(UiUtils.getContext()).inflate(R.layout
+        View view = LayoutInflater.from(context).inflate(R.layout
                 .item_local_stockin, parent, false);
         view.setOnClickListener(this);
         view.setOnLongClickListener(this);

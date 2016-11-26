@@ -1,5 +1,6 @@
 package com.simpotech.app.hlgg.ui.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,8 +56,10 @@ public class LocalStockoutAdapter extends RecyclerView.Adapter<LocalStockoutAdap
     }
 
     public List<NetStockoutInfo> data;
+    private Context context;
 
-    public LocalStockoutAdapter() {
+    public LocalStockoutAdapter(Context context) {
+        this.context = context;
         StockoutDb db = new StockoutDb();
         data = db.getAllStockouts();
     }
@@ -70,7 +73,7 @@ public class LocalStockoutAdapter extends RecyclerView.Adapter<LocalStockoutAdap
 
     @Override
     public LocalStockoutHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(UiUtils.getContext()).inflate(R.layout
+        View view = LayoutInflater.from(context).inflate(R.layout
                 .item_local_stockout, parent, false);
         view.setOnClickListener(this);
         view.setOnLongClickListener(this);

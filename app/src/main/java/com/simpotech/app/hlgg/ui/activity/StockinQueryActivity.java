@@ -98,7 +98,7 @@ public class StockinQueryActivity extends BaseActivity {
                 LinearLayoutManager manager = new LinearLayoutManager(context,
                         LinearLayoutManager.VERTICAL, false);
                 mLocalStockinRecy.setLayoutManager(manager);
-                mAdapter = new LocalStockinAdapter();
+                mAdapter = new LocalStockinAdapter(context);
                 mAdapter.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {

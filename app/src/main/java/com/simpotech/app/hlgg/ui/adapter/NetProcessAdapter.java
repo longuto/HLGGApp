@@ -52,7 +52,7 @@ public class NetProcessAdapter extends RecyclerView.Adapter<NetProcessAdapter.Ne
 
     @Override
     public NetProcessHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(UiUtils.getContext()).inflate(R.layout
+        View view = LayoutInflater.from(context).inflate(R.layout
                 .item_process_business, parent, false);
         return new NetProcessHolder(view);
     }
@@ -152,7 +152,7 @@ public class NetProcessAdapter extends RecyclerView.Adapter<NetProcessAdapter.Ne
 
         @Override
         public NetProcessChildHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(UiUtils.getContext()).inflate(R.layout
+            View view = LayoutInflater.from(context).inflate(R.layout
                     .item_process_child_business, parent, false);
             view.setOnClickListener(this);
             return new NetProcessChildHolder(view);

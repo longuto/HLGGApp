@@ -88,8 +88,8 @@ public class MainActivity extends BaseActivity {
                 startActivity(intentInvoiceManager);
                 break;
             case R.id.btn_contruction_query:    //构件查询
-                Intent inetntContruction = new Intent(context, ContructionActivity.class);
-                startActivity(inetntContruction);
+//                Intent inetntContruction = new Intent(context, ContructionActivity.class);
+//                startActivity(inetntContruction);
                 break;
             case R.id.btn_process:  //流程设置
                 Intent intentProcess = new Intent(context, ProcessActivity.class);

@@ -1,11 +1,12 @@
 package com.simpotech.app.hlgg.ui.activity;
 
-import android.app.Activity;
-import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.google.gson.reflect.TypeToken;
@@ -20,24 +21,31 @@ import com.zhy.http.okhttp.OkHttpUtils;
 import com.zhy.http.okhttp.callback.StringCallback;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import okhttp3.Call;
 
 /**
  * Created by longuto on 2016/10/27.
  */
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends AppCompatActivity {
 
     private static final String URL_LOGIN = Constant.HOST + Constant.LOGIN;
 //    private static final String URL_LOGIN = "http://10.110.1.98:8080/login.json";
     private static final String TAG = "LoginActivity";
 
+    private SharedManager spManager;
+    Context context;
+
     @BindView(R.id.edt_username)
     EditText mUsernameEdt;
     @BindView(R.id.edt_password)
     EditText mPasswordEdt;
-    @BindView(R.id.btn_login)
-    Button mLoginBtn;
+
+    @OnClick(R.id.iv_exit)
+    public void exit(View v) {
+        finish();
+    }
 
     @OnClick(R.id.btn_login)
     public void login(View v) {
@@ -79,7 +87,7 @@ public class LoginActivity extends BaseActivity {
                                 String result = loginInfo.result;
                                 Intent intent = new Intent(context, MainActivity.class);
                                 intent.putExtra("RESULT", result);
-                                startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) context).toBundle());
+                                startActivity(intent);
                                 //销毁此Activity
                                 finish();
                             } else {
@@ -92,28 +100,16 @@ public class LoginActivity extends BaseActivity {
 
     }
 
+
     @Override
-    protected void toSetContentView() {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-    }
+        ButterKnife.bind(this);
 
-    @Override
-    protected void initTitle() {
-        showMiddleTv("登录");
-        showRightIv(R.drawable.vector_sys_back);
-        getRightLly().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-    }
-
-    @Override
-    protected void initData() {
+        context = this;
+        spManager = new SharedManager();
         String username = spManager.getStringFromXml(SharedManager.USERNAME);
         mUsernameEdt.setText(username);
     }
-
-
 }

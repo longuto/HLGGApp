@@ -140,7 +140,7 @@ public class InvoiceManagerActivity extends BaseActivity {
                 LinearLayoutManager manager = new LinearLayoutManager(context,
                         LinearLayoutManager.VERTICAL, false);
                 mInvoiceRecy.setLayoutManager(manager);
-                mAdapter = new LocalInvoiceAdapter();
+                mAdapter = new LocalInvoiceAdapter(context);
                 mAdapter.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
                     @Override
                     public void onItemClick(View view, int position) {

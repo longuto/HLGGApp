@@ -1,10 +1,8 @@
 package com.simpotech.app.hlgg.api;
 
-import android.os.AsyncTask;
-import android.support.v7.widget.LinearLayoutManager;
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.simpotech.app.hlgg.entity.DbProLineInfo;
 import com.simpotech.app.hlgg.entity.RecyProLineInfo;
@@ -40,7 +38,7 @@ public class NetProlineParse {
      * 调用接口,通过指定的部门名称查询生产线数据
      */
     public static void getDataByDepartmentName(String departmentName, final RecyclerView
-            recyclerView, final PtrClassicFrameLayout refreshPtr) {
+            recyclerView, final PtrClassicFrameLayout refreshPtr, final Context context) {
         OkHttpUtils.get()
                 .url(URL_PROLINE)
                 .addParams("name", departmentName)
@@ -55,7 +53,7 @@ public class NetProlineParse {
                     @Override
                     public void onResponse(String response, int id) {
                         LogUtils.i(TAG, "访问网络成功");
-                        ParseResponse(response, recyclerView, refreshPtr);
+                        ParseResponse(response, recyclerView, refreshPtr, context);
                     }
                 });
     }
@@ -65,7 +63,7 @@ public class NetProlineParse {
      * 获取Proline网络所有生产线数据的集合
      */
     public static void getDataFromNet(final RecyclerView recyclerView, final
-    PtrClassicFrameLayout refreshPtr) {
+    PtrClassicFrameLayout refreshPtr, final Context context) {
 
         // 使用Okhttp访问网络
         OkHttpUtils.get()
@@ -82,7 +80,7 @@ public class NetProlineParse {
                     @Override
                     public void onResponse(String response, int id) {
                         LogUtils.i(TAG, "网络访问成功");
-                        ParseResponse(response, recyclerView, refreshPtr);
+                        ParseResponse(response, recyclerView, refreshPtr, context);
                         refreshPtr.refreshComplete();   //刷新完成
                     }
 
@@ -95,7 +93,7 @@ public class NetProlineParse {
      * @param response 传入的Json字符串
      */
     private static void ParseResponse(String response, RecyclerView recyclerView, final
-    PtrClassicFrameLayout refreshPtr) {
+    PtrClassicFrameLayout refreshPtr, Context context) {
         BaseJsonInfo<List<NetProLineInfo>> temp = (BaseJsonInfo<List<NetProLineInfo>>) GsonUtils
                 .fromJson(response, new TypeToken<BaseJsonInfo<List<NetProLineInfo>>>() {
         }.getType());
@@ -105,10 +103,9 @@ public class NetProlineParse {
                 List<NetProLineInfo> netProlineInfos = temp.result;
 
                 //将网络获取的数据转化成RecyclerView需要的数据
-                List<RecyProLineInfo> recyProLineInfos = NetData2RecyData
-                        (netProlineInfos);
+                List<RecyProLineInfo> recyProLineInfos = NetData2RecyData(netProlineInfos);
 
-                NetProLineAdapter adapter = new NetProLineAdapter(recyProLineInfos);
+                NetProLineAdapter adapter = new NetProLineAdapter(recyProLineInfos, context);
                 recyclerView.setAdapter(adapter);
             } else {
                 UiUtils.showToast(temp.msg);    //显示出错原因

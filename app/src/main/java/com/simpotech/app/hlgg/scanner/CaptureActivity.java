@@ -10,6 +10,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.os.SystemProperties;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -32,23 +33,18 @@ import com.google.zxing.client.result.ResultParser;
 import com.simpotech.app.hlgg.R;
 import com.simpotech.app.hlgg.business.ParseScanner;
 import com.simpotech.app.hlgg.entity.StockConInfo;
-import com.simpotech.app.hlgg.entity.StockinConInfo;
 import com.simpotech.app.hlgg.scanner.camera.CameraManager;
 import com.simpotech.app.hlgg.scanner.common.BitmapUtils;
 import com.simpotech.app.hlgg.scanner.decode.BitmapDecoder;
 import com.simpotech.app.hlgg.scanner.decode.CaptureActivityHandler;
 import com.simpotech.app.hlgg.scanner.view.ViewfinderView;
-import com.simpotech.app.hlgg.ui.activity.StockoutDetailActivity;
 import com.simpotech.app.hlgg.util.GsonUtils;
-import com.simpotech.app.hlgg.util.LogUtils;
 import com.simpotech.app.hlgg.util.UiUtils;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;
 import java.util.Collection;
 import java.util.Map;
-
-import static com.simpotech.app.hlgg.business.ParseScanner.scan2stockinContru;
 
 /**
  * This activity opens the camera and does the actual scanning on a background
@@ -275,6 +271,30 @@ public final class CaptureActivity extends Activity implements
         source = IntentSource.NONE;
         decodeFormats = null;
         characterSet = null;
+
+        waitCamera();       //-----------------我加的-------------------------------------------------
+    }
+
+    /**
+     * 发送系统广播，并等待相机释放
+     */
+    private void waitCamera() {
+        sendBroadcast(new Intent().setAction("com.se4500.opencamera"));
+        if (SystemProperties.get("persist.sys.keyreport").equals("true")) {
+            if (SystemProperties.get("persist.sys.se4500").equals("true")) {
+                int waitCount;
+                for (waitCount = 0; waitCount < 20; waitCount++) {
+                    try {
+                        Thread.sleep(200);
+                    } catch (Exception e) {
+                        Log.d(TAG, "waitCamera: ");
+                    }
+                    if (SystemProperties.get("persist.sys.iscamera").equals("open")) {
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     @Override
@@ -294,8 +314,13 @@ public final class CaptureActivity extends Activity implements
             SurfaceHolder surfaceHolder = surfaceView.getHolder();
             surfaceHolder.removeCallback(this);
         }
+
+        //这里关闭
+        sendBroadcast(new Intent().setAction("com.se4500.closecamera"));    //------ 我加的---------------
+
         super.onPause();
     }
+
 
     @Override
     protected void onDestroy() {

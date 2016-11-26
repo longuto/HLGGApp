@@ -1,5 +1,6 @@
 package com.simpotech.app.hlgg.ui.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -31,14 +32,16 @@ import butterknife.ButterKnife;
 public class NetProLineAdapter extends RecyclerView.Adapter<NetProLineAdapter.NetProlineHolder> {
 
     public List<RecyProLineInfo> data;
+    private Context context;
 
-    public NetProLineAdapter(List<RecyProLineInfo> data) {
+    public NetProLineAdapter(List<RecyProLineInfo> data, Context context) {
+        this.context = context;
         this.data = data;
     }
 
     @Override
     public NetProlineHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(UiUtils.getContext()).inflate(R.layout
+        View view = LayoutInflater.from(context).inflate(R.layout
                 .item_net_proline_recy, parent, false);
         return new NetProlineHolder(view);
     }
@@ -128,7 +131,7 @@ public class NetProLineAdapter extends RecyclerView.Adapter<NetProLineAdapter.Ne
 
         @Override
         public NetProlineChildHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(UiUtils.getContext()).inflate(R.layout
+            View view = LayoutInflater.from(context).inflate(R.layout
                     .item_net_proline_child_recy, parent, false);
             view.setOnClickListener(this);
             return new NetProlineChildHolder(view);

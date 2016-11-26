@@ -142,7 +142,7 @@ public class StockinActivity extends BaseActivity {
         LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager
                 .VERTICAL, false);
         mLocalStockinRecy.setLayoutManager(manager);
-        mAdapter = new LocalStockinSubConAdapter();
+        mAdapter = new LocalStockinSubConAdapter(context);
         mAdapter.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
@@ -226,7 +226,7 @@ public class StockinActivity extends BaseActivity {
         }
 
         final List<DbProLineInfo> proLines = new ProLineDb().getAllProLines();
-        SpinnerAdapter adapter = new SpinnerAdapter(proLines);
+        SpinnerAdapter adapter = new SpinnerAdapter(proLines, context);
         prolineSpin.setAdapter(adapter);
         prolineSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

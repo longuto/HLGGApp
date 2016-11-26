@@ -85,7 +85,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:textSize="18sp"
-            android:textColor="#AFFF"
+            android:textColor="@color/select_title_text"
             android:visibility="gone"
             android:text="@string/button_right"/>
     </LinearLayout>

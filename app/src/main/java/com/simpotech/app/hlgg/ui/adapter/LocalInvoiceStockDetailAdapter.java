@@ -1,5 +1,6 @@
 package com.simpotech.app.hlgg.ui.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,15 +58,17 @@ public class LocalInvoiceStockDetailAdapter extends RecyclerView
     }
 
     public List<StockoutConInfo> data;      //适配器的数据
+    private Context context;
 
-    public LocalInvoiceStockDetailAdapter(String code) {
+    public LocalInvoiceStockDetailAdapter(String code, Context context) {
+        this.context = context;
         InvoiceConStockoutDb db = new InvoiceConStockoutDb();
         data = db.getInvoiceConByInvoiceCode(code);
     }
 
     @Override
     public LocalInvoiceStockDetailHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(UiUtils.getContext()).inflate(R.layout
+        View view = LayoutInflater.from(context).inflate(R.layout
                 .item_invoice_stockout_detail, parent, false);
         view.setOnClickListener(this);
         view.setOnLongClickListener(this);

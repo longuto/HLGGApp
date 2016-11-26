@@ -1,5 +1,6 @@
 package com.simpotech.app.hlgg.ui.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,8 +45,10 @@ public class LocalProLineAdapter extends RecyclerView.Adapter<LocalProLineAdapte
     private final String TAG = "LocalProLineAdapter";
 
     public List<DbProLineInfo> data;  //本地生产线的集合
+    private Context context;
 
-    public LocalProLineAdapter() {
+    public LocalProLineAdapter(Context context) {
+        this.context = context;
         //从数据库中取出所有生产线的集合
         data = new ProLineDb().getAllProLines();
 
@@ -73,7 +76,7 @@ public class LocalProLineAdapter extends RecyclerView.Adapter<LocalProLineAdapte
 
     @Override
     public LocalProLineHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(UiUtils.getContext()).inflate(R.layout
+        View view = LayoutInflater.from(context).inflate(R.layout
                         .item_local_proline_recy,
                 parent, false);
         view.setOnClickListener(this);  //添加每个条目的点击事件------item点击事件

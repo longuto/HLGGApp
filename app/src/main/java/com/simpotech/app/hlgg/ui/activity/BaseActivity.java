@@ -1,9 +1,7 @@
 package com.simpotech.app.hlgg.ui.activity;
 
-import android.content.BroadcastReceiver;
+import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +12,6 @@ import android.widget.TextView;
 
 import com.simpotech.app.hlgg.R;
 import com.simpotech.app.hlgg.business.SharedManager;
-import com.simpotech.app.hlgg.util.UiUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

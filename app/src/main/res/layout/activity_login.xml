@@ -7,40 +7,39 @@
     android:orientation="vertical"
     tools:context="com.simpotech.app.hlgg.ui.activity.LoginActivity">
 
-    <include layout="@layout/layout_title"/>
-
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_honglu_login">
+        <ImageView
+            android:id="@+id/iv_exit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp"
+            android:paddingRight="2dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/vector_sys_back"/>
 
         <EditText
             android:id="@+id/edt_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="120dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginTop="190dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
             android:layout_centerHorizontal="true"
-            android:textColor="@color/item_text_child"
-            android:paddingLeft="88dp"
+            android:textColor="@color/icon_background"
+            android:textColorHint="#6FFF"
+            android:paddingLeft="50dp"
+            android:hint="请输入用户名"
             android:background="@drawable/shape_edit_login"/>
-
-        <TextView
-            android:layout_alignLeft="@id/edt_username"
-            android:layout_alignBaseline="@id/edt_username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textColor="@color/item_text_child"
-            android:layout_marginLeft="40dp"
-            android:text="账号:"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/edt_username"
             android:layout_alignBottom="@id/edt_username"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/vector_login_user"/>
 
@@ -49,32 +48,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
             android:layout_centerHorizontal="true"
-            android:textColor="@color/item_text_child"
+            android:textColor="@color/icon_background"
+            android:textColorHint="#6FFF"
             android:layout_below="@id/edt_username"
-            android:paddingLeft="88dp"
+            android:paddingLeft="50dp"
+            android:hint="请输入密码"
+            android:inputType="textPassword"
             android:background="@drawable/shape_edit_login">
             <requestFocus/>
         </EditText>
-
-        <TextView
-            android:layout_alignLeft="@id/edt_password"
-            android:layout_alignBaseline="@id/edt_password"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textColor="@color/item_text_child"
-            android:layout_marginLeft="40dp"
-            android:text="密码:"/>
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@id/edt_password"
             android:layout_alignBottom="@id/edt_password"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/vector_login_pwd"/>
 
@@ -82,11 +74,11 @@
             android:id="@+id/btn_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
             android:background="@drawable/selector_btn"
-            android:textColor="@android:color/white"
+            android:textColor="#FD6565"
             android:onClick="login"
             android:textSize="16sp"
             android:text="@string/login"

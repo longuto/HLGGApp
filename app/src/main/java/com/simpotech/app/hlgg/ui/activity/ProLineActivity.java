@@ -91,7 +91,7 @@ public class ProLineActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        mAdapter = new LocalProLineAdapter();
+        mAdapter = new LocalProLineAdapter(context);
         //设置自定义的item点击事件
         mAdapter.setOnItemClickListener(new OnRecyclerViewItemClickListener() {
             @Override

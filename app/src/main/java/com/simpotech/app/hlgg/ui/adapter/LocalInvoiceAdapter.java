@@ -1,5 +1,6 @@
 package com.simpotech.app.hlgg.ui.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,8 +54,10 @@ public class LocalInvoiceAdapter extends RecyclerView.Adapter<LocalInvoiceAdapte
     }
 
     public List<NetInvoiceInfo> data;  //适配器的数据
+    private Context context;
 
-    public LocalInvoiceAdapter() {
+    public LocalInvoiceAdapter(Context context) {
+        this.context = context;
         InvoiceDb db = new InvoiceDb(); //构造时,从数据库中加载所有的数据
         data = db.getAllInvoices();
     }
@@ -67,7 +70,7 @@ public class LocalInvoiceAdapter extends RecyclerView.Adapter<LocalInvoiceAdapte
 
     @Override
     public LocalInvoiceHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(UiUtils.getContext()).inflate(R.layout.item_invoice,
+        View view = LayoutInflater.from(context).inflate(R.layout.item_invoice,
                 parent, false);
         view.setOnClickListener(this);
         view.setOnLongClickListener(this);

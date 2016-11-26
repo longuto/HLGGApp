@@ -44,7 +44,7 @@ public class ProlineNetActivity extends BaseActivity {
     public void searchProlineNet() {
         String department = mSearchEdt.getText().toString().trim();
         if(!TextUtils.isEmpty(department)) {
-            NetProlineParse.getDataByDepartmentName(department, mNetProlineRecy, mRefreshPtr);
+            NetProlineParse.getDataByDepartmentName(department, mNetProlineRecy, mRefreshPtr, context);
         }else {
             UiUtils.showToast("查询内容不能为空");
         }
@@ -114,7 +114,7 @@ public class ProlineNetActivity extends BaseActivity {
                         LinearLayoutManager.VERTICAL, false);
                 mNetProlineRecy.setLayoutManager(manager);
                 //将在网络数据并配置mNetProlineRecy
-                NetProlineParse.getDataFromNet(mNetProlineRecy, mRefreshPtr);
+                NetProlineParse.getDataFromNet(mNetProlineRecy, mRefreshPtr, context);
             }
         });
 
