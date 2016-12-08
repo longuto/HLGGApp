@@ -19,6 +19,7 @@ public class SubStockoutInfo {
     public String wo_code;
     public String cml_code;
     public String flowId;   //出库流程id
+    public String userId;   //用户信息
     public List<DetailsBean> details;
 
     /**

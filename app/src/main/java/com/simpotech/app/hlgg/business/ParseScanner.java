@@ -3,7 +3,6 @@ package com.simpotech.app.hlgg.business;
 import com.simpotech.app.hlgg.entity.StockConInfo;
 import com.simpotech.app.hlgg.entity.StockinConInfo;
 import com.simpotech.app.hlgg.entity.StockoutConInfo;
-import com.simpotech.app.hlgg.entity.submit.SubStockoutInfo;
 import com.simpotech.app.hlgg.util.LogUtils;
 
 /**
@@ -66,7 +65,7 @@ public class ParseScanner {
      * @return 解析成功返回构件清单信息, 否则返回null
      */
     public static StockConInfo scan2stockContru(String content) {
-        content = content.replace("合同号：", "QUIT")
+        content = content.replace("清单号：", "QUIT")
                 .replace("加工厂：", "QUIT")
                 .replace("构件号：", "QUIT")
                 .replace("规格：", "QUIT")
@@ -79,12 +78,12 @@ public class ParseScanner {
         StockConInfo info;
         if (strs.length == 7) {
             info = new StockConInfo();
-            info.cml_code = strs[1];
-            info.name = strs[2];
-            info.code = strs[3];
-            info.spec = strs[4];
-            info.barcode = strs[5];
-            info.qty = strs[6];
+            info.cml_code = strs[1].trim();
+            info.name = strs[2].trim();
+            info.code = strs[3].trim();
+            info.spec = strs[4].trim();
+            info.barcode = strs[5].trim();
+            info.qty = strs[6].trim();
         } else {
             return null;
         }

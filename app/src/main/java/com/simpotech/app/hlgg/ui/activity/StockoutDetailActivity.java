@@ -247,11 +247,11 @@ public class StockoutDetailActivity extends BaseActivity {
                 .setNegativeButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-//                        //如果扫描的构件清单不等于当前的构件清单
-//                        if (!isThisCmlCode) {
-//                            UiUtils.showToast("采集的构件号不是本单的构件");
-//                            return;
-//                        }
+                        //如果扫描的构件清单不等于当前的构件清单
+                        if (!isThisCmlCode) {
+                            UiUtils.showToast("采集的构件号不是本单的构件");
+                            return;
+                        }
                         String stockoutQty = stockoutEdt.getText().toString().trim();
                         if (Integer.valueOf(stockoutQty) > Integer.valueOf(info.qty)) {
                             UiUtils.showToast("出库件数不能大于清单数量");

@@ -73,7 +73,7 @@ public class InvoiceDb {
             temp.storage_code = cursor.getString(cursor.getColumnIndex(STORAGE_CODE));
             temp.organName = cursor.getString(cursor.getColumnIndex(ORGANNAME));
             temp.saleName = cursor.getString(cursor.getColumnIndex(SALENAME));
-            temp.cjdate = cursor.getString(cursor.getColumnIndex(CJDATE));
+            temp.cjdata = cursor.getString(cursor.getColumnIndex(CJDATE));
             temp.addUserId = cursor.getString(cursor.getColumnIndex(ADDUSERID));
             temp.addUserName = cursor.getString(cursor.getColumnIndex(ADDUSERNAME));
             invoiceInfos.add(temp);
@@ -99,7 +99,7 @@ public class InvoiceDb {
         values.put(STORAGE_CODE, info.storage_code);
         values.put(ORGANNAME, info.organName);
         values.put(SALENAME, info.saleName);
-        values.put(CJDATE, info.cjdate);
+        values.put(CJDATE, info.cjdata);
         values.put(ADDUSERID, info.addUserId);
         values.put(ADDUSERNAME, info.addUserName);
         long rowNo = db.insert(TABLE_NAME, null, values);
@@ -164,7 +164,7 @@ public class InvoiceDb {
                 temp.storage_code = cursor.getString(cursor.getColumnIndex(STORAGE_CODE));
                 temp.organName = cursor.getString(cursor.getColumnIndex(ORGANNAME));
                 temp.saleName = cursor.getString(cursor.getColumnIndex(SALENAME));
-                temp.cjdate = cursor.getString(cursor.getColumnIndex(CJDATE));
+                temp.cjdata = cursor.getString(cursor.getColumnIndex(CJDATE));
                 temp.addUserId = cursor.getString(cursor.getColumnIndex(ADDUSERID));
                 temp.addUserName = cursor.getString(cursor.getColumnIndex(ADDUSERNAME));
                 netInvoiceInfos.add(temp);
@@ -197,7 +197,7 @@ public class InvoiceDb {
             temp.storage_code = cursor.getString(cursor.getColumnIndex(STORAGE_CODE));
             temp.organName = cursor.getString(cursor.getColumnIndex(ORGANNAME));
             temp.saleName = cursor.getString(cursor.getColumnIndex(SALENAME));
-            temp.cjdate = cursor.getString(cursor.getColumnIndex(CJDATE));
+            temp.cjdata = cursor.getString(cursor.getColumnIndex(CJDATE));
             temp.addUserId = cursor.getString(cursor.getColumnIndex(ADDUSERID));
             temp.addUserName = cursor.getString(cursor.getColumnIndex(ADDUSERNAME));
         }

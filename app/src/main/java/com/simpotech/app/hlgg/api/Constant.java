@@ -7,11 +7,14 @@ package com.simpotech.app.hlgg.api;
 
 public class Constant {
 
+    //客户那边地址
+    public static final String HOST = "http://220.178.76.51:8081";
+
     //主机地址
-    public static final String HOST = "http://10.110.1.232:8080/simpo";
+//    public static final String HOST = "http://10.110.1.232:8080/simpo";
 
     //登录系统,并返回权限
-    public static final String LOGIN = "/ec/app/purview.html";  //在LoginActivity中
+    public static final String LOGIN = "/ec/app/dologin.html";  //在LoginActivity中
 
     //生产线获取
     public static final String PROLINE = "/ec/app/proLine.html";    //在NetProlineParse

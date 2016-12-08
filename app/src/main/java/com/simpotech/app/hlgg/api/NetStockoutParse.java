@@ -17,11 +17,8 @@ import com.zhy.http.okhttp.callback.StringCallback;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import okhttp3.Call;
-
-import static com.simpotech.app.hlgg.util.GsonUtils.fromJson;
 
 /**
  * Created by longuto on 2016/11/14.
@@ -32,29 +29,25 @@ public class NetStockoutParse {
 
     private static final String TAG = "NetStockoutParse";
 
-    //    public static final String URL_STOCKOUT = Constant.HOST + Constant.STOCK_OUT;
-    public static final String URL_STOCKOUT1 = "http://10.110.1.98:8080/stockoutInfo1.json";
-    //测试地址
-    public static final String URL_STOCKOUT2 = "http://10.110.1.98:8080/stockoutInfo2.json";
-    //测试地址
-    public static final String URL_STOCKOUT3 = "http://10.110.1.98:8080/stockoutInfo3.json";
-    //测试地址
-    public static final String URL_STOCKOUT4 = "http://10.110.1.98:8080/stockoutInfo4.json";
-    //测试地址
-    public static List<String> URL_STOCKOUTS = new ArrayList<>();
-
-    static {
-        URL_STOCKOUTS.add(URL_STOCKOUT1);
-        URL_STOCKOUTS.add(URL_STOCKOUT2);
-        URL_STOCKOUTS.add(URL_STOCKOUT3);
-        URL_STOCKOUTS.add(URL_STOCKOUT4);
-    }
-
-    public static String getUrlStockout() {
-        Random r = new Random();
-        int i = r.nextInt(4);
-        return URL_STOCKOUTS.get(i);
-    }
+    public static final String URL_STOCKOUT = Constant.HOST + Constant.STOCK_OUT;   //出库访问地址
+//    public static final String URL_STOCKOUT1 = "http://10.110.1.98:8080/stockoutInfo1.json";//测试地址
+//    public static final String URL_STOCKOUT2 = "http://10.110.1.98:8080/stockoutInfo2.json";//测试地址
+//    public static final String URL_STOCKOUT3 = "http://10.110.1.98:8080/stockoutInfo3.json";//测试地址
+//    public static final String URL_STOCKOUT4 = "http://10.110.1.98:8080/stockoutInfo4.json";//测试地址
+//    public static List<String> URL_STOCKOUTS = new ArrayList<>();
+//
+//    static {
+//        URL_STOCKOUTS.add(URL_STOCKOUT1);
+//        URL_STOCKOUTS.add(URL_STOCKOUT2);
+//        URL_STOCKOUTS.add(URL_STOCKOUT3);
+//        URL_STOCKOUTS.add(URL_STOCKOUT4);
+//    }
+//
+//    public static String getUrlStockout() {
+//        Random r = new Random();
+//        int i = r.nextInt(4);
+//        return URL_STOCKOUTS.get(i);
+//    }
 
 
     public static void getDataFromNet(NetInvoiceInfo netInvoiceInfo, List<StockoutConInfo>
@@ -64,7 +57,7 @@ public class NetStockoutParse {
         LogUtils.i(TAG, json);
 
         OkHttpUtils.post()
-                .url(getUrlStockout())
+                .url(URL_STOCKOUT)
                 .addParams("json", json)
                 .build()
                 .execute(new StringCallback() {
@@ -116,11 +109,13 @@ public class NetStockoutParse {
     public static String invoiceStockoutToJson(NetInvoiceInfo netInvoiceInfo,
                                                List<StockoutConInfo> stockoutInfos) {
         SharedManager sp = new SharedManager(SharedManager.PROCESS_CONFIG_NAME); //xml存储的配置
+        SharedManager spP = new SharedManager();
         SubStockoutInfo info = new SubStockoutInfo();
         info.code = netInvoiceInfo.code;
         info.wo_code = netInvoiceInfo.wo_code;
         info.cml_code = netInvoiceInfo.cml_code;
         info.flowId = sp.getStringFromXml("gjck");
+        info.userId = spP.getStringFromXml(SharedManager.USERID);
 
         info.details = new ArrayList<>();
         for (StockoutConInfo temp : stockoutInfos) {

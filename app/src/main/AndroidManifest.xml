@@ -22,7 +22,8 @@
         android:supportsRtl="true"
         android:theme="@style/RedTheme">
         <activity
-            android:name=".ui.activity.LoginActivity">
+            android:name=".ui.activity.LoginActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -31,51 +32,74 @@
         </activity>
         <activity
             android:name=".ui.activity.MainActivity"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ui.activity.ProLineActivity"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".ui.activity.ProlineNetActivity">
+        <activity
+            android:name=".ui.activity.ProlineNetActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".ui.activity.ProcessActivity">
+        <activity
+            android:name=".ui.activity.ProcessActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".ui.activity.ContructionActivity">
+        <activity
+            android:name=".ui.activity.ContructionActivity"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ui.activity.InvoiceActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask">
         </activity>
         <activity
             android:name=".ui.activity.InvoiceManagerActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask">
         </activity>
         <activity
             android:name=".ui.activity.InvoiceContructionDetailActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask">
         </activity>
         <activity
             android:name=".ui.activity.StockoutActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask">
         </activity>
         <activity
             android:name=".ui.activity.StockoutDetailActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask"/>
-        <activity android:name=".scanner.CaptureActivity"/>
-        <activity android:name=".ui.activity.StockoutQueryActivity">
+        <activity
+            android:name=".scanner.CaptureActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.StockoutQueryActivity"
+            android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".ui.activity.StockoutQueryDetailActivity">
+        <activity
+            android:name=".ui.activity.StockoutQueryDetailActivity"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ui.activity.StockinActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden">
         </activity>
         <activity
             android:name=".ui.activity.StockinQueryActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTask">
         </activity>
-        <activity android:name=".ui.activity.StockinQueryDetailActivity">
+        <activity
+            android:name=".ui.activity.StockinQueryDetailActivity"
+            android:screenOrientation="portrait">
         </activity>
     </application>
 

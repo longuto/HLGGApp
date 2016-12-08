@@ -13,7 +13,6 @@ import com.simpotech.app.hlgg.db.dao.StockinConSubDb;
 import com.simpotech.app.hlgg.entity.StockinConInfo;
 import com.simpotech.app.hlgg.ui.adapter.interfaces.OnRecyclerViewItemClickListener;
 import com.simpotech.app.hlgg.ui.adapter.interfaces.OnRecyclerViewItemLongClickListener;
-import com.simpotech.app.hlgg.util.UiUtils;
 
 import java.util.List;
 
@@ -92,16 +91,16 @@ public class LocalStockinSubConAdapter extends RecyclerView.Adapter<LocalStockin
     }
 
     class LocalStockinConHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.tv_barCode)
-        TextView barCodeTv;
+//        @BindView(R.id.tv_barCode)
+//        TextView barCodeTv;
         @BindView(R.id.tv_qty)
         TextView qtyTv;
         @BindView(R.id.tv_contruction_code)
         TextView contructionCodeTv;
         @BindView(R.id.tv_spec)
         TextView specTv;
-        @BindView(R.id.tv_sanner_people)
-        TextView sannerPeopleTv;
+//        @BindView(R.id.tv_sanner_people)
+//        TextView sannerPeopleTv;
         @BindView(R.id.tv_sanner_time)
         TextView sannerTimeTv;
         @BindView(R.id.ckb_choose)
@@ -116,12 +115,12 @@ public class LocalStockinSubConAdapter extends RecyclerView.Adapter<LocalStockin
 
         public void setData(int position) {
             StockinConInfo info = data.get(position);
-            barCodeTv.setText("条码 :" + info.barcode);
-            qtyTv.setText("数量 :" + info.stock_qty);
-            contructionCodeTv.setText("构件编号 :" + info.code);
-            specTv.setText("规格 :" + info.spec);
-            sannerPeopleTv.setText("扫描人 :" + info.scannerPeople);
-            sannerTimeTv.setText("扫描时间 :" + info.scannerTime);
+//            barCodeTv.setText("条码 :" + info.barcode);
+            qtyTv.setText(/*"数量 :" +*/ info.stock_qty);
+            contructionCodeTv.setText(/*"构件编号 :" + */info.code);
+            specTv.setText(/*"规格 :" + */info.spec);
+//            sannerPeopleTv.setText("扫描人 :" + info.scannerPeople);
+            sannerTimeTv.setText(/*"扫描时间 :" + */info.scannerTime);
             if(info.isChecked) {
                 isCheckCkb.setChecked(true);
             }else {

@@ -7,13 +7,14 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 
 import com.google.gson.reflect.TypeToken;
 import com.simpotech.app.hlgg.R;
 import com.simpotech.app.hlgg.api.Constant;
 import com.simpotech.app.hlgg.business.SharedManager;
-import com.simpotech.app.hlgg.entity.net.BaseJsonInfo;
+import com.simpotech.app.hlgg.entity.net.NetLoginInfo;
 import com.simpotech.app.hlgg.util.GsonUtils;
 import com.simpotech.app.hlgg.util.LogUtils;
 import com.simpotech.app.hlgg.util.UiUtils;
@@ -31,7 +32,7 @@ import okhttp3.Call;
 public class LoginActivity extends AppCompatActivity {
 
     private static final String URL_LOGIN = Constant.HOST + Constant.LOGIN;
-//    private static final String URL_LOGIN = "http://10.110.1.98:8080/login.json";
+    //    private static final String URL_LOGIN = "http://10.110.1.98:8080/login.json";
     private static final String TAG = "LoginActivity";
 
     private SharedManager spManager;
@@ -74,14 +75,19 @@ public class LoginActivity extends AppCompatActivity {
                     public void onResponse(String response, int id) {
                         LogUtils.i(TAG, "请求网络成功");
                         //用Gson解析
-                        BaseJsonInfo<String> loginInfo = (BaseJsonInfo<String>) GsonUtils
-                                .fromJson(response, new TypeToken<BaseJsonInfo<String>>() {
+                        NetLoginInfo loginInfo = (NetLoginInfo) GsonUtils.fromJson(response, new
+                                TypeToken<NetLoginInfo>() {
                         }.getType());
                         //如果解析成功
                         if (loginInfo != null) {
                             if (loginInfo.code.equals("success")) {
                                 //保存用户名至SharedPreferences
                                 spManager.putStringToXml(SharedManager.USERNAME, username);
+                                if(!TextUtils.isEmpty(loginInfo.userId)) {
+                                    spManager.putStringToXml(SharedManager.USERID, loginInfo.userId);
+                                }else {
+                                    UiUtils.showToast("未获取当前用户信息");
+                                }
 
                                 //携带result跳转至MainActivity
                                 String result = loginInfo.result;
@@ -104,6 +110,8 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager
+                .LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 

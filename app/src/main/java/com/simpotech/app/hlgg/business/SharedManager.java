@@ -14,6 +14,7 @@ public class SharedManager {
 
     public static final String PROCESS_CONFIG_NAME = "process_config_name"; //流程模块的配置文件名称
     public static final String USERNAME = "username";   //登录的用户名
+    public static final String USERID = "userId"; //用户的id
     public static final String PROLINE_POSITION = "proline_position";    //默认选择的生产线位置
     private final String CONFIG_NAME = "normal_config"; //默认配置文件的名称
 

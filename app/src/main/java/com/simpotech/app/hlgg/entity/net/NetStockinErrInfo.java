@@ -26,5 +26,5 @@ public class NetStockinErrInfo {
     public String qty;
     public String product_line;
     public String errorMsg;
-    public String id;   //传递时的构件的主键
+    public String appId;   //传递时的构件的主键
 }

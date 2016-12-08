@@ -68,7 +68,7 @@ public class InvoiceContructionDetailActivity extends BaseActivity {
         codeTv.setText("发货单号 :" + itemData.code);
         projNameTv.setText(itemData.proj_name);
         addUserNameTv.setText(itemData.addUserName);
-        cjdateTv.setText(itemData.cjdate);
+        cjdateTv.setText(itemData.cjdata);
 
         //设置详情页下的RecyclerView
         InvoiceContructionDb dbCon = new InvoiceContructionDb();

@@ -1,6 +1,5 @@
 package com.simpotech.app.hlgg.ui.activity;
 
-import android.animation.ObjectAnimator;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -9,10 +8,8 @@ import android.content.IntentFilter;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -103,6 +100,7 @@ public class StockinActivity extends BaseActivity {
         showLeftIv(R.drawable.vector_proline_back);
         showMiddleIv(R.drawable.vector_stockout_scan);
         showRightIv(R.drawable.vector_proline_get);
+        showRightTv("提交");
         getLeftLly().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -226,6 +224,10 @@ public class StockinActivity extends BaseActivity {
         }
 
         final List<DbProLineInfo> proLines = new ProLineDb().getAllProLines();
+        if(proLines.size() == 0) {
+            UiUtils.showToast("请先添加本地生产线!");
+            return;
+        }
         SpinnerAdapter adapter = new SpinnerAdapter(proLines, context);
         prolineSpin.setAdapter(adapter);
         prolineSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

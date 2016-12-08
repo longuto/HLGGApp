@@ -23,15 +23,15 @@
             android:layout_height="0dp"
             android:layout_weight="1">
             <TextView
-                android:id="@+id/tv_barCode"
+                android:id="@+id/tv_contruction_code"
+                android:layout_weight="2"
+                style="@style/contruction_textView"
+                android:text="构件编号 :"/>
+            <TextView
+                android:id="@+id/tv_spec"
                 android:layout_weight="3"
                 style="@style/contruction_textView"
-                android:text="条码 :"/>
-            <TextView
-                android:id="@+id/tv_qty"
-                style="@style/contruction_textView"
-                android:layout_weight="1"
-                android:text="数量 :"/>
+                android:text="规格 :"/>
         </LinearLayout>
 
         <LinearLayout
@@ -39,15 +39,15 @@
             android:layout_height="0dp"
             android:layout_weight="1">
             <TextView
-                android:id="@+id/tv_contruction_code"
-                android:layout_weight="3"
+                android:id="@+id/tv_barCode"
+                android:layout_weight="4"
                 style="@style/contruction_textView"
-                android:text="构件编号 :"/>
+                android:text="条码 :"/>
             <TextView
-                android:id="@+id/tv_spec"
-                android:layout_weight="2"
+                android:id="@+id/tv_qty"
                 style="@style/contruction_textView"
-                android:text="规格 :"/>
+                android:layout_weight="1"
+                android:text="数量 :"/>
         </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>

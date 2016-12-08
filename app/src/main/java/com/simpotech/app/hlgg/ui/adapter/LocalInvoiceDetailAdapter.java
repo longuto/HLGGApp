@@ -63,10 +63,10 @@ public class LocalInvoiceDetailAdapter extends RecyclerView.Adapter<LocalInvoice
 
         public void setData(int position) {
             NetInvoiceInfo.DetailsBean bean = data.get(position);
-            barCodeTv.setText("条码 :" + bean.barCode);
-            qtyTv.setText("数量 :" + bean.qty);
-            contructionCodeTv.setText("构件编号 :" + bean.contruction_code);
-            specTv.setText("规格 :" + bean.spec);
+            barCodeTv.setText(/*"条码 :" + */bean.barCode);
+            qtyTv.setText(/*"数量 :" + */bean.qty);
+            contructionCodeTv.setText(/*"构件编号 :" + */bean.contruction_code);
+            specTv.setText(/*"规格 :" + */bean.spec);
         }
     }
 }

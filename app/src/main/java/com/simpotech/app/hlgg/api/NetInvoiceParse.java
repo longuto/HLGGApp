@@ -121,8 +121,5 @@ public class NetInvoiceParse {
                         mAdapter.notifyDataSetChanged();
                     }
                 });
-
-
-
     }
 }

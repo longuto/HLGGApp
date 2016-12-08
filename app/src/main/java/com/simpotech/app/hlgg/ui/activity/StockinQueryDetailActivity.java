@@ -67,8 +67,8 @@ public class StockinQueryDetailActivity extends BaseActivity {
         mProjNameTv.setText(mItemData.proj_name);
         mOrganNameTv.setText(mItemData.organName);
         mProductLineTv.setText(mItemData.productLine);
-        mAddUserNameTv.setText("提交人: " + mItemData.addUserName);
-        mAddTimeTv.setText(" 提交时间: " + mItemData.addTime);
+        mAddUserNameTv.setText(/*"提交人: " +*/ mItemData.addUserName);
+        mAddTimeTv.setText(/*"提交时间: " + */mItemData.addTime);
 
         LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager
                 .VERTICAL, false);

@@ -13,7 +13,6 @@ import com.simpotech.app.hlgg.db.dao.InvoiceDb;
 import com.simpotech.app.hlgg.entity.net.NetInvoiceInfo;
 import com.simpotech.app.hlgg.ui.adapter.interfaces.OnRecyclerViewItemClickListener;
 import com.simpotech.app.hlgg.ui.adapter.interfaces.OnRecyclerViewItemLongClickListener;
-import com.simpotech.app.hlgg.util.UiUtils;
 
 import java.util.List;
 
@@ -47,7 +46,7 @@ public class LocalInvoiceAdapter extends RecyclerView.Adapter<LocalInvoiceAdapte
 
     @Override
     public boolean onLongClick(View v) {
-        if(mOnItemLongClickListener != null) {
+        if (mOnItemLongClickListener != null) {
             mOnItemLongClickListener.onItemLongClick(v, (Integer) v.getTag());
         }
         return true;    //消费掉,用于长按后取消单机时间
@@ -62,16 +61,16 @@ public class LocalInvoiceAdapter extends RecyclerView.Adapter<LocalInvoiceAdapte
         data = db.getAllInvoices();
     }
 
-
-     /** 暴露一个公共方法,返回当前position条目的数据 */
+    /**
+     * 暴露一个公共方法,返回当前position条目的数据
+     */
     public NetInvoiceInfo getItemData(int position) {
         return data.get(position);
     }
 
     @Override
     public LocalInvoiceHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_invoice,
-                parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_invoice, parent, false);
         view.setOnClickListener(this);
         view.setOnLongClickListener(this);
         return new LocalInvoiceHolder(view);
@@ -118,10 +117,10 @@ public class LocalInvoiceAdapter extends RecyclerView.Adapter<LocalInvoiceAdapte
             orgNameTv.setText(info.organName);
             saleNameTv.setText(info.saleName);
             addUserNameTv.setText(info.addUserName);
-            cjdateTv.setText(info.cjdate);
-            if(info.isChecked) {
+            cjdateTv.setText(info.cjdata);
+            if (info.isChecked) {
                 invoiceCkb.setChecked(true);
-            }else {
+            } else {
                 invoiceCkb.setChecked(false);
             }
         }

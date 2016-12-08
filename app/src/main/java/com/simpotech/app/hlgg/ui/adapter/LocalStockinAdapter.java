@@ -13,7 +13,6 @@ import com.simpotech.app.hlgg.db.dao.StockinDb;
 import com.simpotech.app.hlgg.entity.net.NetStockinInfo;
 import com.simpotech.app.hlgg.ui.adapter.interfaces.OnRecyclerViewItemClickListener;
 import com.simpotech.app.hlgg.ui.adapter.interfaces.OnRecyclerViewItemLongClickListener;
-import com.simpotech.app.hlgg.util.UiUtils;
 
 import java.util.List;
 
@@ -105,10 +104,10 @@ public class LocalStockinAdapter extends RecyclerView.Adapter<LocalStockinAdapte
         TextView organNameTv;
         @BindView(R.id.tv_productLine)
         TextView productLineTv;
-        @BindView(R.id.tv_addUserName)
-        TextView addUserNameTv;
-        @BindView(R.id.tv_addTime)
-        TextView addTimeTv;
+//        @BindView(R.id.tv_addUserName)
+//        TextView addUserNameTv;
+//        @BindView(R.id.tv_addTime)
+//        TextView addTimeTv;
 
         public LocalStockinHolder(View itemView) {
             super(itemView);
@@ -123,8 +122,8 @@ public class LocalStockinAdapter extends RecyclerView.Adapter<LocalStockinAdapte
             projNameTv.setText(info.proj_name);
             organNameTv.setText(info.organName);
             productLineTv.setText(info.productLine);
-            addUserNameTv.setText("提交人 :" + info.addUserName);
-            addTimeTv.setText(" 提交时间 :" + info.addTime);
+//            addUserNameTv.setText(/*"提交人 :" +*/ info.addUserName);
+//            addTimeTv.setText(/*"提交时间 :" +*/ info.addTime);
             if(info.isCheck) {
                 chooseStockinCkb.setChecked(true);
             }else {

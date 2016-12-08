@@ -65,10 +65,10 @@ public class LocalStockinConAdapter extends RecyclerView.Adapter<LocalStockinCon
 
         public void setData(int position) {
             NetStockinInfo.DetailsBean bean = data.get(position);
-            barCodeTv.setText("条码 :" + bean.barCode);
-            contructionCodeTv.setText("构件编号 :" + bean.contruction_code);
-            qtyTv.setText("数量 :" + bean.qty);
-            specTv.setText("规格 :" + bean.spec);
+            barCodeTv.setText(/*"条码 :" + */bean.barCode);
+            contructionCodeTv.setText(/*"构件编号 :" +*/ bean.contruction_code);
+            qtyTv.setText(/*"数量 :" +*/ bean.qty);
+            specTv.setText(/*"规格 :" +*/ bean.spec);
         }
     }
 }

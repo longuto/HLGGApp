@@ -39,7 +39,7 @@ public class NetProlineParse {
      */
     public static void getDataByDepartmentName(String departmentName, final RecyclerView
             recyclerView, final PtrClassicFrameLayout refreshPtr, final Context context) {
-        OkHttpUtils.get()
+        OkHttpUtils.post()
                 .url(URL_PROLINE)
                 .addParams("name", departmentName)
                 .build()

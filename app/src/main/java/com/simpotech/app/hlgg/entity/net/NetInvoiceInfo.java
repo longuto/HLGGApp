@@ -1,8 +1,5 @@
 package com.simpotech.app.hlgg.entity.net;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -20,7 +17,7 @@ public class NetInvoiceInfo {
      * storage_code : 发货仓库
      * organName : 加工厂
      * saleName : 营销员
-     * cjdate : 创建时间
+     * cjdata : 创建时间
      * addUserId : 下载人
      * addUserName : 下载人名称
      * details : [{"invoice_code":"发货单号","contruction_code":"构件编码","spec":"规格","qty":"发货件数","tonnage":"发货重量","barCode":"条码"}]
@@ -33,7 +30,7 @@ public class NetInvoiceInfo {
     public String storage_code;
     public String organName;
     public String saleName;
-    public String cjdate;
+    public String cjdata;
     public String addUserId;
     public String addUserName;
     public boolean isChecked;   //是否选中,默认未选中

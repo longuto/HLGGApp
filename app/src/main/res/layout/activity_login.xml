@@ -32,6 +32,7 @@
             android:textColorHint="#6FFF"
             android:paddingLeft="50dp"
             android:hint="请输入用户名"
+            android:singleLine="true"
             android:background="@drawable/shape_edit_login"/>
 
         <ImageView
@@ -56,6 +57,7 @@
             android:layout_below="@id/edt_username"
             android:paddingLeft="50dp"
             android:hint="请输入密码"
+            android:singleLine="true"
             android:inputType="textPassword"
             android:background="@drawable/shape_edit_login">
             <requestFocus/>

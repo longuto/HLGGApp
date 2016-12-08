@@ -17,6 +17,7 @@ public class SubStockinInfo {
      */
 
     public String flowId;
+    public String userId;
     public List<StockinsBean> stockins;
 
     /**
@@ -28,7 +29,7 @@ public class SubStockinInfo {
      * product_line : 生产线id
      */
     public static class StockinsBean {
-        public String id;       //构件的主键Id
+        public String appId;       //构件的主键Id
         public String cml_code;
         public String contruction_code;
         public String barCode;

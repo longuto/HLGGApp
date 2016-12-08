@@ -34,8 +34,8 @@ import okhttp3.Call;
  */
 public class NetStockinparse {
 
-//    public static final String URL_STOCKIN = Constant.HOST + Constant.STOCKIN;  //入库访问地址
-    public static final String URL_STOCKIN = "http://10.110.1.98:8080/stockinInfo.json";   //测试地址
+    public static final String URL_STOCKIN = Constant.HOST + Constant.STOCKIN;  //入库访问地址
+//    public static final String URL_STOCKIN = "http://10.110.1.98:8080/stockinInfo.json";   //测试地址
 
 
     private static String TAG = "NetStockinparse";
@@ -111,7 +111,7 @@ public class NetStockinparse {
                                     StockinConSubDb db = new StockinConSubDb();
                                     for (NetStockinErrInfo info : errorContrus) {
                                         StockinConInfo infoChange = new StockinConInfo();
-                                        infoChange.id = Integer.valueOf(info.id);
+                                        infoChange.id = Integer.valueOf(info.appId);
                                         if (TextUtils.isEmpty(info.errorMsg)) {
                                             infoChange.isError = 0; //0代表正确
                                         } else {
@@ -146,12 +146,13 @@ public class NetStockinparse {
      */
     private static String getSubStockinInfoJson() {
         SharedManager sp = new SharedManager(SharedManager.PROCESS_CONFIG_NAME);
-        String gjrk = sp.getStringFromXml("gjrk");  //构件入库的流程id
+        SharedManager spP = new SharedManager();
         List<StockinConInfo> stockinCons = new StockinConSubDb().getAllStockinCon();
         //获取所有的入库构件的集合
         //转换成提交的数据
         SubStockinInfo info = new SubStockinInfo();
-        info.flowId = gjrk;
+        info.flowId = sp.getStringFromXml("gjrk");  //构件入库的流程id
+        info.userId = spP.getStringFromXml(SharedManager.USERID);   //用户id
         info.stockins = new ArrayList<>();
         for (StockinConInfo temp : stockinCons) {
             SubStockinInfo.StockinsBean bean = new SubStockinInfo.StockinsBean();
@@ -161,7 +162,7 @@ public class NetStockinparse {
             bean.qty = temp.stock_qty;
             bean.spec = temp.spec;
             bean.product_line = temp.prolineId;
-            bean.id = temp.id + "";
+            bean.appId = temp.id + "";
 
             info.stockins.add(bean);
         }

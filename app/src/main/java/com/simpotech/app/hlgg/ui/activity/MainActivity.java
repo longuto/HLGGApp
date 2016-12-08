@@ -1,22 +1,21 @@
 package com.simpotech.app.hlgg.ui.activity;
 
-import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.simpotech.app.hlgg.R;
+import com.simpotech.app.hlgg.api.NetProcessParse;
 import com.simpotech.app.hlgg.business.PermissionManager;
 import com.simpotech.app.hlgg.business.SharedManager;
 
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private Map<String, String[]> permissionMap;    //权限管理的Map
     private String[] permissions;   //当前用户的权限,默认为null
@@ -50,13 +49,11 @@ public class MainActivity extends BaseActivity {
     /**
      * 所有功能按钮的点击事件
      *
-     * @param button
+     * @param v
      */
-    @OnClick({R.id.btn_stockin, R.id.btn_stockout, R.id.btn_quality, R.id.btn_quality_query, R.id
-            .btn_stockin_query, R.id.btn_stockout_query, R.id.btn_Invoice, R.id
-            .btn_Invoice_manager, R.id.btn_contruction_query, R.id.btn_process, R.id.btn_proLine})
-    public void functions(Button button) {
-        switch (button.getId()) {
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.btn_stockin:  //入库
                 Intent intentStockin = new Intent(context, StockinActivity.class);
                 startActivity(intentStockin);
@@ -88,8 +85,8 @@ public class MainActivity extends BaseActivity {
                 startActivity(intentInvoiceManager);
                 break;
             case R.id.btn_contruction_query:    //构件查询
-//                Intent inetntContruction = new Intent(context, ContructionActivity.class);
-//                startActivity(inetntContruction);
+                // Intent inetntContruction = new Intent(context, ContructionActivity.class);
+                // startActivity(inetntContruction);
                 break;
             case R.id.btn_process:  //流程设置
                 Intent intentProcess = new Intent(context, ProcessActivity.class);
@@ -103,7 +100,6 @@ public class MainActivity extends BaseActivity {
                 break;
         }
     }
-
 
     @Override
     protected void toSetContentView() {
@@ -126,6 +122,10 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        SharedManager spP = new SharedManager(SharedManager.PROCESS_CONFIG_NAME);
+        if(TextUtils.isEmpty(spP.getStringFromXml("gjrk")) || TextUtils.isEmpty(spP.getStringFromXml("gjck"))) {
+            NetProcessParse.firstSetData();
+        }
         getPermissionToUnlock();
     }
 
@@ -135,6 +135,7 @@ public class MainActivity extends BaseActivity {
     private void getPermissionToUnlock() {
         permissionMap = PermissionManager.getPermissionMap();
         String result = getIntent().getStringExtra("RESULT");   //获取登录界面传过来的参数
+//        String result = "7";
         String username = spManager.getStringFromXml(SharedManager.USERNAME);
         switch (result) {
             case "0":   //都没有权限
@@ -176,42 +177,63 @@ public class MainActivity extends BaseActivity {
         for (String str : permissions) {
             switch (str) {
                 case "入库":
+                    mStockInBtn.setOnClickListener(this);
                     mStockInBtn.setClickable(true);
+                    mStockInBtn.setBackgroundResource(R.drawable.selector_main_btn);
                     break;
                 case "出库":
+                    mStockOutBtn.setOnClickListener(this);
                     mStockOutBtn.setClickable(true);
+                    mStockOutBtn.setBackgroundResource(R.drawable.selector_main_btn);
                     break;
                 case "质检":
+                    mQualityBtn.setOnClickListener(this);
                     mQualityBtn.setClickable(true);
+                    mQualityBtn.setBackgroundResource(R.drawable.selector_main_btn);
                     break;
                 case "质检查询":
+                    mQualityQueryBtn.setOnClickListener(this);
                     mQualityQueryBtn.setClickable(true);
+                    mQualityQueryBtn.setBackgroundResource(R.drawable.selector_main_btn);
                     break;
                 case "入库查询":
+                    mStockInQueryBtn.setOnClickListener(this);
                     mStockInQueryBtn.setClickable(true);
+                    mStockInQueryBtn.setBackgroundResource(R.drawable.selector_main_btn);
                     break;
                 case "出库查询":
+                    mStockOutQueryBtn.setOnClickListener(this);
                     mStockOutQueryBtn.setClickable(true);
+                    mStockOutQueryBtn.setBackgroundResource(R.drawable.selector_main_btn);
                     break;
                 case "下载发货单":
+                    mInvoiceBtn.setOnClickListener(this);
                     mInvoiceBtn.setClickable(true);
+                    mInvoiceBtn.setBackgroundResource(R.drawable.selector_main_btn);
                     break;
                 case "发货单管理":
+                    mInvoiceManBtn.setOnClickListener(this);
                     mInvoiceManBtn.setClickable(true);
+                    mInvoiceManBtn.setBackgroundResource(R.drawable.selector_main_btn);
                     break;
                 case "构件查询":
+                    mContructionBtn.setOnClickListener(this);
                     mContructionBtn.setClickable(true);
+                    mContructionBtn.setBackgroundResource(R.drawable.selector_main_btn);
                     break;
                 case "流程设置":
+                    mProcessBtn.setOnClickListener(this);
                     mProcessBtn.setClickable(true);
+                    mProcessBtn.setBackgroundResource(R.drawable.selector_main_btn);
                     break;
                 case "生产线配置":
+                    mProLineBtn.setOnClickListener(this);
                     mProLineBtn.setClickable(true);
+                    mProLineBtn.setBackgroundResource(R.drawable.selector_main_btn);
                     break;
                 default:
                     break;
             }
         }
     }
-
 }

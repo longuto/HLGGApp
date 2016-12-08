@@ -142,7 +142,7 @@ public final class CaptureActivity extends Activity implements
 
     private Handler mHandler = new MyHandler(this);
 
-    static class MyHandler extends Handler {
+    class MyHandler extends Handler {
 
         private WeakReference<Activity> activityReference;
 
@@ -154,8 +154,8 @@ public final class CaptureActivity extends Activity implements
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case PARSE_BARCODE_SUC: // 解析图片成功
-                    Toast.makeText(activityReference.get(),
-                            "解析成功，结果为：" + msg.obj, Toast.LENGTH_SHORT).show();
+                    String data = (String) msg.obj;
+                    sendResultToPhone(data);
                     break;
                 case PARSE_BARCODE_FAIL:// 解析图片失败
                     Toast.makeText(activityReference.get(), "解析图片失败",
@@ -458,6 +458,11 @@ public final class CaptureActivity extends Activity implements
         //				"识别结果:" + ResultParser.parseResult(rawResult).toString(),
         //				Toast.LENGTH_SHORT).show();
         String data = ResultParser.parseResult(rawResult).toString().trim();
+        sendResultToPhone(data);
+    }
+
+    /**将结果返回去*/
+    public void sendResultToPhone(String data) {
         StockConInfo info = ParseScanner.scan2stockContru(data);//出库信息
         //解析构件信息成功
         if (info != null) {

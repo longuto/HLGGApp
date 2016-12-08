@@ -3,8 +3,8 @@ package com.simpotech.app.hlgg.api;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.simpotech.app.hlgg.business.SharedManager;
 import com.simpotech.app.hlgg.entity.net.BaseJsonInfo;
 import com.simpotech.app.hlgg.entity.net.NetProcessInfo;
 import com.simpotech.app.hlgg.ui.adapter.NetProcessAdapter;
@@ -18,8 +18,6 @@ import java.util.List;
 
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import okhttp3.Call;
-
-import static com.simpotech.app.hlgg.api.NetProlineParse.URL_PROLINE;
 
 /**
  * Created by longuto on 2016/11/4.
@@ -75,4 +73,44 @@ public class NetProcessParse {
                     }
                 });
     }
+
+    /**默认设置gjrk的第一项,gjck的第一项*/
+    public static void firstSetData() {
+
+        OkHttpUtils.get()
+                .url(URL_PROCESS)
+                .build()
+                .execute(new StringCallback() {
+                    @Override
+                    public void onError(Call call, Exception e, int id) {
+                        LogUtils.i(TAG, "网络加载失败");
+                        UiUtils.showToast("加载流程网络失败");
+                    }
+
+                    @Override
+                    public void onResponse(String response, int id) {
+                        LogUtils.i(TAG, "网络加载成功");
+                        BaseJsonInfo<List<NetProcessInfo>> temp = (BaseJsonInfo<List
+                                <NetProcessInfo>>) GsonUtils.fromJson(response, new
+                                TypeToken<BaseJsonInfo<List<NetProcessInfo>>>() {
+                                }.getType());
+                        if(temp != null) {
+                            if(temp.code.equals("success")) {
+                                SharedManager sp = new SharedManager(SharedManager.PROCESS_CONFIG_NAME);
+                                List<NetProcessInfo> data = temp.result;
+                                for (NetProcessInfo info : data) {
+                                    sp.putStringToXml(info.businessNo, info.flowList.get(0).flowId);
+                                }
+                            }else {
+                                UiUtils.showToast(temp.msg);
+                            }
+                        }else {
+                            UiUtils.showToast("解析流程json数据失败");
+                        }
+                    }
+
+                });
+
+    }
+
 }
