@@ -4,10 +4,10 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="3dp"
     android:layout_marginBottom="3dp"
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
+    android:layout_marginTop="3dp"
     card_view:cardBackgroundColor="@android:color/white"
     card_view:cardCornerRadius="1dp"
     card_view:cardElevation="5dp">
@@ -18,40 +18,60 @@
         android:background="@color/item_background"
         android:orientation="vertical">
         <LinearLayout
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
             <TextView
                 android:id="@+id/tv_contruction_code"
                 style="@style/contruction_textView"
-                android:layout_weight="3"
-                android:text="构件编号 :"/>
-            <TextView
-                android:id="@+id/tv_spec"
-                style="@style/contruction_textView"
                 android:layout_weight="2"
-                android:text="规格 :"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-            <TextView
-                android:id="@+id/tv_barCode"
-                style="@style/contruction_textView"
-                android:layout_weight="3"
-                android:text="条码 :"/>
+                android:text="构件编号 :"/>
 
             <TextView
                 android:id="@+id/tv_qty"
                 style="@style/contruction_textView"
                 android:layout_weight="1"
                 android:text="数量 :"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tv_spec"
+                style="@style/contruction_textView"
+                android:layout_weight="2"
+                android:text="规格 :"/>
+
+            <TextView
+                android:id="@+id/tv_tonnage"
+                style="@style/contruction_textView"
+                android:layout_weight="1"
+                android:text="重量 :"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tv_material"
+                style="@style/contruction_textView"
+                android:layout_weight="2"
+                android:text="材质 :"/>
+
+            <TextView
+                android:id="@+id/tv_length"
+                style="@style/contruction_textView"
+                android:layout_weight="2"
+                android:text="长度 :"/>
         </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>

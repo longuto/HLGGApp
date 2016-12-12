@@ -70,27 +70,15 @@
             android:layout_height="0dp"
             android:layout_weight="1">
             <TextView
-                style="@style/contruction_textView"
-                android:layout_weight="1"
-                android:text="提交人: "/>
-            <TextView
                 android:id="@+id/tv_addName"
                 style="@style/contruction_textView"
-                android:layout_weight="3"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-            <TextView
-                style="@style/contruction_textView"
                 android:layout_weight="1"
-                android:text="提交时间: "/>
+                android:text="提交人"/>
             <TextView
                 android:id="@+id/tv_addTime"
                 style="@style/contruction_textView"
-                android:layout_weight="3"/>
+                android:layout_weight="1"
+                android:text="提交时间"/>
         </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>
