@@ -1,14 +1,20 @@
 package com.simpotech.app.hlgg.api;
 
+import android.text.TextUtils;
+
 import com.google.gson.reflect.TypeToken;
 import com.simpotech.app.hlgg.business.SharedManager;
+import com.simpotech.app.hlgg.db.dao.InvoiceConStockoutDb;
 import com.simpotech.app.hlgg.db.dao.StockoutContruDb;
 import com.simpotech.app.hlgg.db.dao.StockoutDb;
 import com.simpotech.app.hlgg.entity.StockoutConInfo;
 import com.simpotech.app.hlgg.entity.net.BaseJsonInfo;
+import com.simpotech.app.hlgg.entity.net.ChooseInfo;
 import com.simpotech.app.hlgg.entity.net.NetInvoiceInfo;
+import com.simpotech.app.hlgg.entity.net.NetStockoutErrInfo;
 import com.simpotech.app.hlgg.entity.net.NetStockoutInfo;
 import com.simpotech.app.hlgg.entity.submit.SubStockoutInfo;
+import com.simpotech.app.hlgg.ui.adapter.LocalInvoiceStockDetailAdapter;
 import com.simpotech.app.hlgg.util.GsonUtils;
 import com.simpotech.app.hlgg.util.LogUtils;
 import com.simpotech.app.hlgg.util.UiUtils;
@@ -30,30 +36,36 @@ public class NetStockoutParse {
     private static final String TAG = "NetStockoutParse";
 
     public static final String URL_STOCKOUT = Constant.HOST + Constant.STOCK_OUT;   //出库访问地址
-//    public static final String URL_STOCKOUT1 = "http://10.110.1.98:8080/stockoutInfo1.json";//测试地址
-//    public static final String URL_STOCKOUT2 = "http://10.110.1.98:8080/stockoutInfo2.json";//测试地址
-//    public static final String URL_STOCKOUT3 = "http://10.110.1.98:8080/stockoutInfo3.json";//测试地址
-//    public static final String URL_STOCKOUT4 = "http://10.110.1.98:8080/stockoutInfo4.json";//测试地址
-//    public static List<String> URL_STOCKOUTS = new ArrayList<>();
-//
-//    static {
-//        URL_STOCKOUTS.add(URL_STOCKOUT1);
-//        URL_STOCKOUTS.add(URL_STOCKOUT2);
-//        URL_STOCKOUTS.add(URL_STOCKOUT3);
-//        URL_STOCKOUTS.add(URL_STOCKOUT4);
-//    }
-//
-//    public static String getUrlStockout() {
-//        Random r = new Random();
-//        int i = r.nextInt(4);
-//        return URL_STOCKOUTS.get(i);
-//    }
+
+    public static List<StockoutConInfo> stockoutConInfos;
+
+    //    public static final String URL_STOCKOUT1 = "http://10.110.1.98:8080/stockoutInfo1
+    // .json";//测试地址
+    //    public static final String URL_STOCKOUT2 = "http://10.110.1.98:8080/stockoutInfo2
+    // .json";//测试地址
+    //    public static final String URL_STOCKOUT3 = "http://10.110.1.98:8080/stockoutInfo3
+    // .json";//测试地址
+    //    public static final String URL_STOCKOUT4 = "http://10.110.1.98:8080/stockoutInfo4
+    // .json";//测试地址
+    //    public static List<String> URL_STOCKOUTS = new ArrayList<>();
+    //
+    //    static {
+    //        URL_STOCKOUTS.add(URL_STOCKOUT1);
+    //        URL_STOCKOUTS.add(URL_STOCKOUT2);
+    //        URL_STOCKOUTS.add(URL_STOCKOUT3);
+    //        URL_STOCKOUTS.add(URL_STOCKOUT4);
+    //    }
+    //
+    //    public static String getUrlStockout() {
+    //        Random r = new Random();
+    //        int i = r.nextInt(4);
+    //        return URL_STOCKOUTS.get(i);
+    //    }
 
 
-    public static void getDataFromNet(NetInvoiceInfo netInvoiceInfo, List<StockoutConInfo>
-            stockoutConInfos) {
+    public static void getDataFromNet(final NetInvoiceInfo netInvoiceInfo, final LocalInvoiceStockDetailAdapter adapter) {
         //将传入的实体类转化成json
-        String json = invoiceStockoutToJson(netInvoiceInfo, stockoutConInfos);
+        String json = invoiceStockoutToJson(netInvoiceInfo);
         LogUtils.i(TAG, json);
 
         OkHttpUtils.post()
@@ -70,18 +82,19 @@ public class NetStockoutParse {
                     @Override
                     public void onResponse(String response, int id) {
                         LogUtils.i(TAG, "网络加载成功");
-                        BaseJsonInfo<NetStockoutInfo> temp = (BaseJsonInfo<NetStockoutInfo>)
-                                GsonUtils.fromJson(response, new
-                                        TypeToken<BaseJsonInfo<NetStockoutInfo>>() {
-                                        }.getType());
-                        if (temp != null) {
-                            if (temp.code.equals("success")) {
-                                NetStockoutInfo info = temp.result;   //出库单数据
+                        ChooseInfo temp = (ChooseInfo) GsonUtils.fromJson(response, ChooseInfo.class);
 
-                                StockoutDb db = new StockoutDb();
-                                StockoutContruDb dbCon = new StockoutContruDb();
+                        if (temp.code.equals("success")) {
+                            BaseJsonInfo<NetStockoutInfo> tempS = (BaseJsonInfo<NetStockoutInfo>)
+                                    GsonUtils.fromJson(response, new
+                                            TypeToken<BaseJsonInfo<NetStockoutInfo>>() {
+                                            }.getType());
+                            NetStockoutInfo info = tempS.result;   //出库单数据
+                            StockoutDb db = new StockoutDb();
+                            StockoutContruDb dbCon = new StockoutContruDb();
+                            if (!db.isExitInvoice(info.invoice_code)) {
                                 if (db.addStockout(info)) {
-                                    for (NetStockoutInfo.DetailsBean bean : info.details) {
+                                    for (NetStockoutInfo.DetailsBean bean : info.stockoutDetail) {
                                         UiUtils.showToast("出库单下载至本地成功!");
                                         if (!dbCon.addStockoutContruction(bean)) {
                                             UiUtils.showToast(bean.contruction_code + "的构件添加失败");
@@ -90,13 +103,44 @@ public class NetStockoutParse {
                                 } else {
                                     UiUtils.showToast("出库单保存至本地失败,请不要重复下载相同的出库单");
                                 }
+
+                                //取消错误消息的显示
+                                for (StockoutConInfo bean : adapter.data) {
+                                    bean.isError = 0;
+                                    bean.message = "";
+                                }
+                                adapter.notifyDataSetChanged();
+
                             } else {
-                                UiUtils.showToast(temp.msg);
+                                UiUtils.showToast("本地已存在同名的发货单号");
                             }
                         } else {
-                            UiUtils.showToast("解析Json数据失败");
-                        }
+                            BaseJsonInfo<List<NetStockoutErrInfo>> tempE =
+                                    (BaseJsonInfo<List<NetStockoutErrInfo>>) GsonUtils.fromJson
+                                            (response, new
+                                                    TypeToken<BaseJsonInfo<List<NetStockoutErrInfo>>>() {
+                                                    }.getType());
+                            UiUtils.showToast(temp.msg);    //显示出错原因
 
+                            List<NetStockoutErrInfo> errorContrus = tempE.result;
+                            InvoiceConStockoutDb db = new InvoiceConStockoutDb();
+                            for (NetStockoutErrInfo info : errorContrus) {
+                                StockoutConInfo infoChange = new StockoutConInfo();
+                                infoChange.id = Integer.valueOf(info.appId);
+                                if (TextUtils.isEmpty(info.errorMsg)) {
+                                    infoChange.isError = 0; //代表正确
+                                } else {
+                                    infoChange.isError = 1; //代表错误
+                                }
+                                infoChange.message = info.errorMsg;
+                                if (db.upDataByStockoutMess(infoChange) <= 0) {
+                                    UiUtils.showToast("修改构件编号为" + info.contruction_code +
+                                            "的构件失败");
+                                }
+                                adapter.data = db.getInvoiceConByInvoiceCode(netInvoiceInfo.code);
+                                adapter.notifyDataSetChanged(); //通知适配器数据已经改变
+                            }
+                        }
                     }
                 });
     }
@@ -106,26 +150,29 @@ public class NetStockoutParse {
      * <p>
      * 将需要出库的发货单信息转换成json格式
      */
-    public static String invoiceStockoutToJson(NetInvoiceInfo netInvoiceInfo,
-                                               List<StockoutConInfo> stockoutInfos) {
+    public static String invoiceStockoutToJson(NetInvoiceInfo netInvoiceInfo) {
+        stockoutConInfos = new InvoiceConStockoutDb()
+                .getInvoiceConByInvoiceCode(netInvoiceInfo.code);
         SharedManager sp = new SharedManager(SharedManager.PROCESS_CONFIG_NAME); //xml存储的配置
         SharedManager spP = new SharedManager();
         SubStockoutInfo info = new SubStockoutInfo();
-        info.code = netInvoiceInfo.code;
+        info.invoice_code = netInvoiceInfo.code;
         info.wo_code = netInvoiceInfo.wo_code;
         info.cml_code = netInvoiceInfo.cml_code;
         info.flowId = sp.getStringFromXml("gjck");
         info.userId = spP.getStringFromXml(SharedManager.USERID);
 
-        info.details = new ArrayList<>();
-        for (StockoutConInfo temp : stockoutInfos) {
+        info.stockoutDetail = new ArrayList<>();
+        for (StockoutConInfo temp : stockoutConInfos) {
             SubStockoutInfo.DetailsBean bean = new SubStockoutInfo.DetailsBean();
+
+            bean.appId = temp.id + "";
             bean.invoice_code = temp.invoice_code;
             bean.contruction_code = temp.code;
             bean.qty = temp.stock_qty;
             bean.barCode = temp.barcode;
 
-            info.details.add(bean);
+            info.stockoutDetail.add(bean);
         }
 
         return GsonUtils.toJson(info);

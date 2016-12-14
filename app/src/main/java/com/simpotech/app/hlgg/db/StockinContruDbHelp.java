@@ -10,7 +10,7 @@ import com.simpotech.app.hlgg.util.UiUtils;
 
 /**
  * Created by longuto on 2016/11/18.
- *
+ * <p>
  * 加载网络成功后,返回的入库单下的构件清单的信息的数据库帮助类
  */
 
@@ -31,9 +31,10 @@ public class StockinContruDbHelp extends SQLiteOpenHelper {
         String sql = "CREATE TABLE " + StockinContruDb.TABLE_NAME + "(" + StockinContruDb.ID +
                 " INTEGER PRIMARY KEY AUTOINCREMENT, " + StockinContruDb.STOCKIN_CODE + " TEXT " +
                 "NOT NULL, " + StockinContruDb.CONTRUCTION_CODE + " TEXT, " + StockinContruDb
-                .CML_CODE + " TEXT, " + StockinContruDb.SPEC + " TEXT, " + StockinContruDb.QTY
-                + " TEXT, " + StockinContruDb.BARCODE + " TEXT, FOREIGN KEY(" + StockinContruDb.STOCKIN_CODE +
-                ") " + "REFERENCES " + StockinDb.TABLE_NAME + "(" + StockinDb.CODE + "))";
+                .SPEC + " TEXT, " + StockinContruDb.QTY + " TEXT, " + StockinContruDb.MATERIAL_QUALITY
+                + " TEXT, " + StockinContruDb.LENGTH + " TEXT, " + StockinContruDb.TONNAGE + " " +
+                "TEXT, FOREIGN KEY(" + StockinContruDb.STOCKIN_CODE + ") " + "REFERENCES " +
+                StockinDb.TABLE_NAME + "(" + StockinDb.CODE + "))";
         db.execSQL(sql);
     }
 

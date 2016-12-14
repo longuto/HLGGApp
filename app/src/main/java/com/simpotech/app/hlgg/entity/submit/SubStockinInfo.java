@@ -18,7 +18,7 @@ public class SubStockinInfo {
 
     public String flowId;
     public String userId;
-    public List<StockinsBean> stockins;
+    public List<StockinsBean> stockinDetail;
 
     /**
      * cml_code : 构件清单

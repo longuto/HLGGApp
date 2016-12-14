@@ -10,17 +10,17 @@ import java.util.List;
 public class SubStockoutInfo {
 
     /**
-     * code : 发货单号
+     * invoice_code : 发货单号
      * wo_code : 生产任务单号
      * cml_code : 构件清单编码
      * details : [{"invoice_code":"发货单号","contruction_code":"构件编码","qty":"出库件数","barCode":"条码"}]
      */
-    public String code;
+    public String invoice_code;
     public String wo_code;
     public String cml_code;
     public String flowId;   //出库流程id
     public String userId;   //用户信息
-    public List<DetailsBean> details;
+    public List<DetailsBean> stockoutDetail;
 
     /**
      * invoice_code : 发货单号
@@ -29,6 +29,7 @@ public class SubStockoutInfo {
      * barCode : 条码
      */
     public static class DetailsBean {
+        public String appId;    //构件的主键
         public String invoice_code;
         public String contruction_code;
         public String qty;

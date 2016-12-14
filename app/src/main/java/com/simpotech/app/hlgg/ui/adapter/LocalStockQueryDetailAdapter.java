@@ -15,8 +15,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.simpotech.app.hlgg.R.string.invoice;
-
 /**
  * Created by longuto on 2016/11/16.
  * <p>
@@ -50,8 +48,8 @@ public class LocalStockQueryDetailAdapter extends RecyclerView
     }
 
     class LocalStockQueryDetailHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.tv_barCode)
-        TextView barCodeTv;
+//        @BindView(R.id.tv_barCode)
+//        TextView barCodeTv;
         @BindView(R.id.tv_contruction_code)
         TextView contructionCodeTv;
         @BindView(R.id.tv_single)
@@ -76,7 +74,7 @@ public class LocalStockQueryDetailAdapter extends RecyclerView
 
         public void setData(int position) {
             NetStockoutInfo.DetailsBean bean = data.get(position);
-            barCodeTv.setText("条码 :" + bean.barCode);
+//            barCodeTv.setText("条码 :" + bean.barCode);
             contructionCodeTv.setText("构件编号 :" + bean.contruction_code);
             singleTv.setText("单重 :" + bean.single);
             materialNameTv.setText("材质 :" + bean.materialName);

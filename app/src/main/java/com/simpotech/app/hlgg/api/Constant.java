@@ -11,7 +11,10 @@ public class Constant {
     public static final String HOST = "http://220.178.76.51:8081";
 
     //主机地址
-//    public static final String HOST = "http://10.110.1.232:8080/simpo";
+    //    public static final String HOST = "http://10.110.1.232:8080/ ";
+
+    //王波测试地址
+    //    public static final String HOST = "http://10.110.1.16:8080";
 
     //登录系统,并返回权限
     public static final String LOGIN = "/ec/app/dologin.html";  //在LoginActivity中

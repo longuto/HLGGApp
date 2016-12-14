@@ -11,8 +11,6 @@ import com.simpotech.app.hlgg.entity.StockinConInfo;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.simpotech.app.hlgg.api.Constant.PROLINE;
-
 /**
  * Created by longuto on 2016/11/16.
  * <p>
@@ -156,6 +154,7 @@ public class StockinConSubDb {
         values.put(ISERROR, bean.isError);
         values.put(MESSAGE, bean.message);
         int rows = db.update(TABLE_NAME, values, ID + "=?", new String[]{bean.id + ""});
+        db.close();
         return rows;
     }
 

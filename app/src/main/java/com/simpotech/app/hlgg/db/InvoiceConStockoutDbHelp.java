@@ -34,7 +34,8 @@ public class InvoiceConStockoutDbHelp extends SQLiteOpenHelper {
                 InvoiceConStockoutDb.NAME + " TEXT, " + InvoiceConStockoutDb.CODE + " TEXT, " +
                 InvoiceConStockoutDb.SPEC + " TEXT, " + InvoiceConStockoutDb.BARCODE + " TEXT, " +
                 InvoiceConStockoutDb.QTY + " TEXT, " + InvoiceConStockoutDb.SCANNER_PEOPLE + " TEXT, " +
-                InvoiceConStockoutDb.SCANNER_TIME + " TEXT, FOREIGN KEY(" + InvoiceConStockoutDb
+                InvoiceConStockoutDb.SCANNER_TIME + " TEXT, " + InvoiceConStockoutDb.ISERROR + " INTEGER, "
+                + InvoiceConStockoutDb.MESSAGE + " TEXT, FOREIGN KEY(" + InvoiceConStockoutDb
                 .INVOICE_CODE + ") " + "REFERENCES " + InvoiceDb.TABLE_NAME + "(" + InvoiceDb
                 .CODE + "))";
         db.execSQL(sql);

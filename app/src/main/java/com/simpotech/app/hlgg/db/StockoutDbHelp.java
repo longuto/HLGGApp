@@ -1,6 +1,5 @@
 package com.simpotech.app.hlgg.db;
 
-import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -31,7 +30,7 @@ public class StockoutDbHelp extends SQLiteOpenHelper {
         //创建数表
         String sql = "CREATE TABLE " + StockoutDb.TABLE_NAME + "(" + StockoutDb.ID + " INTEGER " +
                 "PRIMARY KEY AUTOINCREMENT, " + StockoutDb.CODE + " TEXT NOT NULL UNIQUE, " +
-                StockoutDb.INVOICE_CODE + " TEXT, " + StockoutDb.PROJ_NAME + " TEXT, " + StockoutDb
+                StockoutDb.INVOICE_CODE + " TEXT NOT NULL UNIQUE, " + StockoutDb.PROJ_NAME + " TEXT, " + StockoutDb
                 .ORGAN_NAME + " TEXT, " + StockoutDb.SALENAME + " TEXT, " + StockoutDb.ADDTIME + " TEXT, " +
                 StockoutDb.ADDUSERID + " TEXT, " + StockoutDb.ADDUSERNAME + " TEXT)";
         db.execSQL(sql);

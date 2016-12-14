@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.google.gson.reflect.TypeToken;
 import com.simpotech.app.hlgg.R;
+import com.simpotech.app.hlgg.business.LastOrganName;
 import com.simpotech.app.hlgg.db.dao.StockinContruDb;
 import com.simpotech.app.hlgg.entity.net.NetStockinInfo;
 import com.simpotech.app.hlgg.ui.adapter.LocalStockinConAdapter;
@@ -59,16 +60,15 @@ public class StockinQueryDetailActivity extends BaseActivity {
     @Override
     protected void initData() {
         String json = getIntent().getStringExtra("ITEMDATA");
-        mItemData = (NetStockinInfo) GsonUtils.fromJson(json, new TypeToken<NetStockinInfo>() {
-        }.getType());
+        mItemData = (NetStockinInfo) GsonUtils.fromJson(json, new TypeToken<NetStockinInfo>() {}.getType());
         mStockinCodeTv.setText("入库单号: " + mItemData.code);
         mWoCodeTv.setText(mItemData.wo_code);
-        mCmlCodeTv.setText(mItemData.cml_code);
+        mCmlCodeTv.setText(mItemData.cmlz_code);
         mProjNameTv.setText(mItemData.proj_name);
-        mOrganNameTv.setText(mItemData.organName);
-        mProductLineTv.setText(mItemData.productLine);
-        mAddUserNameTv.setText(/*"提交人: " +*/ mItemData.addUserName);
-        mAddTimeTv.setText(/*"提交时间: " + */mItemData.addTime);
+        mOrganNameTv.setText("工厂 :" + LastOrganName.getLastOrganName(mItemData.organName));
+        mProductLineTv.setText("生产线 :" + mItemData.lineName);
+        mAddUserNameTv.setText("提交人: " + mItemData.addUserName);
+        mAddTimeTv.setText("时间: " + mItemData.cjdata);
 
         LinearLayoutManager manager = new LinearLayoutManager(context, LinearLayoutManager
                 .VERTICAL, false);

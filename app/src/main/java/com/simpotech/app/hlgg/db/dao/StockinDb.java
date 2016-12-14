@@ -28,6 +28,7 @@ public class StockinDb {
     public static final String PROJ_NAME = "s_proj_name"; //项目名称
     public static final String ORGANNAME = "s_organName"; //入库工厂
     public static final String PRODUCTLINE = "s_productLine"; //入库生产线
+    public static final String LINENAME = "s_lineName"; //生产线名称
     public static final String ADDTIME = "s_addTime"; //创建时间
     public static final String ADDUSERID = "s_addUserId"; //提交人id
     public static final String ADDUSERNAME = "s_addUserName"; //提交人
@@ -47,7 +48,7 @@ public class StockinDb {
     public Cursor queryStockinTable() {
         SQLiteDatabase db = dbHelp.getReadableDatabase();
         Cursor cursor = db.query(TABLE_NAME, new String[]{ID, CODE, WO_CODE, CML_CODE, PROJ_NAME,
-                        ORGANNAME, PRODUCTLINE, ADDTIME, ADDUSERID, ADDUSERNAME}, null, null,
+                        ORGANNAME, PRODUCTLINE, LINENAME, ADDTIME, ADDUSERID, ADDUSERNAME}, null, null,
                 null, null,
                 ADDTIME + " DESC");
         return cursor;
@@ -66,11 +67,12 @@ public class StockinDb {
             temp = new NetStockinInfo();
             temp.code = cursor.getString(cursor.getColumnIndex(CODE));
             temp.wo_code = cursor.getString(cursor.getColumnIndex(WO_CODE));
-            temp.cml_code = cursor.getString(cursor.getColumnIndex(CML_CODE));
+            temp.cmlz_code = cursor.getString(cursor.getColumnIndex(CML_CODE));
             temp.proj_name = cursor.getString(cursor.getColumnIndex(PROJ_NAME));
             temp.organName = cursor.getString(cursor.getColumnIndex(ORGANNAME));
             temp.productLine = cursor.getString(cursor.getColumnIndex(PRODUCTLINE));
-            temp.addTime = cursor.getString(cursor.getColumnIndex(ADDTIME));
+            temp.lineName = cursor.getString(cursor.getColumnIndex(LINENAME));
+            temp.cjdata = cursor.getString(cursor.getColumnIndex(ADDTIME));
             temp.addUserId = cursor.getString(cursor.getColumnIndex(ADDUSERID));
             temp.addUserName = cursor.getString(cursor.getColumnIndex(ADDUSERNAME));
 
@@ -91,11 +93,12 @@ public class StockinDb {
         ContentValues values = new ContentValues();
         values.put(CODE, info.code);
         values.put(WO_CODE, info.wo_code);
-        values.put(CML_CODE, info.cml_code);
+        values.put(CML_CODE, info.cmlz_code);
         values.put(PROJ_NAME, info.proj_name);
         values.put(ORGANNAME, info.organName);
         values.put(PRODUCTLINE, info.productLine);
-        values.put(ADDTIME, info.addTime);
+        values.put(LINENAME, info.lineName);
+        values.put(ADDTIME, info.cjdata);
         values.put(ADDUSERID, info.addUserId);
         values.put(ADDUSERNAME, info.addUserName);
 
@@ -147,7 +150,7 @@ public class StockinDb {
             netStockinInfos = new ArrayList<NetStockinInfo>();
             SQLiteDatabase db = dbHelp.getReadableDatabase();
             Cursor cursor = db.query(TABLE_NAME, new String[]{CODE, WO_CODE, CML_CODE, PROJ_NAME,
-                    ORGANNAME, PRODUCTLINE, ADDTIME, ADDUSERID, ADDUSERNAME}, CODE + " like ? " +
+                    ORGANNAME, PRODUCTLINE, LINENAME, ADDTIME, ADDUSERID, ADDUSERNAME}, CODE + " like ? " +
                     "or " + PROJ_NAME + " like ? ", new String[]{"%" + content + "%", "%" +
                     content + "%"}, null, null, null);
             NetStockinInfo temp = null;
@@ -155,11 +158,12 @@ public class StockinDb {
                 temp = new NetStockinInfo();
                 temp.code = cursor.getString(cursor.getColumnIndex(CODE));
                 temp.wo_code = cursor.getString(cursor.getColumnIndex(WO_CODE));
-                temp.cml_code = cursor.getString(cursor.getColumnIndex(CML_CODE));
+                temp.cmlz_code = cursor.getString(cursor.getColumnIndex(CML_CODE));
                 temp.proj_name = cursor.getString(cursor.getColumnIndex(PROJ_NAME));
                 temp.organName = cursor.getString(cursor.getColumnIndex(ORGANNAME));
                 temp.productLine = cursor.getString(cursor.getColumnIndex(PRODUCTLINE));
-                temp.addTime = cursor.getString(cursor.getColumnIndex(ADDTIME));
+                temp.lineName = cursor.getString(cursor.getColumnIndex(LINENAME));
+                temp.cjdata = cursor.getString(cursor.getColumnIndex(ADDTIME));
                 temp.addUserId = cursor.getString(cursor.getColumnIndex(ADDUSERID));
                 temp.addUserName = cursor.getString(cursor.getColumnIndex(ADDUSERNAME));
 

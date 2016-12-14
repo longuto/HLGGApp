@@ -10,10 +10,14 @@ import com.simpotech.app.hlgg.R;
 import com.simpotech.app.hlgg.api.NetProcessParse;
 import com.simpotech.app.hlgg.business.PermissionManager;
 import com.simpotech.app.hlgg.business.SharedManager;
+import com.simpotech.app.hlgg.util.UiUtils;
 
 import java.util.Map;
 
 import butterknife.BindView;
+import in.srain.cube.views.ptr.PtrDefaultHandler;
+import in.srain.cube.views.ptr.PtrFrameLayout;
+import in.srain.cube.views.ptr.header.StoreHouseHeader;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
@@ -45,6 +49,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     Button mProcessBtn; //流程设置
     @BindView(R.id.btn_proLine)
     Button mProLineBtn; //生产线配置
+    @BindView(R.id.ptr_main)
+    PtrFrameLayout mRefreshPtr;
 
     /**
      * 所有功能按钮的点击事件
@@ -127,6 +133,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             NetProcessParse.firstSetData();
         }
         getPermissionToUnlock();
+
+        //初始化PtrHandler
+        initRefreshPtr();
     }
 
     /**
@@ -235,5 +244,24 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                     break;
             }
         }
+    }
+
+    /**
+     * 设置StoreHouse风格的下拉刷新
+     */
+    private void initRefreshPtr() {
+        StoreHouseHeader header = new StoreHouseHeader(context);
+        header.initWithString("HONG LU", 28);
+        header.setTextColor(UiUtils.getColor(R.color.navigation_red));
+        header.setPadding(0, UiUtils.dip2px(15), 0, UiUtils.dip2px(15));
+        mRefreshPtr.setHeaderView(header);
+        mRefreshPtr.addPtrUIHandler(header);
+
+        mRefreshPtr.setPtrHandler(new PtrDefaultHandler() {
+            @Override
+            public void onRefreshBegin(PtrFrameLayout frame) {
+                mRefreshPtr.refreshComplete();  //刷新完成
+            }
+        });
     }
 }

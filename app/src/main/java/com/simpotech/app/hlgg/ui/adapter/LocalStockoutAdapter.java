@@ -13,7 +13,6 @@ import com.simpotech.app.hlgg.db.dao.StockoutDb;
 import com.simpotech.app.hlgg.entity.net.NetStockoutInfo;
 import com.simpotech.app.hlgg.ui.adapter.interfaces.OnRecyclerViewItemClickListener;
 import com.simpotech.app.hlgg.ui.adapter.interfaces.OnRecyclerViewItemLongClickListener;
-import com.simpotech.app.hlgg.util.UiUtils;
 
 import java.util.List;
 
@@ -115,8 +114,8 @@ public class LocalStockoutAdapter extends RecyclerView.Adapter<LocalStockoutAdap
             stockoutCodeTv.setText("出库单号 :" + info.code);
             invoiceCodeTv.setText(info.invoice_code);
             projNameTv.setText(info.proj_name);
-            addNameTv.setText(info.addUserName);
-            addTimeTv.setText(info.addTime);
+            addNameTv.setText("提交人 :" + info.addUserName);
+            addTimeTv.setText("时间 :" + info.addTime);
             if(info.isChecked) {
                 chooseStockoutCkb.setChecked(true);
             }else {

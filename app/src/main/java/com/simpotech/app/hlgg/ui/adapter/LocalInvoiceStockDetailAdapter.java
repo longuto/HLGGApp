@@ -100,6 +100,8 @@ public class LocalInvoiceStockDetailAdapter extends RecyclerView
         TextView sannerTimeTv;
         @BindView(R.id.ckb_choose)
         CheckBox isCheckCkb;
+        @BindView(R.id.tv_errorMsg)
+        TextView errorMsgTv;
 
         public LocalInvoiceStockDetailHolder(View itemView) {
             super(itemView);
@@ -119,6 +121,14 @@ public class LocalInvoiceStockDetailAdapter extends RecyclerView
             }else {
                 isCheckCkb.setChecked(false);
             }
+            // 错误
+            if(bean.isError == 1) {
+                errorMsgTv.setVisibility(View.VISIBLE);
+                errorMsgTv.setText(bean.message);
+            }else {
+                errorMsgTv.setVisibility(View.GONE);
+            }
+
         }
     }
 }

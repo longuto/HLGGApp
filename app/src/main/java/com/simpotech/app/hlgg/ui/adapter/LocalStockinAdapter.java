@@ -9,6 +9,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.simpotech.app.hlgg.R;
+import com.simpotech.app.hlgg.business.LastOrganName;
 import com.simpotech.app.hlgg.db.dao.StockinDb;
 import com.simpotech.app.hlgg.entity.net.NetStockinInfo;
 import com.simpotech.app.hlgg.ui.adapter.interfaces.OnRecyclerViewItemClickListener;
@@ -118,10 +119,10 @@ public class LocalStockinAdapter extends RecyclerView.Adapter<LocalStockinAdapte
             NetStockinInfo info = data.get(position);
             stockinCodeTv.setText("入库单号 :" + info.code);
             woCodeTv.setText(info.wo_code);
-            cmlCodeTv.setText(info.cml_code);
+            cmlCodeTv.setText(info.cmlz_code);
             projNameTv.setText(info.proj_name);
-            organNameTv.setText(info.organName);
-            productLineTv.setText(info.productLine);
+            organNameTv.setText("工厂 :" + LastOrganName.getLastOrganName(info.organName));
+            productLineTv.setText("生产线 :" + info.lineName);
 //            addUserNameTv.setText(/*"提交人 :" +*/ info.addUserName);
 //            addTimeTv.setText(/*"提交时间 :" +*/ info.addTime);
             if(info.isCheck) {

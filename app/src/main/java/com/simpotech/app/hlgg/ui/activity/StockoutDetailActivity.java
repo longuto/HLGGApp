@@ -117,9 +117,7 @@ public class StockoutDetailActivity extends BaseActivity {
         getRightLly().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                List<StockoutConInfo> stockoutConInfos = new InvoiceConStockoutDb()
-                        .getInvoiceConByInvoiceCode(netInvoiceInfo.code);
-                NetStockoutParse.getDataFromNet(netInvoiceInfo, stockoutConInfos);
+                NetStockoutParse.getDataFromNet(netInvoiceInfo, mAdapter);
             }
         });
     }

@@ -34,7 +34,7 @@ public class StockinDbHelp extends SQLiteOpenHelper {
                 "PRIMARY KEY AUTOINCREMENT, " + StockinDb.CODE + " TEXT NOT NULL UNIQUE, " +
                 StockinDb.WO_CODE + " TEXT, " + StockinDb.CML_CODE + " TEXT, " + StockinDb
                 .PROJ_NAME + " TEXT, " + StockinDb.ORGANNAME + " TEXT, " + StockinDb.PRODUCTLINE
-                + " TEXT, " + StockinDb.ADDTIME + " TEXT, " + StockinDb.ADDUSERID + " TEXT," +
+                + " TEXT, " + StockinDb.LINENAME + " TEXT, " + StockinDb.ADDTIME + " TEXT, " + StockinDb.ADDUSERID + " TEXT," +
                 StockinDb.ADDUSERNAME + ")";
         db.execSQL(sql);
     }

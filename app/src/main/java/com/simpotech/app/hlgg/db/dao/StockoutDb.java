@@ -165,4 +165,21 @@ public class StockoutDb {
         }
         return netStockoutInfos;
     }
+
+    /**
+     * 判断数据库中是否有重名的发货单
+     * @param invoice_code 发货单号
+     * @return
+     */
+    public boolean isExitInvoice(String invoice_code) {
+        boolean flag = false;
+        SQLiteDatabase db = dbHelp.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME, new String[] {INVOICE_CODE}, INVOICE_CODE + " = ?", new String[] {invoice_code}, null, null, null);
+        if(cursor.moveToNext()) {
+            flag = true;
+        }
+        cursor.close();
+        db.close();
+        return flag;
+    }
 }

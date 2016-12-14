@@ -10,7 +10,6 @@ import java.util.List;
 
 public class NetStockoutInfo {
 
-
     /**
      * code : 出库单号
      * invoice_code : 发货单号
@@ -32,7 +31,7 @@ public class NetStockoutInfo {
     public String addTime;
     public String addUserId;
     public String addUserName;
-    public List<DetailsBean> details;
+    public List<DetailsBean> stockoutDetail;
 
     public boolean isChecked; //当前条目是否选中
 

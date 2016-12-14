@@ -23,10 +23,11 @@ public class StockinContruDb {
     public static final String ID = "_id";  //主键
     public static final String STOCKIN_CODE = "sc_stockin_code";  //入库单号
     public static final String CONTRUCTION_CODE = "sc_contruction_code";  //构件编码
-    public static final String CML_CODE = "sc_cml_code";  //构件清单编码
     public static final String SPEC = "sc_spec";  //规格
     public static final String QTY = "sc_qty";  //入库数量
-    public static final String BARCODE = "sc_barCode";  //条码
+    public static final String MATERIAL_QUALITY = "sc_material_quality";    //材质
+    public static final String LENGTH = "sc_length";    //长度
+    public static final String TONNAGE = "sc_tonnage";  //重量
 
     public StockinContruDbHelp dbHelp;
 
@@ -43,7 +44,8 @@ public class StockinContruDb {
     public Cursor queryStockinConByStockinCode(String code) {
         SQLiteDatabase db = dbHelp.getReadableDatabase();
         Cursor cursor = db.query(TABLE_NAME, new String[]{ID, STOCKIN_CODE, CONTRUCTION_CODE,
-                CML_CODE, SPEC, QTY, BARCODE}, STOCKIN_CODE + "=?", new String[]{code}, null,
+                SPEC, QTY, MATERIAL_QUALITY, LENGTH, TONNAGE}, STOCKIN_CODE + "=?", new
+                String[]{code}, null,
                 null, null);
         return cursor;
     }
@@ -62,10 +64,11 @@ public class StockinContruDb {
             temp = new NetStockinInfo.DetailsBean();
             temp.stockin_code = cursor.getString(cursor.getColumnIndex(STOCKIN_CODE));
             temp.contruction_code = cursor.getString(cursor.getColumnIndex(CONTRUCTION_CODE));
-            temp.cml_code = cursor.getString(cursor.getColumnIndex(CML_CODE));
             temp.spec = cursor.getString(cursor.getColumnIndex(SPEC));
             temp.qty = cursor.getString(cursor.getColumnIndex(QTY));
-            temp.barCode = cursor.getString(cursor.getColumnIndex(BARCODE));
+            temp.material_quality = cursor.getString(cursor.getColumnIndex(MATERIAL_QUALITY));
+            temp.length = cursor.getString(cursor.getColumnIndex(LENGTH));
+            temp.tonnage = cursor.getString(cursor.getColumnIndex(TONNAGE));
 
             stockinContructions.add(temp);
         }
@@ -84,10 +87,11 @@ public class StockinContruDb {
         ContentValues values = new ContentValues();
         values.put(STOCKIN_CODE, bean.stockin_code);
         values.put(CONTRUCTION_CODE, bean.contruction_code);
-        values.put(CML_CODE, bean.cml_code);
         values.put(SPEC, bean.spec);
         values.put(QTY, bean.qty);
-        values.put(BARCODE, bean.barCode);
+        values.put(MATERIAL_QUALITY, bean.material_quality);
+        values.put(LENGTH, bean.length);
+        values.put(TONNAGE, bean.tonnage);
         long rowNo = db.insert(TABLE_NAME, null, values);
         db.close();
         if (rowNo > 0) {
@@ -112,6 +116,7 @@ public class StockinContruDb {
 
     /**
      * 删除表中所有数据
+     *
      * @return 删除的行数
      */
     public int delAllData() {

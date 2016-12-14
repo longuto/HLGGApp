@@ -48,14 +48,19 @@ public class LocalStockinConAdapter extends RecyclerView.Adapter<LocalStockinCon
     }
 
     class LocalStockinConHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.tv_barCode)
-        TextView barCodeTv;
         @BindView(R.id.tv_contruction_code)
         TextView contructionCodeTv;
         @BindView(R.id.tv_qty)
         TextView qtyTv;
         @BindView(R.id.tv_spec)
         TextView specTv;
+        @BindView(R.id.tv_tonnage)
+        TextView tonnageTv;
+        @BindView(R.id.tv_material)
+        TextView materialTv;
+        @BindView(R.id.tv_length)
+        TextView lengthTv;
+
 
 
         public LocalStockinConHolder(View itemView) {
@@ -65,10 +70,12 @@ public class LocalStockinConAdapter extends RecyclerView.Adapter<LocalStockinCon
 
         public void setData(int position) {
             NetStockinInfo.DetailsBean bean = data.get(position);
-            barCodeTv.setText(/*"条码 :" + */bean.barCode);
-            contructionCodeTv.setText(/*"构件编号 :" +*/ bean.contruction_code);
-            qtyTv.setText(/*"数量 :" +*/ bean.qty);
-            specTv.setText(/*"规格 :" +*/ bean.spec);
+            contructionCodeTv.setText("构件编号 :" + bean.contruction_code);
+            qtyTv.setText("数量 :" + bean.qty);
+            specTv.setText("规格 :" + bean.spec);
+            tonnageTv.setText("重量 :" + bean.tonnage);
+            materialTv.setText("材质 :" + bean.material_quality);
+            lengthTv.setText("长度 :" + bean.length);
         }
     }
 }

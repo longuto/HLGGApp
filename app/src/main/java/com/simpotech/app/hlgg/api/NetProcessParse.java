@@ -108,7 +108,6 @@ public class NetProcessParse {
                             UiUtils.showToast("解析流程json数据失败");
                         }
                     }
-
                 });
 
     }

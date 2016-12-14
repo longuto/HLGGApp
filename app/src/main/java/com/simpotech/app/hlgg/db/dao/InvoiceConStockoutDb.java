@@ -29,6 +29,8 @@ public class InvoiceConStockoutDb {
 
     public static final String SCANNER_PEOPLE = "s_scanner_people"; //扫描人
     public static final String SCANNER_TIME = "s_scanner_time";   //扫描时间
+    public static final String ISERROR = "s_isError";  //是否报错
+    public static final String MESSAGE = "s_message";  //报错信息
 
     public InvoiceConStockoutDbHelp dbHelp;
 
@@ -45,8 +47,8 @@ public class InvoiceConStockoutDb {
     public Cursor queryInvoiceConByInvoiceCode(String code) {
         SQLiteDatabase db = dbHelp.getReadableDatabase();
         Cursor cursor = db.query(TABLE_NAME, new String[]{ID, INVOICE_CODE, STOCK_QTY, CML_CODE,
-                NAME, CODE, SPEC, BARCODE, QTY, SCANNER_PEOPLE, SCANNER_TIME}, INVOICE_CODE + "=?", new
-                String[]{code}, null, null, null);
+                NAME, CODE, SPEC, BARCODE, QTY, SCANNER_PEOPLE, SCANNER_TIME, ISERROR, MESSAGE},
+                INVOICE_CODE + "=?", new String[]{code}, null, null, null);
         return cursor;
     }
 
@@ -74,6 +76,8 @@ public class InvoiceConStockoutDb {
             temp.qty = cursor.getString(cursor.getColumnIndex(QTY));
             temp.scannerPeople = cursor.getString(cursor.getColumnIndex(SCANNER_PEOPLE));
             temp.scannerTime = cursor.getString(cursor.getColumnIndex(SCANNER_TIME));
+            temp.isError = cursor.getInt(cursor.getColumnIndex(ISERROR));
+            temp.message = cursor.getString(cursor.getColumnIndex(MESSAGE));
             stockoutConInfos.add(temp);
         }
         cursor.close();
@@ -99,6 +103,8 @@ public class InvoiceConStockoutDb {
         values.put(QTY, bean.qty);
         values.put(SCANNER_PEOPLE, bean.scannerPeople);
         values.put(SCANNER_TIME, bean.scannerTime);
+        values.put(ISERROR, bean.isError);
+        values.put(MESSAGE, bean.message);
         long rowNo = db.insert(TABLE_NAME, null, values);
         db.close();
         if (rowNo > 0) {
@@ -136,6 +142,7 @@ public class InvoiceConStockoutDb {
 
     /**
      * 根据指定编号id,修改对应的构件的出库数量
+     *
      * @param bean StockoutContructionInfo对象
      * @return 修改成功返回影响的行数
      */
@@ -150,12 +157,29 @@ public class InvoiceConStockoutDb {
 
     /**
      * 根据指定的编号id删除构件信息
+     *
      * @param id 指定的条形码
      * @return 返回影响的行数
      */
     public int delInvoiceConById(int id) {
         SQLiteDatabase db = dbHelp.getWritableDatabase();
         int rows = db.delete(TABLE_NAME, ID + "=?", new String[]{id + ""});
+        db.close();
+        return rows;
+    }
+
+    /**
+     * 根据指定id,修改对应的构件的出错信息和是否出错
+     *
+     * @param info
+     * @return 返回影响的行数
+     */
+    public int upDataByStockoutMess(StockoutConInfo info) {
+        SQLiteDatabase db = dbHelp.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(ISERROR, info.isError);
+        values.put(MESSAGE, info.message);
+        int rows = db.update(TABLE_NAME, values, ID + " = ?", new String[]{info.id + ""});
         db.close();
         return rows;
     }
