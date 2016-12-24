@@ -6,7 +6,6 @@ import android.widget.EditText;
 
 import com.simpotech.app.hlgg.R;
 import com.simpotech.app.hlgg.api.NetInvoiceParse;
-import com.simpotech.app.hlgg.db.dao.InvoiceDb;
 
 import butterknife.BindView;
 
@@ -28,6 +27,7 @@ public class InvoiceActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                overridePendingTransition(R.anim.activity_back_enter, R.anim.activity_back_exit);
             }
         });
         getMiddleLly().setOnClickListener(new View.OnClickListener() {
@@ -43,6 +43,7 @@ public class InvoiceActivity extends BaseActivity {
             public void onClick(View v) {
                 Intent intentInvoiceManager = new Intent(context, InvoiceManagerActivity.class);
                 startActivity(intentInvoiceManager);
+                overridePendingTransition(R.anim.activity_top, R.anim.activity_top_exit);
             }
         });
     }

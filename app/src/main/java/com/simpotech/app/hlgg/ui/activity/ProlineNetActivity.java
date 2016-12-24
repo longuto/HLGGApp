@@ -1,8 +1,5 @@
 package com.simpotech.app.hlgg.ui.activity;
 
-import android.content.Intent;
-import android.os.Parcelable;
-import android.support.design.internal.ForegroundLinearLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -15,10 +12,8 @@ import com.simpotech.app.hlgg.db.dao.ProLineDb;
 import com.simpotech.app.hlgg.entity.DbProLineInfo;
 import com.simpotech.app.hlgg.entity.RecyProLineInfo;
 import com.simpotech.app.hlgg.ui.adapter.NetProLineAdapter;
-import com.simpotech.app.hlgg.util.LogUtils;
 import com.simpotech.app.hlgg.util.UiUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -26,8 +21,6 @@ import butterknife.OnClick;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
-import in.srain.cube.views.ptr.PtrUIHandler;
-import in.srain.cube.views.ptr.indicator.PtrIndicator;
 
 public class ProlineNetActivity extends BaseActivity {
 
@@ -65,6 +58,7 @@ public class ProlineNetActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                overridePendingTransition(R.anim.activity_back_enter, R.anim.activity_back_exit);
             }
         });
         getRightLly().setOnClickListener(new View.OnClickListener() {

@@ -5,6 +5,11 @@
     <string name="button_middle">middle</string>
     <string name="button_right">right</string>
 
+    <string-array name="qualitys">
+        <item>合格</item>
+        <item>不合格</item>
+    </string-array>
+
     <!--登录界面控件信息-->
     <string name="username">账号</string>
     <string name="password">密码</string>

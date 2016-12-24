@@ -187,6 +187,7 @@ public final class CaptureActivity extends Activity implements
             @Override
             public void onClick(View v) {
                 finish();    // 销毁当前Activity
+                overridePendingTransition(R.anim.activity_back_enter, R.anim.activity_back_exit);
             }
         });
 

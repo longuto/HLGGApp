@@ -4,9 +4,12 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.Snackbar;
+import android.util.DisplayMetrics;
 import android.view.View;
-import android.widget.Toast;
 
+import com.github.johnpersano.supertoasts.library.Style;
+import com.github.johnpersano.supertoasts.library.SuperToast;
+import com.simpotech.app.hlgg.R;
 import com.simpotech.app.hlgg.global.MyApplication;
 
 /**
@@ -24,11 +27,16 @@ public class UiUtils {
         return MyApplication.getContext();
     }
 
-    private static Toast toast; //解决重复吐司造成的混乱
+    private static SuperToast toast; //解决重复吐司造成的混乱
     /**Toast简化写法*/
     public static void showToast(String content) {
         if(toast == null) {
-            toast = Toast.makeText(getContext(), content, Toast.LENGTH_SHORT);
+            toast = new SuperToast(getContext())
+                    .setText(content)
+                    .setDuration(Style.DURATION_SHORT)
+                    .setFrame(Style.FRAME_STANDARD)
+                    .setColor(getColor(R.color.item_error_msg))
+                    .setAnimations(Style.ANIMATIONS_FLY);
         }
         toast.setText(content);
         toast.show();
@@ -97,6 +105,24 @@ public class UiUtils {
     public static float px2dip(float px) {
         float density = getContext().getResources().getDisplayMetrics().density;
         return px / density;
+    }
+
+    /**
+     * 获取屏幕的宽度
+     * @return
+     */
+    public static int getScreenWidth() {
+        DisplayMetrics dm = getContext().getResources().getDisplayMetrics();
+        return dm.widthPixels;
+    }
+
+    /**
+     * 获取屏幕的高度
+     * @return
+     */
+    public static int getScreenHeight() {
+        DisplayMetrics dm = getContext().getResources().getDisplayMetrics();
+        return dm.heightPixels;
     }
 
     private UiUtils() {}    //私有构造方法

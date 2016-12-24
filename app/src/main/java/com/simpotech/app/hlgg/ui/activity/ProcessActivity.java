@@ -34,6 +34,7 @@ public class ProcessActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                overridePendingTransition(R.anim.activity_back_enter, R.anim.activity_back_exit);
             }
         });
         showMiddleTv("流程设置");

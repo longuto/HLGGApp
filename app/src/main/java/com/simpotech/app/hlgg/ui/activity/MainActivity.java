@@ -26,7 +26,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @BindView(R.id.tv_permission_info)
     TextView mPermissionInfoTv; //用户信息
-
     @BindView(R.id.btn_stockin)
     Button mStockInBtn; //入库
     @BindView(R.id.btn_stockout)
@@ -77,10 +76,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 startActivity(intentStockoutQuery);
                 break;
             case R.id.btn_quality:  //质检
-
+                Intent intentQuality = new Intent(context, QualityActivity.class);
+                startActivity(intentQuality);
                 break;
             case R.id.btn_quality_query:    //质检查询
-
+                Intent intentQualityQuery = new Intent(context, QualityQueryActivity.class);
+                startActivity(intentQualityQuery);
                 break;
             case R.id.btn_Invoice:  //下载发货单
                 Intent intentInvoice = new Intent(context, InvoiceActivity.class);
@@ -105,6 +106,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             default:
                 break;
         }
+        overridePendingTransition(R.anim.activity_enter, R.anim.activity_exit);
     }
 
     @Override
@@ -121,6 +123,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             public void onClick(View v) {
                 Intent intent = new Intent(context, LoginActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.activity_top, R.anim.activity_top_exit);
                 finish();
             }
         });

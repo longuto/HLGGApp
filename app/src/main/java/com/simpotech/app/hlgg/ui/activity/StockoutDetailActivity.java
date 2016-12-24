@@ -82,7 +82,7 @@ public class StockoutDetailActivity extends BaseActivity {
             if (info.isChecked) {
                 int rows = db.delInvoiceConById(info.id);
                 if (rows < 1) {
-                    UiUtils.showToast("条形码为" + info.barcode + "的构件删除失败");
+                    UiUtils.showToast("构件号为" + info.code + "的构件删除失败");
                 }
             }
         }
@@ -105,6 +105,7 @@ public class StockoutDetailActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                overridePendingTransition(R.anim.activity_back_enter, R.anim.activity_back_exit);
             }
         });
         getMiddleLly().setOnClickListener(new View.OnClickListener() {
@@ -112,6 +113,7 @@ public class StockoutDetailActivity extends BaseActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(context, CaptureActivity.class);
                 startActivityForResult(intent, 6);
+                overridePendingTransition(R.anim.activity_top, R.anim.activity_top_exit);
             }
         });
         getRightLly().setOnClickListener(new View.OnClickListener() {
@@ -221,11 +223,12 @@ public class StockoutDetailActivity extends BaseActivity {
         nameTv.setText(info.name);
         codeTv.setText(info.code);
         specTv.setText(info.spec);
-        qtyTv.setText(info.qty);
         if (!isEditContruction) {
-            stockoutEdt.setText(info.qty);
+            stockoutEdt.setText("1");
+            qtyTv.setText("1/" + info.qty);
         } else {
             stockoutEdt.setText(info.stock_qty);
+            qtyTv.setText(info.stock_qty + "/" + info.qty);
         }
 
         //扫描的构件信息是否是本清单的构件

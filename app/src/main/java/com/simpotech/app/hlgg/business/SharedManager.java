@@ -12,11 +12,32 @@ import com.simpotech.app.hlgg.util.UiUtils;
 
 public class SharedManager {
 
-    public static final String PROCESS_CONFIG_NAME = "process_config_name"; //流程模块的配置文件名称
+    private final String CONFIG_NAME = "normal_config"; //默认配置文件的名称
     public static final String USERNAME = "username";   //登录的用户名
     public static final String USERID = "userId"; //用户的id
     public static final String PROLINE_POSITION = "proline_position";    //默认选择的生产线位置
-    private final String CONFIG_NAME = "normal_config"; //默认配置文件的名称
+
+    public static final String PROCESS_CONFIG_NAME = "process_config_name"; //流程模块的配置文件名称
+
+    public static final String QUALITY_CONFIG_NAME = "quality_config_name"; //质检模块的配置文件名称
+    public static final String FACADE_RESULT = "facadeResult";  //外观检测结果
+    public static final String FACADE_REMARK = "facadeRemark";  //外观检测结果
+    public static final String FACADE_PIC1 = "facadePic1";  //外观图片1
+    public static final String FACADE_PIC2 = "facadePic2";  //外观图片2
+    public static final String FACADE_PIC3 = "facadePic3";  //外观图片3
+    public static final String FACADE_PIC4 = "facadePic4";  //外观图片4
+    public static final String SIZE_RESULT = "sizeResult";  //尺寸检测结果
+    public static final String SIZE_REMARK = "sizeRemark";  //尺寸检测结果
+    public static final String SIZE_PIC1 = "sizePic1";  //尺寸图片1
+    public static final String SIZE_PIC2 = "sizePic2";  //尺寸图片2
+    public static final String SIZE_PIC3 = "sizePic3";  //尺寸图片3
+    public static final String SIZE_PIC4 = "sizePic4";  //尺寸图片4
+    public static final String WELD_RESULT = "weldResult";  //焊接检测结果
+    public static final String WELD_REMARK = "weldRemark";  //焊接检测结果
+    public static final String WELD_PIC1 = "weldPic1";  //焊接图片1
+    public static final String WELD_PIC2 = "weldPic2";  //焊接图片2
+    public static final String WELD_PIC3 = "weldPic3";  //焊接图片3
+    public static final String WELD_PIC4 = "weldPic4";  //焊接图片4
 
 
     SharedPreferences sp;

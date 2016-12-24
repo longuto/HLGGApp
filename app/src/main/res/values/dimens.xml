@@ -7,8 +7,11 @@
     <dimen name="item_horizontal_margin">10dp</dimen>
     <dimen name="item_vertical_margin">2dp</dimen>
 
+    <!--质检的vertical的margin-->
+    <dimen name="quality_vertical_margin">4dp</dimen>
+
     <!--条形码获取构件信息的高度-->
-    <dimen name="contruction_height">250dp</dimen>
+    <dimen name="contruction_height">200dp</dimen>
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="text_margin">16dp</dimen>

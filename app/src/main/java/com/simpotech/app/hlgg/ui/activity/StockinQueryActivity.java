@@ -1,11 +1,9 @@
 package com.simpotech.app.hlgg.ui.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
@@ -17,12 +15,10 @@ import com.simpotech.app.hlgg.ui.adapter.LocalStockinAdapter;
 import com.simpotech.app.hlgg.ui.adapter.interfaces.OnRecyclerViewItemClickListener;
 import com.simpotech.app.hlgg.ui.adapter.interfaces.OnRecyclerViewItemLongClickListener;
 import com.simpotech.app.hlgg.util.GsonUtils;
-import com.simpotech.app.hlgg.util.UiUtils;
 
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
@@ -62,6 +58,7 @@ public class StockinQueryActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                overridePendingTransition(R.anim.activity_back_enter, R.anim.activity_back_exit);
             }
         });
         getRightLly().setOnClickListener(new View.OnClickListener() {
@@ -106,6 +103,7 @@ public class StockinQueryActivity extends BaseActivity {
                         Intent intent = new Intent(context, StockinQueryDetailActivity.class);
                         intent.putExtra("ITEMDATA", GsonUtils.toJson(itemData));
                         startActivity(intent);
+                        overridePendingTransition(R.anim.activity_enter, R.anim.activity_exit);
                     }
                 });
                 mAdapter.setOnItemLongClickListener(new OnRecyclerViewItemLongClickListener() {

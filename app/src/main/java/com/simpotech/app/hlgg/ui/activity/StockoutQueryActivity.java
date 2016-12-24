@@ -10,13 +10,11 @@ import android.widget.EditText;
 import com.simpotech.app.hlgg.R;
 import com.simpotech.app.hlgg.db.dao.StockoutContruDb;
 import com.simpotech.app.hlgg.db.dao.StockoutDb;
-import com.simpotech.app.hlgg.entity.StockoutConInfo;
 import com.simpotech.app.hlgg.entity.net.NetStockoutInfo;
 import com.simpotech.app.hlgg.ui.adapter.LocalStockoutAdapter;
 import com.simpotech.app.hlgg.ui.adapter.interfaces.OnRecyclerViewItemClickListener;
 import com.simpotech.app.hlgg.ui.adapter.interfaces.OnRecyclerViewItemLongClickListener;
 import com.simpotech.app.hlgg.util.GsonUtils;
-import com.simpotech.app.hlgg.util.UiUtils;
 
 import java.util.List;
 
@@ -61,6 +59,7 @@ public class StockoutQueryActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                overridePendingTransition(R.anim.activity_back_enter, R.anim.activity_back_exit);
             }
         });
         //删除选中项
@@ -106,6 +105,7 @@ public class StockoutQueryActivity extends BaseActivity {
                         Intent intent = new Intent(context, StockoutQueryDetailActivity.class);
                         intent.putExtra("ITEMDATA", json);
                         startActivity(intent);
+                        overridePendingTransition(R.anim.activity_enter, R.anim.activity_exit);
                     }
                 });
                 mAdapter.setOnItemLongClickListener(new OnRecyclerViewItemLongClickListener() {

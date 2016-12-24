@@ -54,28 +54,28 @@
         </activity>
         <activity
             android:name=".ui.activity.InvoiceActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ui.activity.InvoiceManagerActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ui.activity.InvoiceContructionDetailActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ui.activity.StockoutActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ui.activity.StockoutDetailActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".scanner.CaptureActivity"
             android:screenOrientation="portrait"/>
@@ -94,12 +94,26 @@
         </activity>
         <activity
             android:name=".ui.activity.StockinQueryActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ui.activity.StockinQueryDetailActivity"
             android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".ui.activity.QualityActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".ui.activity.QualityQueryActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".ui.activity.QualityQueryDetailActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".ui.activity.PhotoActivity">
         </activity>
     </application>
 

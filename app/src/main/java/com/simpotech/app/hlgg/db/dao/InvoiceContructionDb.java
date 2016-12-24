@@ -25,7 +25,7 @@ public class InvoiceContructionDb {
     public static final String SPEC = "c_spec";  //规格
     public static final String QTY = "c_qty";  //发货件数
     public static final String TONNAGE = "c_tonnage";  //发货重量
-    public static final String BARCODE = "c_barCode";  //条码
+    public static final String CONSTRUCTQTY = "c_constructQty";  //构件件数
 
     public InvoiceContructionDbHelp dbHelp;
 
@@ -43,7 +43,7 @@ public class InvoiceContructionDb {
         SQLiteDatabase db = dbHelp.getReadableDatabase();
         Cursor cursor = db.query(TABLE_NAME, new String[]{ID, INVOICE_CODE, CONTRUCTION_CODE,
                 SPEC, QTY, TONNAGE,
-                BARCODE}, INVOICE_CODE + "=?", new String[]{code}, null, null, null);
+                CONSTRUCTQTY}, INVOICE_CODE + "=?", new String[]{code}, null, null, null);
         return cursor;
     }
 
@@ -64,7 +64,7 @@ public class InvoiceContructionDb {
             temp.spec = cursor.getString(cursor.getColumnIndex(SPEC));
             temp.qty = cursor.getString(cursor.getColumnIndex(QTY));
             temp.tonnage = cursor.getString(cursor.getColumnIndex(TONNAGE));
-            temp.barCode = cursor.getString(cursor.getColumnIndex(BARCODE));
+            temp.constructQty = cursor.getString(cursor.getColumnIndex(CONSTRUCTQTY));
             invoiceContructions.add(temp);
         }
         cursor.close();
@@ -85,7 +85,7 @@ public class InvoiceContructionDb {
         values.put(SPEC, bean.spec);
         values.put(QTY, bean.qty);
         values.put(TONNAGE, bean.tonnage);
-        values.put(BARCODE, bean.barCode);
+        values.put(CONSTRUCTQTY, bean.constructQty);
         long rowNo = db.insert(TABLE_NAME, null, values);
         db.close();
         if (rowNo > 0) {

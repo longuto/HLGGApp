@@ -74,7 +74,7 @@ public class StockinActivity extends BaseActivity {
                     if (info.isChecked) {
                         int rows = db.delStockinConById(info.id);
                         if (rows < 1) {
-                            UiUtils.showToast("条形码为" + info.barcode + "的构件删除失败");
+                            UiUtils.showToast("构件号为" + info.code + "的构件删除失败");
                         }
                     }
                 }
@@ -105,6 +105,7 @@ public class StockinActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                overridePendingTransition(R.anim.activity_back_enter, R.anim.activity_back_exit);
             }
         });
         getMiddleLly().setOnClickListener(new View.OnClickListener() {
@@ -112,6 +113,7 @@ public class StockinActivity extends BaseActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(context, CaptureActivity.class);
                 startActivityForResult(intent, 6);
+                overridePendingTransition(R.anim.activity_top, R.anim.activity_top_exit);
             }
         });
         getRightLly().setOnClickListener(new View.OnClickListener() {
@@ -216,11 +218,12 @@ public class StockinActivity extends BaseActivity {
         nameTv.setText(info.name);
         codeTv.setText(info.code);
         specTv.setText(info.spec);
-        qtyTv.setText(info.qty);
         if (!isEditContruction) {
             stockinEdt.setText(info.qty);
+            qtyTv.setText(info.qty + "/" + info.qty);
         } else {
             stockinEdt.setText(info.stock_qty);
+            qtyTv.setText(info.stock_qty + "/" + info.qty);
         }
 
         final List<DbProLineInfo> proLines = new ProLineDb().getAllProLines();

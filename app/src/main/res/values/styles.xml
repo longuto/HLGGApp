@@ -51,6 +51,16 @@
         <item name="android:textColor">@color/item_text_parent</item>
     </style>
 
+    <!--条形码获取构件信息的TextView风格-->
+    <style name="quality_textView">
+        <item name="android:singleLine">true</item>
+
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/item_text_parent</item>
+    </style>
+
     <style name="RedTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
         <!-- 状态栏颜色，会被statusBarColor效果覆盖-->

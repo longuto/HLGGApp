@@ -14,7 +14,7 @@ public class Constant {
     //    public static final String HOST = "http://10.110.1.232:8080/ ";
 
     //王波测试地址
-    //    public static final String HOST = "http://10.110.1.16:8080";
+//    public static final String HOST = "http://10.110.1.16:8080";
 
     //登录系统,并返回权限
     public static final String LOGIN = "/ec/app/dologin.html";  //在LoginActivity中
@@ -40,4 +40,9 @@ public class Constant {
     //入库单地址
     public static final String STOCKIN = "/ec/app/stockinSave.html";
 
+    //上传质检图片
+    public static final String QUALITYUPLOAD = "/ec/app/uploadFile.ajax";   //在NetQualityParse
+
+    //质检写入
+    public static final String QUALITYSAVE = "/ec/app/qualitySave.html"; //在NetQualityParse
 }

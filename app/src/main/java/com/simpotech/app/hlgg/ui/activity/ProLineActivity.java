@@ -54,6 +54,7 @@ public class ProLineActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                overridePendingTransition(R.anim.activity_back_enter, R.anim.activity_back_exit);
             }
         });
         //添加服务器中的生产线
@@ -62,6 +63,7 @@ public class ProLineActivity extends BaseActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(context, ProlineNetActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.activity_enter, R.anim.activity_exit);
             }
         });
         //删除点击事件

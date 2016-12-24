@@ -94,6 +94,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Intent intent = new Intent(context, MainActivity.class);
                                 intent.putExtra("RESULT", result);
                                 startActivity(intent);
+                                overridePendingTransition(R.anim.activity_top, R.anim.activity_top_exit);
                                 //销毁此Activity
                                 finish();
                             } else {

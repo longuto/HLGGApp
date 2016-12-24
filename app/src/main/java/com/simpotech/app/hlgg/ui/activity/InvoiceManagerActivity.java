@@ -1,12 +1,9 @@
 package com.simpotech.app.hlgg.ui.activity;
 
-import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
@@ -29,8 +26,6 @@ import butterknife.OnClick;
 import in.srain.cube.views.ptr.PtrClassicFrameLayout;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
-
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
 
 public class InvoiceManagerActivity extends BaseActivity {
 
@@ -107,19 +102,22 @@ public class InvoiceManagerActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                overridePendingTransition(R.anim.activity_back_enter, R.anim.activity_back_exit);
            }
         });
         getRightLly().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                StringBuffer sb = new StringBuffer();
-                for (NetInvoiceInfo info : mAdapter.data) {
-                    sb.append(info.code);
-                    sb.append(",");
+                if(mAdapter.data.size() > 0) {
+                    StringBuffer sb = new StringBuffer();
+                    for (NetInvoiceInfo info : mAdapter.data) {
+                        sb.append(info.code);
+                        sb.append(",");
+                    }
+                    String codeStr = sb.toString();
+                    codeStr.substring(0, codeStr.length() - 1);
+                    NetInvoiceParse.delStockOutInvoiceCode(codeStr, mAdapter);
                 }
-                String codeStr = sb.toString();
-                codeStr.substring(0, codeStr.length() - 1);
-                NetInvoiceParse.delStockOutInvoiceCode(codeStr, mAdapter);
             }
         });
     }
@@ -150,6 +148,7 @@ public class InvoiceManagerActivity extends BaseActivity {
                         Intent intent = new Intent(context, InvoiceContructionDetailActivity.class);
                         intent.putExtra("ITEMDATA", json);
                         startActivity(intent);
+                        overridePendingTransition(R.anim.activity_enter, R.anim.activity_exit);
                     }
                 });
                 mAdapter.setOnItemLongClickListener(new OnRecyclerViewItemLongClickListener() {

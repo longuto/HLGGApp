@@ -1,6 +1,5 @@
 package com.simpotech.app.hlgg.ui.activity;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,7 +18,6 @@ import butterknife.ButterKnife;
 /**
  * Created by longuto on 2016/10/26.
  */
-
 public abstract class BaseActivity extends AppCompatActivity {
     //左部控件
     @BindView(R.id.lly_left)
@@ -70,12 +68,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**初始化标题视图*/
     protected abstract void initTitle();
 
-
     /**显示左边ImageView*/
     public void showLeftIv(int imageRes) {
         mLeftIv.setImageResource(imageRes);
         mLeftIv.setVisibility(View.VISIBLE);
     }
+
     /**显示左边TextView*/
     public void showLeftTv(String content) {
         mLeftTv.setText(content);
@@ -87,6 +85,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         mMiddleIv.setImageResource(imageRes);
         mMiddleIv.setVisibility(View.VISIBLE);
     }
+
     /**显示中间的TextView*/
     public void showMiddleTv(String content) {
         mMiddleTv.setText(content);
@@ -98,6 +97,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         mRightIv.setImageResource(imageRes);
         mRightIv.setVisibility(View.VISIBLE);
     }
+
     /**显示右边的TextView*/
     public void showRightTv(String content) {
         mRightTv.setText(content);

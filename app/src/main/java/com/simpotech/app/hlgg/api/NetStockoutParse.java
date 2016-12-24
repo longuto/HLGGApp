@@ -92,28 +92,23 @@ public class NetStockoutParse {
                             NetStockoutInfo info = tempS.result;   //出库单数据
                             StockoutDb db = new StockoutDb();
                             StockoutContruDb dbCon = new StockoutContruDb();
-                            if (!db.isExitInvoice(info.invoice_code)) {
-                                if (db.addStockout(info)) {
-                                    for (NetStockoutInfo.DetailsBean bean : info.stockoutDetail) {
-                                        UiUtils.showToast("出库单下载至本地成功!");
-                                        if (!dbCon.addStockoutContruction(bean)) {
-                                            UiUtils.showToast(bean.contruction_code + "的构件添加失败");
-                                        }
+                            if (db.addStockout(info)) {
+                                for (NetStockoutInfo.DetailsBean bean : info.stockoutDetail) {
+                                    UiUtils.showToast("出库单提交成功");
+                                    if (!dbCon.addStockoutContruction(bean)) {
+                                        UiUtils.showToast(bean.contruction_code + "的构件添加失败");
                                     }
-                                } else {
-                                    UiUtils.showToast("出库单保存至本地失败,请不要重复下载相同的出库单");
                                 }
-
-                                //取消错误消息的显示
-                                for (StockoutConInfo bean : adapter.data) {
-                                    bean.isError = 0;
-                                    bean.message = "";
-                                }
-                                adapter.notifyDataSetChanged();
-
                             } else {
-                                UiUtils.showToast("本地已存在同名的发货单号");
+                                UiUtils.showToast("出库单提交失败,系统不该返回重复出库单");
                             }
+
+                            //取消错误消息的显示
+                            for (StockoutConInfo bean : adapter.data) {
+                                bean.isError = 0;
+                                bean.message = "";
+                            }
+                            adapter.notifyDataSetChanged();
                         } else {
                             BaseJsonInfo<List<NetStockoutErrInfo>> tempE =
                                     (BaseJsonInfo<List<NetStockoutErrInfo>>) GsonUtils.fromJson

@@ -31,7 +31,7 @@ public class InvoiceContructionDbHelp extends SQLiteOpenHelper {
                 InvoiceContructionDb.INVOICE_CODE + " TEXT NOT NULL, " +
                 InvoiceContructionDb.CONTRUCTION_CODE + " TEXT, " + InvoiceContructionDb
                 .SPEC + " TEXT, " + InvoiceContructionDb.QTY + " TEXT, " +
-                InvoiceContructionDb.TONNAGE + " TEXT, " + InvoiceContructionDb.BARCODE
+                InvoiceContructionDb.TONNAGE + " TEXT, " + InvoiceContructionDb.CONSTRUCTQTY
                 + " TEXT, FOREIGN KEY(" + InvoiceContructionDb.INVOICE_CODE + ") " +
                 "REFERENCES " + InvoiceDb.TABLE_NAME + "(" + InvoiceDb.CODE + "))";
         db.execSQL(sql);

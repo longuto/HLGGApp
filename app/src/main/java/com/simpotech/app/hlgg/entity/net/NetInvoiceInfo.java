@@ -43,8 +43,7 @@ public class NetInvoiceInfo {
      * spec : 规格
      * qty : 发货件数
      * tonnage : 发货重量
-     * barCode : 条码
-     * 实现序列化,用于意图传递
+     * constructQty : 构件件数
      */
     public static class DetailsBean implements Serializable {
         public String invoice_code;
@@ -52,6 +51,6 @@ public class NetInvoiceInfo {
         public String spec;
         public String qty;
         public String tonnage;
-        public String barCode;
+        public String constructQty;
     }
 }

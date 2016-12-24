@@ -47,8 +47,6 @@ public class LocalInvoiceDetailAdapter extends RecyclerView.Adapter<LocalInvoice
     }
 
     class LocalInvoiceDetailHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.tv_barCode)
-        TextView barCodeTv;
         @BindView(R.id.tv_qty)
         TextView qtyTv;
         @BindView(R.id.tv_contruction_code)
@@ -63,8 +61,7 @@ public class LocalInvoiceDetailAdapter extends RecyclerView.Adapter<LocalInvoice
 
         public void setData(int position) {
             NetInvoiceInfo.DetailsBean bean = data.get(position);
-            barCodeTv.setText(/*"条码 :" + */bean.barCode);
-            qtyTv.setText(/*"数量 :" + */bean.qty);
+            qtyTv.setText(/*"数量 :" + */bean.qty + "/" + bean.constructQty);
             contructionCodeTv.setText(/*"构件编号 :" + */bean.contruction_code);
             specTv.setText(/*"规格 :" + */bean.spec);
         }

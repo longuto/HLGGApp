@@ -3,7 +3,6 @@ package com.simpotech.app.hlgg.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Handler;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
@@ -19,8 +18,6 @@ import com.simpotech.app.hlgg.util.UiUtils;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-
-import static android.R.id.edit;
 
 public class StockoutActivity extends BaseActivity {
 
@@ -66,6 +63,7 @@ public class StockoutActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 finish();
+                overridePendingTransition(R.anim.activity_back_enter, R.anim.activity_back_exit);
             }
         });
         //下一步
@@ -79,6 +77,7 @@ public class StockoutActivity extends BaseActivity {
                     Intent intent = new Intent(context, StockoutDetailActivity.class);
                     intent.putExtra("CODE", code);
                     startActivity(intent);
+                    overridePendingTransition(R.anim.activity_enter, R.anim.activity_exit);
                 } else {
                     UiUtils.showToast("本地没有此发货单,请先下载发货单");
                 }
