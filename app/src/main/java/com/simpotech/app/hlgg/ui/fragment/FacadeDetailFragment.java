@@ -62,24 +62,24 @@ public class FacadeDetailFragment extends QualityDetailFragment {
 
     public void refreshFragment(List<NetQualityInfo.DetailBean> beans) {
         for (NetQualityInfo.DetailBean bean : beans) {
-            data = bean;
             if ("1".equals(bean.itemsFlag)) {
+                data = bean;
                 if ("1".equals(bean.testResult)) {
                     resultTv.setText("合格");
                 } else {
                     resultTv.setText("不合格");
                 }
                 explainTv.setText(bean.remark);
-            }
 
-            ImageLoader.getInstance().displayImage(Constant.HOST + bean.pic1, pic01Iv,
-                    DisplayImageOptionManager.getQualityOption());
-            ImageLoader.getInstance().displayImage(Constant.HOST + bean.pic2, pic02Iv,
-                    DisplayImageOptionManager.getQualityOption());
-            ImageLoader.getInstance().displayImage(Constant.HOST + bean.pic3, pic03Iv,
-                    DisplayImageOptionManager.getQualityOption());
-            ImageLoader.getInstance().displayImage(Constant.HOST + bean.pic4, pic04Iv,
-                    DisplayImageOptionManager.getQualityOption());
+                ImageLoader.getInstance().displayImage(Constant.HOST + bean.pic1, pic01Iv,
+                        DisplayImageOptionManager.getQualityOption());
+                ImageLoader.getInstance().displayImage(Constant.HOST + bean.pic2, pic02Iv,
+                        DisplayImageOptionManager.getQualityOption());
+                ImageLoader.getInstance().displayImage(Constant.HOST + bean.pic3, pic03Iv,
+                        DisplayImageOptionManager.getQualityOption());
+                ImageLoader.getInstance().displayImage(Constant.HOST + bean.pic4, pic04Iv,
+                        DisplayImageOptionManager.getQualityOption());
+            }
         }
     }
 }

@@ -32,9 +32,10 @@ public class StockoutContruDbHelp extends SQLiteOpenHelper {
                 "NOT NULL, " + StockoutContruDb.CONTRUCTION_CODE + " TEXT, " + StockoutContruDb
                 .MATERIALNAME + " TEXT, " + StockoutContruDb.LENGTH + " TEXT, " + StockoutContruDb.SINGLE
                 + " TEXT, " + StockoutContruDb.QTY + " TEXT, " + StockoutContruDb.TONNAGE + " TEXT, " +
-                StockoutContruDb.INVOICE_QTY + " TEXT, " + StockoutContruDb.INVOICE_TONNAGE + " TEXT, " +
-                StockoutContruDb.BARCODE + " TEXT, FOREIGN KEY(" + StockoutContruDb.STOCKOUT_CODE +
-                ") " + "REFERENCES " + StockoutDb.TABLE_NAME + "(" + StockoutDb.CODE + "))";
+                StockoutContruDb.INVOICE_QTY + " TEXT, " + StockoutContruDb.INVOICE_TONNAGE +
+                " TEXT, " + StockoutContruDb.SPEC + " TEXT, " + StockoutContruDb.BARCODE + " TEXT," +
+                " FOREIGN KEY(" + StockoutContruDb.STOCKOUT_CODE + ") " + "REFERENCES " +
+                StockoutDb.TABLE_NAME + "(" + StockoutDb.CODE + "))";
         db.execSQL(sql);
     }
 

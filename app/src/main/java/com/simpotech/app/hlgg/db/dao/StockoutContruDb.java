@@ -31,6 +31,7 @@ public class StockoutContruDb {
     public static final String INVOICE_QTY = "sc_invoice_qty";  //发货件数
     public static final String INVOICE_TONNAGE = "sc_invoice_tonnage";  //发货重量
     public static final String BARCODE = "sc_barCode";  //条码
+    public static final String SPEC = "sc_spec";   //规格
 
     public StockoutContruDbHelp dbHelp;
 
@@ -48,7 +49,7 @@ public class StockoutContruDb {
         SQLiteDatabase db = dbHelp.getReadableDatabase();
         Cursor cursor = db.query(TABLE_NAME, new String[]{ID, STOCKOUT_CODE, CONTRUCTION_CODE,
                 MATERIALNAME, LENGTH, SINGLE, QTY, TONNAGE, INVOICE_QTY, INVOICE_TONNAGE,
-                BARCODE}, STOCKOUT_CODE + "=?", new String[]{code}, null, null, null);
+                BARCODE, SPEC}, STOCKOUT_CODE + "=?", new String[]{code}, null, null, null);
         return cursor;
     }
 
@@ -74,6 +75,7 @@ public class StockoutContruDb {
             temp.invoice_qty = cursor.getString(cursor.getColumnIndex(INVOICE_QTY));
             temp.invoice_tonnage = cursor.getString(cursor.getColumnIndex(INVOICE_TONNAGE));
             temp.barCode = cursor.getString(cursor.getColumnIndex(BARCODE));
+            temp.spec = cursor.getString(cursor.getColumnIndex(SPEC));
 
             stockoutContructions.add(temp);
         }
@@ -100,6 +102,7 @@ public class StockoutContruDb {
         values.put(INVOICE_QTY, bean.invoice_qty);
         values.put(INVOICE_TONNAGE, bean.invoice_tonnage);
         values.put(BARCODE, bean.barCode);
+        values.put(SPEC, bean.spec);
         long rowNo = db.insert(TABLE_NAME, null, values);
         db.close();
         if (rowNo > 0) {

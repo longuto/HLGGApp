@@ -2,16 +2,17 @@ package com.simpotech.app.hlgg.ui.activity;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -45,18 +46,12 @@ public class QualityActivity extends BaseActivity {
     TextView nameTv;
     @BindView(R.id.tv_spec)
     TextView specTv;
-    @BindView(R.id.edt_qty)
-    EditText qtyEdt;
-    @BindView(R.id.tv_bar_code)
-    TextView barCodeTv;
     @BindView(R.id.vp_quality)
     ViewPager qualityVp;
     @BindView(R.id.tabs_quality)
     TabLayout qualityTabs;
     @BindView(R.id.card_control)
     CardView controlCard;
-    @BindView(R.id.pgb_net)
-    ProgressBar progressBar;    //进度条
 
     @OnClick(R.id.btn_empty)
     public void clearData(View v) {
@@ -143,13 +138,6 @@ public class QualityActivity extends BaseActivity {
                     UiUtils.showToast("请扫描获取构件信息");
                     return;
                 }
-                if(TextUtils.isEmpty(qtyEdt.getText().toString().trim())) {
-                    UiUtils.showToast("质检数量不应为空");
-                }
-                if (Integer.valueOf(qtyEdt.getText().toString().trim()) > mStockConQty) {
-                    UiUtils.showToast("质检数量不应大于清单数量");
-                    return;
-                }
                 if (TextUtils.isEmpty(mQuaSp.getStringFromXml(SharedManager.FACADE_REMARK)) ||
                         TextUtils.isEmpty(mQuaSp.getStringFromXml(SharedManager.SIZE_REMARK)) ||
                         TextUtils.isEmpty(mQuaSp.getStringFromXml(SharedManager.WELD_REMARK))) {
@@ -157,58 +145,74 @@ public class QualityActivity extends BaseActivity {
                     return;
                 }
 
-                SubQualityInfo info = new SubQualityInfo();
-                info.userId = spManager.getStringFromXml(SharedManager.USERID);
-                info.cml_code = mStockConInfo.cml_code;
-                info.contruction_code = mStockConInfo.code;
-                info.barCode = mStockConInfo.barcode;
-                info.spec = mStockConInfo.spec;
-                info.qty = qtyEdt.getText().toString().trim();
+                new AlertDialog.Builder(context)
+                        .setTitle("提示")
+                        .setMessage("是否确定提交")
+                        .setPositiveButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
-                info.detail = new ArrayList<SubQualityInfo.DetailBean>();
-                SubQualityInfo.DetailBean facade = new SubQualityInfo.DetailBean();
-                facade.itemsFlag = "1";
-                switch (mQuaSp.getStringFromXml(SharedManager.FACADE_RESULT, "")) {
-                    case "不合格":
-                        facade.testResult = "2";
-                        break;
-                    case "合格":
-                    default:
-                        facade.testResult = "1";
-                        break;
-                }
-                facade.remark = mQuaSp.getStringFromXml(SharedManager.FACADE_REMARK);
-                info.detail.add(facade);
+                            }
+                        })
+                        .setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                SubQualityInfo info = new SubQualityInfo();
+                                info.userId = spManager.getStringFromXml(SharedManager.USERID);
+                                info.cml_code = mStockConInfo.cml_code;
+                                info.contruction_code = mStockConInfo.code;
+                                info.barCode = mStockConInfo.barcode;
+                                info.spec = mStockConInfo.spec;
+                                info.qty = "1";
 
-                SubQualityInfo.DetailBean size = new SubQualityInfo.DetailBean();
-                size.itemsFlag = "2";
-                switch (mQuaSp.getStringFromXml(SharedManager.SIZE_RESULT, "")) {
-                    case "不合格":
-                        size.testResult = "2";
-                        break;
-                    case "合格":
-                    default:
-                        size.testResult = "1";
-                        break;
-                }
-                size.remark = mQuaSp.getStringFromXml(SharedManager.SIZE_REMARK);
-                info.detail.add(size);
+                                info.detail = new ArrayList<SubQualityInfo.DetailBean>();
+                                SubQualityInfo.DetailBean facade = new SubQualityInfo.DetailBean();
+                                facade.itemsFlag = "1";
+                                switch (mQuaSp.getStringFromXml(SharedManager.FACADE_RESULT, "")) {
+                                    case "不合格":
+                                        facade.testResult = "2";
+                                        break;
+                                    case "合格":
+                                    default:
+                                        facade.testResult = "1";
+                                        break;
+                                }
+                                facade.remark = mQuaSp.getStringFromXml(SharedManager.FACADE_REMARK);
+                                info.detail.add(facade);
 
-                SubQualityInfo.DetailBean weld = new SubQualityInfo.DetailBean();
-                weld.itemsFlag = "3";
-                switch (mQuaSp.getStringFromXml(SharedManager.WELD_RESULT, "")) {
-                    case "不合格":
-                        weld.testResult = "2";
-                        break;
-                    case "合格":
-                    default:
-                        weld.testResult = "1";
-                        break;
-                }
-                weld.remark = mQuaSp.getStringFromXml(SharedManager.WELD_REMARK);
-                info.detail.add(weld);
+                                SubQualityInfo.DetailBean size = new SubQualityInfo.DetailBean();
+                                size.itemsFlag = "2";
+                                switch (mQuaSp.getStringFromXml(SharedManager.SIZE_RESULT, "")) {
+                                    case "不合格":
+                                        size.testResult = "2";
+                                        break;
+                                    case "合格":
+                                    default:
+                                        size.testResult = "1";
+                                        break;
+                                }
+                                size.remark = mQuaSp.getStringFromXml(SharedManager.SIZE_REMARK);
+                                info.detail.add(size);
 
-                NetQualityParse.qualitySave(info);  //调用质检录入
+                                SubQualityInfo.DetailBean weld = new SubQualityInfo.DetailBean();
+                                weld.itemsFlag = "3";
+                                switch (mQuaSp.getStringFromXml(SharedManager.WELD_RESULT, "")) {
+                                    case "不合格":
+                                        weld.testResult = "2";
+                                        break;
+                                    case "合格":
+                                    default:
+                                        weld.testResult = "1";
+                                        break;
+                                }
+                                weld.remark = mQuaSp.getStringFromXml(SharedManager.WELD_REMARK);
+                                info.detail.add(weld);
+
+                                NetQualityParse.qualitySave(info);  //调用质检录入
+                            }
+                        })
+                        .create()
+                        .show();
             }
         });
     }
@@ -238,9 +242,7 @@ public class QualityActivity extends BaseActivity {
         codeTv.setText(info.code);
         cmlCodeTv.setText(info.cml_code);
         nameTv.setText(info.name);
-        qtyEdt.setText(info.qty);
         specTv.setText(info.spec);
-        barCodeTv.setText(info.barcode);
     }
 
     @Override

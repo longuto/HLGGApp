@@ -15,6 +15,7 @@ import butterknife.BindView;
 
 public class QualityQueryDetailActivity extends BaseActivity {
 
+    private static final String TAG = "QualityQueryDetailActivity";
     NetQualityInfo mItemData;   //详情页的数据
 
     @BindView(R.id.tv_code)

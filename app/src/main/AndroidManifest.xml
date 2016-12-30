@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
     <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <uses-feature android:name="android.hardware.camera"/>
     <uses-feature android:name="android.hardware.camera.autofocus"/>
@@ -22,17 +23,24 @@
         android:supportsRtl="true"
         android:theme="@style/RedTheme">
         <activity
-            android:name=".ui.activity.LoginActivity"
+            android:name=".ui.activity.WelcomeActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
+            android:name=".ui.activity.LoginActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
             android:name=".ui.activity.MainActivity"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".ui.activity.MainFragActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
@@ -113,8 +121,17 @@
             android:name=".ui.activity.QualityQueryDetailActivity"
             android:screenOrientation="portrait">
         </activity>
-        <activity android:name=".ui.activity.PhotoActivity">
+        <activity
+            android:name=".ui.activity.PhotoActivity"
+            android:screenOrientation="portrait">
         </activity>
+
+         <receiver android:name=".broadcast.AutoStartReceiver">
+             <intent-filter>
+                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                 <category android:name="android.intent.category.HOME"/>
+             </intent-filter>
+         </receiver>
     </application>
 
 </manifest>

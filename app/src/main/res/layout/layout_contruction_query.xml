@@ -14,7 +14,7 @@
     card_view:cardElevation="5dp">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/contruction_height"
+        android:layout_height="match_parent"
         android:background="@color/item_parent_background"
         android:orientation="vertical">
         <LinearLayout
@@ -24,12 +24,12 @@
             android:gravity="center"
             android:orientation="horizontal">
             <TextView
-                style="@style/contruction_textView"
+                style="@style/contruction_query_textView"
                 android:layout_weight="3"
                 android:text="质检单号 :"/>
             <TextView
                 android:id="@+id/tv_code"
-                style="@style/contruction_textView"
+                style="@style/contruction_query_textView"
                 android:layout_weight="7"
                 android:text=""/>
         </LinearLayout>
@@ -41,12 +41,12 @@
             android:gravity="center"
             android:orientation="horizontal">
             <TextView
-                style="@style/contruction_textView"
+                style="@style/contruction_query_textView"
                 android:layout_weight="3"
                 android:text="项目名称 :"/>
             <TextView
                 android:id="@+id/tv_projectName"
-                style="@style/contruction_textView"
+                style="@style/contruction_query_textView"
                 android:layout_weight="7"
                 android:text=""/>
         </LinearLayout>
@@ -58,12 +58,12 @@
             android:gravity="center"
             android:orientation="horizontal">
             <TextView
-                style="@style/contruction_textView"
+                style="@style/contruction_query_textView"
                 android:layout_weight="3"
                 android:text="加工厂 :"/>
             <TextView
                 android:id="@+id/tv_name"
-                style="@style/contruction_textView"
+                style="@style/contruction_query_textView"
                 android:layout_weight="7"
                 android:text=""/>
         </LinearLayout>
@@ -75,12 +75,12 @@
             android:gravity="center"
             android:orientation="horizontal">
             <TextView
-                style="@style/contruction_textView"
+                style="@style/contruction_query_textView"
                 android:layout_weight="3"
                 android:text="构件编号 :"/>
             <TextView
                 android:id="@+id/tv_control_code"
-                style="@style/contruction_textView"
+                style="@style/contruction_query_textView"
                 android:layout_weight="7"
                 android:text=""/>
         </LinearLayout>
@@ -92,12 +92,12 @@
             android:gravity="center"
             android:orientation="horizontal">
             <TextView
-                style="@style/contruction_textView"
+                style="@style/contruction_query_textView"
                 android:layout_weight="3"
                 android:text="规格 :"/>
             <TextView
                 android:id="@+id/tv_spec"
-                style="@style/contruction_textView"
+                style="@style/contruction_query_textView"
                 android:layout_weight="7"
                 android:text=""/>
         </LinearLayout>
@@ -109,12 +109,12 @@
             android:gravity="center"
             android:orientation="horizontal">
             <TextView
-                style="@style/contruction_textView"
+                style="@style/contruction_query_textView"
                 android:layout_weight="3"
                 android:text="数量 :"/>
             <TextView
                 android:id="@+id/tv_qty"
-                style="@style/contruction_textView"
+                style="@style/contruction_query_textView"
                 android:layout_weight="7"
                 android:text=""/>
         </LinearLayout>
@@ -126,12 +126,12 @@
             android:gravity="center"
             android:orientation="horizontal">
             <TextView
-                style="@style/contruction_textView"
+                style="@style/contruction_query_textView"
                 android:layout_weight="3"
                 android:text="质检人 :"/>
             <TextView
                 android:id="@+id/tv_username"
-                style="@style/contruction_textView"
+                style="@style/contruction_query_textView"
                 android:layout_weight="7"/>
         </LinearLayout>
 
@@ -142,12 +142,12 @@
             android:gravity="center"
             android:orientation="horizontal">
             <TextView
-                style="@style/contruction_textView"
+                style="@style/contruction_query_textView"
                 android:layout_weight="3"
                 android:text="质检时间 :"/>
             <TextView
                 android:id="@+id/tv_cjdate"
-                style="@style/contruction_textView"
+                style="@style/contruction_query_textView"
                 android:layout_weight="7"/>
         </LinearLayout>
     </LinearLayout>

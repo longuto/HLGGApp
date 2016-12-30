@@ -48,12 +48,10 @@ public class LocalStockQueryDetailAdapter extends RecyclerView
     }
 
     class LocalStockQueryDetailHolder extends RecyclerView.ViewHolder {
-//        @BindView(R.id.tv_barCode)
-//        TextView barCodeTv;
         @BindView(R.id.tv_contruction_code)
         TextView contructionCodeTv;
-        @BindView(R.id.tv_single)
-        TextView singleTv;
+        @BindView(R.id.tv_spec)
+        TextView specTv;
         @BindView(R.id.tv_materialName)
         TextView materialNameTv;
         @BindView(R.id.tv_length)
@@ -62,10 +60,6 @@ public class LocalStockQueryDetailAdapter extends RecyclerView
         TextView qtyTv;
         @BindView(R.id.tv_tonnage)
         TextView tonnageTv;
-        @BindView(R.id.tv_invoice_qty)
-        TextView invoiceQtyTv;
-        @BindView(R.id.tv_invoice_tonnage)
-        TextView invoiceTonnageTv;
 
         public LocalStockQueryDetailHolder(View itemView) {
             super(itemView);
@@ -74,15 +68,12 @@ public class LocalStockQueryDetailAdapter extends RecyclerView
 
         public void setData(int position) {
             NetStockoutInfo.DetailsBean bean = data.get(position);
-//            barCodeTv.setText("条码 :" + bean.barCode);
             contructionCodeTv.setText("构件编号 :" + bean.contruction_code);
-            singleTv.setText("单重 :" + bean.single);
             materialNameTv.setText("材质 :" + bean.materialName);
+            specTv.setText("规格 :" + bean.spec);
             lengthTv.setText("长度 :" + bean.length);
-            qtyTv.setText("出库数量 :" + bean.qty);
+            qtyTv.setText("出库数量 :" + bean.qty + "/" + bean.invoice_qty);
             tonnageTv.setText("出库重量 :" + bean.tonnage);
-            invoiceQtyTv.setText("发货数量 :" + bean.invoice_qty);
-            invoiceTonnageTv.setText("发货重量 :" + bean.invoice_tonnage);
         }
     }
 }

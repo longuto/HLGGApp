@@ -46,6 +46,7 @@ public class NetStockoutInfo {
      * invoice_qty : 发货件数
      * invoice_tonnage : 发货重量
      * barCode : 条码
+     * spec : 规格
      */
     public static class DetailsBean {
         public String stockout_code;
@@ -58,5 +59,6 @@ public class NetStockoutInfo {
         public String invoice_qty;
         public String invoice_tonnage;
         public String barCode;
+        public String spec;
     }
 }

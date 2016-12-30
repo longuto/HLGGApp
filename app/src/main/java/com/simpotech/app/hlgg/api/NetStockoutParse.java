@@ -1,5 +1,8 @@
 package com.simpotech.app.hlgg.api;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 
 import com.google.gson.reflect.TypeToken;
@@ -63,7 +66,7 @@ public class NetStockoutParse {
     //    }
 
 
-    public static void getDataFromNet(final NetInvoiceInfo netInvoiceInfo, final LocalInvoiceStockDetailAdapter adapter) {
+    public static void getDataFromNet(final NetInvoiceInfo netInvoiceInfo, final LocalInvoiceStockDetailAdapter adapter, final Context context) {
         //将传入的实体类转化成json
         String json = invoiceStockoutToJson(netInvoiceInfo);
         LogUtils.i(TAG, json);
@@ -91,24 +94,45 @@ public class NetStockoutParse {
                                             }.getType());
                             NetStockoutInfo info = tempS.result;   //出库单数据
                             StockoutDb db = new StockoutDb();
-                            StockoutContruDb dbCon = new StockoutContruDb();
+                            final StockoutContruDb dbCon = new StockoutContruDb();
                             if (db.addStockout(info)) {
+                                UiUtils.showToast("出库单提交成功");
                                 for (NetStockoutInfo.DetailsBean bean : info.stockoutDetail) {
-                                    UiUtils.showToast("出库单提交成功");
                                     if (!dbCon.addStockoutContruction(bean)) {
                                         UiUtils.showToast(bean.contruction_code + "的构件添加失败");
                                     }
                                 }
+
+                                new AlertDialog.Builder(context)
+                                        .setTitle("提示")
+                                        .setMessage("出库成功,是否清空本地数据库")
+                                        .setCancelable(false)
+                                        .setPositiveButton("取消", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                //取消错误消息的显示
+                                                for (StockoutConInfo bean : adapter.data) {
+                                                    bean.isError = 0;
+                                                    bean.message = "";
+                                                }
+                                                adapter.notifyDataSetChanged();
+                                            }
+                                        })
+                                        .setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                InvoiceConStockoutDb dbConS = new InvoiceConStockoutDb();
+                                                dbConS.delInvoiceConByInvoiceCode(netInvoiceInfo.code);
+                                                adapter.data = dbConS.getInvoiceConByInvoiceCode(netInvoiceInfo.code);
+                                                adapter.notifyDataSetChanged();
+                                            }
+                                        })
+                                        .create()
+                                        .show();
                             } else {
                                 UiUtils.showToast("出库单提交失败,系统不该返回重复出库单");
                             }
 
-                            //取消错误消息的显示
-                            for (StockoutConInfo bean : adapter.data) {
-                                bean.isError = 0;
-                                bean.message = "";
-                            }
-                            adapter.notifyDataSetChanged();
                         } else {
                             BaseJsonInfo<List<NetStockoutErrInfo>> tempE =
                                     (BaseJsonInfo<List<NetStockoutErrInfo>>) GsonUtils.fromJson

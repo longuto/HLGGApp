@@ -119,7 +119,26 @@ public class StockinActivity extends BaseActivity {
         getRightLly().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NetStockinparse.getDataFromNet(mAdapter, context);
+                if(mAdapter.data.size() <= 0) {
+                    UiUtils.showToast("提交内容不能为空");
+                    return;
+                }
+                new AlertDialog.Builder(context)
+                        .setTitle("提示")
+                        .setMessage("是否确定提交")
+                        .setCancelable(false)
+                        .setPositiveButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        }).setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                NetStockinparse.getDataFromNet(mAdapter, context);
+                            }
+                        }).create()
+                        .show();
             }
         });
     }

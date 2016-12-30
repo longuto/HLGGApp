@@ -39,7 +39,6 @@ public class NetStockinparse {
     //    public static final String URL_STOCKIN = "http://10.110.1.98:8080/stockinInfo.json";
     // 测试地址
 
-
     private static String TAG = "NetStockinparse";
 
     public static void getDataFromNet(final LocalStockinSubConAdapter mAdapter, final Context
@@ -92,15 +91,18 @@ public class NetStockinparse {
                                 new AlertDialog.Builder(context)
                                         .setTitle("提示")
                                         .setMessage("入库成功,是否清空本地数据库")
-                                        .setPositiveButton("取消", new DialogInterface
-                                                .OnClickListener() {
+                                        .setCancelable(false)
+                                        .setPositiveButton("取消", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
-                                                dialog.dismiss();
+                                                for (StockinConInfo bean : mAdapter.data) {
+                                                    bean.isError = 0;
+                                                    bean.message = "";
+                                                }
+                                                mAdapter.notifyDataSetChanged();
                                             }
                                         })
-                                        .setNegativeButton("确定", new DialogInterface
-                                                .OnClickListener() {
+                                        .setNegativeButton("确定", new DialogInterface.OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
                                                 StockinConSubDb dbCon = new StockinConSubDb();

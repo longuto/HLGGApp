@@ -1,30 +1,86 @@
-package com.simpotech.app.hlgg.ui.activity;
+package com.simpotech.app.hlgg.ui.fragment;
 
+import android.content.Context;
 import android.content.Intent;
-import android.text.TextUtils;
-import android.view.KeyEvent;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.simpotech.app.hlgg.R;
-import com.simpotech.app.hlgg.api.NetProcessParse;
 import com.simpotech.app.hlgg.business.PermissionManager;
 import com.simpotech.app.hlgg.business.SharedManager;
-import com.simpotech.app.hlgg.business.ShowDialogManager;
+import com.simpotech.app.hlgg.ui.activity.InvoiceActivity;
+import com.simpotech.app.hlgg.ui.activity.InvoiceManagerActivity;
+import com.simpotech.app.hlgg.ui.activity.ProLineActivity;
+import com.simpotech.app.hlgg.ui.activity.ProcessActivity;
+import com.simpotech.app.hlgg.ui.activity.QualityActivity;
+import com.simpotech.app.hlgg.ui.activity.QualityQueryActivity;
+import com.simpotech.app.hlgg.ui.activity.StockinActivity;
+import com.simpotech.app.hlgg.ui.activity.StockinQueryActivity;
+import com.simpotech.app.hlgg.ui.activity.StockoutActivity;
+import com.simpotech.app.hlgg.ui.activity.StockoutQueryActivity;
 import com.simpotech.app.hlgg.util.UiUtils;
 
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import in.srain.cube.views.ptr.PtrDefaultHandler;
 import in.srain.cube.views.ptr.PtrFrameLayout;
 import in.srain.cube.views.ptr.header.StoreHouseHeader;
 
-public class MainActivity extends BaseActivity implements View.OnClickListener {
 
+/**
+ * Created by longuto on 2016/12/28.
+ * <p>
+ * 主界面的Fragment
+ */
+
+public class MainFragment extends Fragment implements View.OnClickListener {
+
+    public static MainFragment getInstance(String result) {
+        MainFragment fragment = new MainFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("RESULT", result);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
+    private String TAG = "MainFragment";
     private Map<String, String[]> permissionMap;    //权限管理的Map
     private String[] permissions;   //当前用户的权限,默认为null
+    private String mResult;  //权限值
+    private SharedManager spManager;
+    private Context context;    //上下文
+
+    //左部控件
+    @BindView(R.id.lly_left)
+    LinearLayout mleftLly;
+    @BindView(R.id.iv_left)
+    ImageView mLeftIv;
+    @BindView(R.id.tv_left)
+    TextView mLeftTv;
+    //中间控件
+    @BindView(R.id.lly_middle)
+    LinearLayout mMiddleLly;
+    @BindView(R.id.iv_middle)
+    ImageView mMiddleIv;
+    @BindView(R.id.tv_middle)
+    TextView mMiddleTv;
+    //右边控件
+    @BindView(R.id.lly_right)
+    LinearLayout mRightLly;
+    @BindView(R.id.iv_right)
+    ImageView mRightIv;
+    @BindView(R.id.tv_right)
+    TextView mRightTv;
 
     @BindView(R.id.tv_permission_info)
     TextView mPermissionInfoTv; //用户信息
@@ -60,7 +116,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
      */
     @Override
     public void onClick(View v) {
-
         switch (v.getId()) {
             case R.id.btn_stockin:  //入库
                 Intent intentStockin = new Intent(context, StockinActivity.class);
@@ -97,7 +152,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.btn_contruction_query:    //构件查询
                 // Intent inetntContruction = new Intent(context, ContructionActivity.class);
                 // startActivity(inetntContruction);
-//                showWaitDialog("哈哈哈..");
+                //                showWaitDialog("哈哈哈..");
                 break;
             case R.id.btn_process:  //流程设置
                 Intent intentProcess = new Intent(context, ProcessActivity.class);
@@ -110,39 +165,45 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             default:
                 break;
         }
-        overridePendingTransition(R.anim.activity_enter, R.anim.activity_exit);
+        getActivity().overridePendingTransition(R.anim.activity_enter, R.anim.activity_exit);
     }
 
     @Override
-    protected void toSetContentView() {
-        setContentView(R.layout.activity_main);
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        context = getContext();
+        spManager = new SharedManager();
     }
 
+    @Nullable
     @Override
-    protected void initTitle() {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
+            Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_main, container, false);
+        ButterKnife.bind(this, view);
+
+        mResult = getArguments().getString("RESULT");   //获取传递过来的权限
+        initTitle();    //初始化标题
+        getPermissionToUnlock();    //获取当前用户权限
+        initRefreshPtr();   //初始化PtrHandler
+        return view;
+    }
+
+    /**
+     * 初始化标题
+     */
+    private void initTitle() {
         showMiddleTv("首页");
         showRightIv(R.drawable.vector_main_back);
         getRightLly().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, LoginActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.activity_top, R.anim.activity_top_exit);
-                finish();
+                LoginFragment fragment = new LoginFragment();
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id
+                        .frag_content, fragment, "LoginFragment").commit();
             }
         });
-    }
-
-    @Override
-    protected void initData() {
-        SharedManager spP = new SharedManager(SharedManager.PROCESS_CONFIG_NAME);
-        if(TextUtils.isEmpty(spP.getStringFromXml("gjrk")) || TextUtils.isEmpty(spP.getStringFromXml("gjck"))) {
-            NetProcessParse.firstSetData();
-        }
-        getPermissionToUnlock();
-
-        //初始化PtrHandler
-        initRefreshPtr();
     }
 
     /**
@@ -150,10 +211,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
      */
     private void getPermissionToUnlock() {
         permissionMap = PermissionManager.getPermissionMap();
-        String result = getIntent().getStringExtra("RESULT");   //获取登录界面传过来的参数
-//        String result = "7";
+        //        String mResult = "7";
         String username = spManager.getStringFromXml(SharedManager.USERNAME);
-        switch (result) {
+        switch (mResult) {
             case "0":   //都没有权限
                 permissions = permissionMap.get("0");
                 mPermissionInfoTv.setText("游客(" + username + ")");
@@ -272,12 +332,26 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         });
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_BACK) {
-            ShowDialogManager.showpwdDialog(context);
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
+    /**
+     * 显示中间的TextView
+     */
+    public void showMiddleTv(String content) {
+        mMiddleTv.setText(content);
+        mMiddleTv.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * 显示右边的ImageView
+     */
+    public void showRightIv(int imageRes) {
+        mRightIv.setImageResource(imageRes);
+        mRightIv.setVisibility(View.VISIBLE);
+    }
+
+    /**
+     * 获取右边LinearLayout
+     */
+    public LinearLayout getRightLly() {
+        return mRightLly;
     }
 }

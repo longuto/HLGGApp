@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,6 +20,7 @@ import butterknife.ButterKnife;
  * Created by longuto on 2016/10/26.
  */
 public abstract class BaseActivity extends AppCompatActivity {
+
     //左部控件
     @BindView(R.id.lly_left)
     LinearLayout mleftLly;
@@ -57,7 +59,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         initTitle();
         //初始化数据
         initData();
+
+        initTools();
     }
+
+    /**
+     * 初始化常见的Activity的工具
+     */
+    protected void initTools() {
+    };
 
     /**初始化数据*/
     protected abstract void initData();
@@ -117,5 +127,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**获取右边LinearLayout*/
     public LinearLayout getRightLly() {
         return mRightLly;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(keyCode == KeyEvent.KEYCODE_BACK) {
+            finish();
+            overridePendingTransition(R.anim.activity_back_enter, R.anim.activity_back_exit);
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
