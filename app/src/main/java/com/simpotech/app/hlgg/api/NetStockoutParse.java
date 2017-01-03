@@ -66,7 +66,8 @@ public class NetStockoutParse {
     //    }
 
 
-    public static void getDataFromNet(final NetInvoiceInfo netInvoiceInfo, final LocalInvoiceStockDetailAdapter adapter, final Context context) {
+    public static void getDataFromNet(final NetInvoiceInfo netInvoiceInfo, final
+    LocalInvoiceStockDetailAdapter adapter, final Context context) {
         //将传入的实体类转化成json
         String json = invoiceStockoutToJson(netInvoiceInfo);
         LogUtils.i(TAG, json);
@@ -85,7 +86,8 @@ public class NetStockoutParse {
                     @Override
                     public void onResponse(String response, int id) {
                         LogUtils.i(TAG, "网络加载成功");
-                        ChooseInfo temp = (ChooseInfo) GsonUtils.fromJson(response, ChooseInfo.class);
+                        ChooseInfo temp = (ChooseInfo) GsonUtils.fromJson(response, ChooseInfo
+                                .class);
 
                         if (temp.code.equals("success")) {
                             BaseJsonInfo<NetStockoutInfo> tempS = (BaseJsonInfo<NetStockoutInfo>)
@@ -107,7 +109,8 @@ public class NetStockoutParse {
                                         .setTitle("提示")
                                         .setMessage("出库成功,是否清空本地数据库")
                                         .setCancelable(false)
-                                        .setPositiveButton("取消", new DialogInterface.OnClickListener() {
+                                        .setPositiveButton("取消", new DialogInterface
+                                                .OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
                                                 //取消错误消息的显示
@@ -118,12 +121,16 @@ public class NetStockoutParse {
                                                 adapter.notifyDataSetChanged();
                                             }
                                         })
-                                        .setNegativeButton("确定", new DialogInterface.OnClickListener() {
+                                        .setNegativeButton("确定", new DialogInterface
+                                                .OnClickListener() {
                                             @Override
                                             public void onClick(DialogInterface dialog, int which) {
-                                                InvoiceConStockoutDb dbConS = new InvoiceConStockoutDb();
-                                                dbConS.delInvoiceConByInvoiceCode(netInvoiceInfo.code);
-                                                adapter.data = dbConS.getInvoiceConByInvoiceCode(netInvoiceInfo.code);
+                                                InvoiceConStockoutDb dbConS = new
+                                                        InvoiceConStockoutDb();
+                                                dbConS.delInvoiceConByInvoiceCode(netInvoiceInfo
+                                                        .code);
+                                                adapter.data = dbConS.getInvoiceConByInvoiceCode
+                                                        (netInvoiceInfo.code);
                                                 adapter.notifyDataSetChanged();
                                             }
                                         })
@@ -178,7 +185,7 @@ public class NetStockoutParse {
         info.invoice_code = netInvoiceInfo.code;
         info.wo_code = netInvoiceInfo.wo_code;
         info.cml_code = netInvoiceInfo.cml_code;
-        info.flowId = sp.getStringFromXml("gjck");
+        info.flowId = sp.getStringFromXml(SharedManager.GJCK);
         info.userId = spP.getStringFromXml(SharedManager.USERID);
 
         info.stockoutDetail = new ArrayList<>();

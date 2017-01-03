@@ -60,8 +60,7 @@ public class NetStockinparse {
                     @Override
                     public void onResponse(String response, int id) {
                         LogUtils.i(TAG, "网络加载成功");
-                        ChooseInfo temp = (ChooseInfo) GsonUtils.fromJson(response, ChooseInfo
-                                .class);
+                        ChooseInfo temp = (ChooseInfo) GsonUtils.fromJson(response, ChooseInfo.class);
 
                         if (temp.code.equals("success")) {
                             boolean flag = false;
@@ -161,7 +160,7 @@ public class NetStockinparse {
         //获取所有的入库构件的集合
         //转换成提交的数据
         SubStockinInfo info = new SubStockinInfo();
-        info.flowId = sp.getStringFromXml("gjrk");  //构件入库的流程id
+        info.flowId = sp.getStringFromXml(SharedManager.GJRK);  //构件入库的流程id
         info.userId = spP.getStringFromXml(SharedManager.USERID);   //用户id
         info.stockinDetail = new ArrayList<>();
         for (StockinConInfo temp : stockinCons) {

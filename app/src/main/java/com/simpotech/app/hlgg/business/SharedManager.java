@@ -13,6 +13,9 @@ import com.simpotech.app.hlgg.util.UiUtils;
 public class SharedManager {
 
     private final String CONFIG_NAME = "normal_config"; //默认配置文件的名称
+
+    public static final String GJRK = "gjrk";   //构件入库
+    public static final String GJCK = "gjck";   //构件出库
     public static final String USERNAME = "username";   //登录的用户名
     public static final String PASSWORD = "password";   //登录的密码
     public static final String USERID = "userId"; //用户的id
