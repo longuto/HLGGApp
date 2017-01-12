@@ -65,8 +65,6 @@
 
     <!--质检查询页面的TextView风格-->
     <style name="quality_textView">
-        <item name="android:singleLine">true</item>
-
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">16sp</item>
@@ -84,7 +82,6 @@
 
         <item name="colorControlNormal">@color/control_normal_red</item>
         <item name="colorControlActivated">@color/control_activated_red</item>
-
     </style>
 
 </resources>

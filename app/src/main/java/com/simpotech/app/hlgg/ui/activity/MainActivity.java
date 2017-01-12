@@ -11,7 +11,6 @@ import com.simpotech.app.hlgg.R;
 import com.simpotech.app.hlgg.api.NetProcessParse;
 import com.simpotech.app.hlgg.business.PermissionManager;
 import com.simpotech.app.hlgg.business.SharedManager;
-import com.simpotech.app.hlgg.business.ShowDialogManager;
 import com.simpotech.app.hlgg.util.UiUtils;
 
 import java.util.Map;
@@ -136,7 +135,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void initData() {
         SharedManager spP = new SharedManager(SharedManager.PROCESS_CONFIG_NAME);
-        if(TextUtils.isEmpty(spP.getStringFromXml("gjrk")) || TextUtils.isEmpty(spP.getStringFromXml("gjck"))) {
+        if(TextUtils.isEmpty(spP.getStringFromXml(SharedManager.GJRK)) || TextUtils.isEmpty(spP.getStringFromXml(SharedManager.GJCK))) {
             NetProcessParse.firstSetData();
         }
         getPermissionToUnlock();
@@ -275,7 +274,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if(keyCode == KeyEvent.KEYCODE_BACK) {
-            ShowDialogManager.showpwdDialog(context);
+            finish();
             return true;
         }
         return super.onKeyDown(keyCode, event);

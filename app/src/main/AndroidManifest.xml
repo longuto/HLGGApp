@@ -126,7 +126,7 @@
             android:screenOrientation="portrait">
         </activity>
 
-         <receiver android:name=".broadcast.AutoStartReceiver">
+         <receiver android:name=".receiver.AutoStartReceiver">
              <intent-filter>
                  <action android:name="android.intent.action.BOOT_COMPLETED"/>
                  <category android:name="android.intent.category.HOME"/>

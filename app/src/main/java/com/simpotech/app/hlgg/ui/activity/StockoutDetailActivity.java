@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -28,6 +29,7 @@ import com.simpotech.app.hlgg.ui.adapter.LocalInvoiceStockDetailAdapter;
 import com.simpotech.app.hlgg.ui.adapter.interfaces.OnRecyclerViewItemClickListener;
 import com.simpotech.app.hlgg.ui.adapter.interfaces.OnRecyclerViewItemLongClickListener;
 import com.simpotech.app.hlgg.util.GsonUtils;
+import com.simpotech.app.hlgg.util.LogUtils;
 import com.simpotech.app.hlgg.util.TimeUtils;
 import com.simpotech.app.hlgg.util.UiUtils;
 
@@ -268,45 +270,62 @@ public class StockoutDetailActivity extends BaseActivity {
                 .setNegativeButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //如果扫描的构件清单不等于当前的构件清单
-                        if (!isThisCmlCode) {
-                            UiUtils.showToast("采集的构件号不是本单的构件");
-                            return;
+                        saveContruction(isThisCmlCode, stockoutEdt, info, isEditContruction);
+                    }
+                })
+                .setOnKeyListener(new DialogInterface.OnKeyListener() {
+                    @Override
+                    public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                        if(KeyEvent.ACTION_DOWN == event.getAction() && keyCode == KeyEvent.KEYCODE_ENTER) {
+                            LogUtils.i(TAG, "按键" + keyCode + ", 动作" + event.getAction());
+                            dialog.dismiss();
+                            saveContruction(isThisCmlCode, stockoutEdt, info, isEditContruction);
                         }
-                        String stockoutQty = stockoutEdt.getText().toString().trim();
-                        if (Integer.valueOf(stockoutQty) > Integer.valueOf(info.qty)) {
-                            UiUtils.showToast("出库件数不能大于清单数量");
-                            return;
-                        }
-                        info.stock_qty = stockoutQty;     //发货件数
-                        if (!isEditContruction) {
-                            info.scannerPeople = spManager.getStringFromXml(SharedManager.USERNAME);
-                            info.scannerTime = TimeUtils.DateToStr(new Date());
-                            info.invoice_code = netInvoiceInfo.code;    //发货单号
-                        }
-                        InvoiceConStockoutDb db = new InvoiceConStockoutDb();
-                        // 如果是扫描时显示,则将数据数据插入数据库
-                        if (!isEditContruction) {
-                            // 将信息存储至数据库
-                            if (db.addInvoiceContruction(info)) {
-                                UiUtils.showToast("插入数据成功");
-                            } else {
-                                UiUtils.showToast("插入数据失败");
-                            }
-                        // 如果是修改,则修改出库数量
-                        } else {
-                            if (db.upDataByStockoutQty(info) > 0) {
-                                UiUtils.showToast("修改成功");
-                            } else {
-                                UiUtils.showToast("修改失败");
-                            }
-                        }
-                        mAdapter.data = db.getInvoiceConByInvoiceCode(netInvoiceInfo.code);
-                        mAdapter.notifyDataSetChanged();
+                        return false;
                     }
                 })
                 .create()
                 .show();
+    }
+
+    /** 对话框的确定按钮操作 */
+    private void saveContruction(boolean isThisCmlCode, EditText stockoutEdt, StockoutConInfo
+            info, boolean isEditContruction) {
+        //如果扫描的构件清单不等于当前的构件清单
+        if (!isThisCmlCode) {
+            UiUtils.showToast("采集的构件号不是本单的构件");
+            return;
+        }
+        String stockoutQty = stockoutEdt.getText().toString().trim();
+        if (Integer.valueOf(stockoutQty) > Integer.valueOf(info.qty)) {
+            UiUtils.showToast("出库件数不能大于清单数量");
+            return;
+        }
+        info.stock_qty = stockoutQty;     //发货件数
+        if (!isEditContruction) {
+            info.scannerPeople = spManager.getStringFromXml(SharedManager.USERNAME);
+            info.scannerTime = TimeUtils.DateToStr(new Date());
+            info.invoice_code = netInvoiceInfo.code;    //发货单号
+        }
+        InvoiceConStockoutDb db = new InvoiceConStockoutDb();
+        // 如果是扫描时显示,则将数据数据插入数据库
+        if (!isEditContruction) {
+            // 将信息存储至数据库
+            if (db.addInvoiceContruction(info)) {
+                UiUtils.showToast("插入数据成功");
+            } else {
+                UiUtils.showToast("插入数据失败");
+            }
+        // 如果是修改,则修改出库数量
+        } else {
+            if (db.upDataByStockoutQty(info) > 0) {
+                UiUtils.showToast("修改成功");
+            } else {
+                UiUtils.showToast("修改失败");
+            }
+        }
+        mAdapter.data = db.getInvoiceConByInvoiceCode(netInvoiceInfo.code);
+        mAdapter.notifyDataSetChanged();
     }
 
     /**

@@ -132,9 +132,16 @@ public abstract class QualityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.layout_quality, container, false);
+        final View view = inflater.inflate(R.layout.layout_quality, container, false);
         ButterKnife.bind(this, view);
 
+        view.post(new Runnable() {
+            @Override
+            public void run() {
+                LogUtils.i(TAG, "viewpager的宽度--------" + UiUtils.px2dip(view.getWidth()));
+
+            }
+        });
         quaSp = new SharedManager(SharedManager.QUALITY_CONFIG_NAME);
         initFragmentView();
         return view;
@@ -204,8 +211,8 @@ public abstract class QualityFragment extends Fragment {
      * 当拍照成功后,获取ImageView配置
      */
     protected Bitmap getBitFromLocal(int position) {
-        int width = UiUtils.getScreenWidth() * 2 / 11;
-        int height = width;
+        int width = UiUtils.dip2px(40);
+        int height = UiUtils.dip2px(50);
 
         BitmapFactory.Options factoryOptions = new BitmapFactory.Options();
         factoryOptions.inJustDecodeBounds = true;

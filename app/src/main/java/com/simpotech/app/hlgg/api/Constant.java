@@ -45,4 +45,7 @@ public class Constant {
 
     //质检写入
     public static final String QUALITYSAVE = "/ec/app/qualitySave.html"; //在NetQualityParse
+
+    //版本更新
+    public static final String UPDATEAPK = "/ec/app/version.html";  //在WelcomeActivity中
 }

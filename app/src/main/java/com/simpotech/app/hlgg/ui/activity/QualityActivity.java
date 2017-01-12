@@ -9,7 +9,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -51,7 +50,7 @@ public class QualityActivity extends BaseActivity {
     @BindView(R.id.tabs_quality)
     TabLayout qualityTabs;
     @BindView(R.id.card_control)
-    CardView controlCard;
+    public CardView controlCard;
 
     @OnClick(R.id.btn_empty)
     public void clearData(View v) {
@@ -60,7 +59,7 @@ public class QualityActivity extends BaseActivity {
     }
 
     //清除控件中的内容
-    private void clearQualityWidget() {
+    public void clearQualityWidget() {
         for (int i = 0; i < mAdapter.getCount(); i++) {
             View childView = qualityVp.getChildAt(i);
             if (childView != null) {
@@ -84,7 +83,7 @@ public class QualityActivity extends BaseActivity {
     /**
      * 清除XMl中的内容
      */
-    private void clearQualityXml() {
+    public void clearQualityXml() {
         mQuaSp.putStringToXml(SharedManager.FACADE_RESULT, "合格");
         mQuaSp.putStringToXml(SharedManager.FACADE_REMARK, "");
         mQuaSp.putBooleanToXml(SharedManager.FACADE_PIC1, false);
@@ -134,14 +133,8 @@ public class QualityActivity extends BaseActivity {
         getRightLly().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mStockConInfo == null) {
+                if (controlCard.getVisibility() != View.VISIBLE) {
                     UiUtils.showToast("请扫描获取构件信息");
-                    return;
-                }
-                if (TextUtils.isEmpty(mQuaSp.getStringFromXml(SharedManager.FACADE_REMARK)) ||
-                        TextUtils.isEmpty(mQuaSp.getStringFromXml(SharedManager.SIZE_REMARK)) ||
-                        TextUtils.isEmpty(mQuaSp.getStringFromXml(SharedManager.WELD_REMARK))) {
-                    UiUtils.showToast("请填写相关质检说明");
                     return;
                 }
 
@@ -208,7 +201,7 @@ public class QualityActivity extends BaseActivity {
                                 weld.remark = mQuaSp.getStringFromXml(SharedManager.WELD_REMARK);
                                 info.detail.add(weld);
 
-                                NetQualityParse.qualitySave(info);  //调用质检录入
+                                NetQualityParse.qualitySave(info, QualityActivity.this);  //调用质检录入
                             }
                         })
                         .create()

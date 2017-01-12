@@ -1,4 +1,4 @@
-package com.simpotech.app.hlgg.broadcast;
+package com.simpotech.app.hlgg.receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

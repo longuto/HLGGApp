@@ -28,8 +28,6 @@ public class QualityQueryDetailActivity extends BaseActivity {
     TextView controlCodeTv;
     @BindView(R.id.tv_spec)
     TextView specTv;
-    @BindView(R.id.tv_qty)
-    TextView qtyTv;
     @BindView(R.id.tv_username)
     TextView usernameTv;
     @BindView(R.id.tv_cjdate)
@@ -67,7 +65,6 @@ public class QualityQueryDetailActivity extends BaseActivity {
         nameTv.setText(mItemData.organName);
         controlCodeTv.setText(mItemData.contruction_code);
         specTv.setText(mItemData.spec);
-        qtyTv.setText(mItemData.qty);
         usernameTv.setText(mItemData.testUser);
         cjdateTv.setText(mItemData.cjdata);
 

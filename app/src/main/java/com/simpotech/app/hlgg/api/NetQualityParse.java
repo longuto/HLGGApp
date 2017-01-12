@@ -1,6 +1,7 @@
 package com.simpotech.app.hlgg.api;
 
 import android.os.Environment;
+import android.view.View;
 
 import com.google.gson.reflect.TypeToken;
 import com.simpotech.app.hlgg.business.SharedManager;
@@ -9,6 +10,7 @@ import com.simpotech.app.hlgg.entity.net.BaseJsonInfo;
 import com.simpotech.app.hlgg.entity.net.NetImageInfo;
 import com.simpotech.app.hlgg.entity.net.NetQualityInfo;
 import com.simpotech.app.hlgg.entity.submit.SubQualityInfo;
+import com.simpotech.app.hlgg.ui.activity.QualityActivity;
 import com.simpotech.app.hlgg.util.GsonUtils;
 import com.simpotech.app.hlgg.util.LogUtils;
 import com.simpotech.app.hlgg.util.UiUtils;
@@ -50,9 +52,11 @@ public class NetQualityParse {
     /**
      * 质检录入构件质检信息
      *
+     * @param qualityActivity
      * @param info
+     * @param qualityActivity
      */
-    public static void qualitySave(SubQualityInfo info) {
+    public static void qualitySave(SubQualityInfo info, final QualityActivity qualityActivity) {
 
         String json = GsonUtils.toJson(info);
         LogUtils.i(TAG, json);
@@ -86,6 +90,10 @@ public class NetQualityParse {
                                     File file = maps.get(str);
                                     uploadImage(file, str, info.code);
                                 }
+
+                                qualityActivity.clearQualityWidget();
+                                qualityActivity.clearQualityXml();
+                                qualityActivity.controlCard.setVisibility(View.GONE);
                             } else {
                                 UiUtils.showToast("质检单加载本地失败");
                             }

@@ -8,6 +8,7 @@ import android.content.IntentFilter;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
@@ -30,6 +31,7 @@ import com.simpotech.app.hlgg.ui.adapter.SpinnerAdapter;
 import com.simpotech.app.hlgg.ui.adapter.interfaces.OnRecyclerViewItemClickListener;
 import com.simpotech.app.hlgg.ui.adapter.interfaces.OnRecyclerViewItemLongClickListener;
 import com.simpotech.app.hlgg.util.GsonUtils;
+import com.simpotech.app.hlgg.util.LogUtils;
 import com.simpotech.app.hlgg.util.TimeUtils;
 import com.simpotech.app.hlgg.util.UiUtils;
 
@@ -40,6 +42,8 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class StockinActivity extends BaseActivity {
+
+    private final static String TAG = "StockinActivity";    //标记
 
     boolean isAllChoose;    //反选
     LocalStockinSubConAdapter mAdapter;    //适配器
@@ -272,6 +276,7 @@ public class StockinActivity extends BaseActivity {
         info.prolineId = proLines.get(prolinePos).proLineId;
 
         new AlertDialog.Builder(context)
+                .setCancelable(false)
                 .setView(view)
                 .setPositiveButton("取消", new DialogInterface.OnClickListener() {
                     @Override
@@ -282,36 +287,54 @@ public class StockinActivity extends BaseActivity {
                 .setNegativeButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        String stockinQty = stockinEdt.getText().toString().trim();
-                        if (Integer.valueOf(stockinQty) > Integer.valueOf(info.qty)) {
-                            UiUtils.showToast("出库件数不能大于清单数量");
-                            return;
+                        saveContruction(stockinEdt, info, isEditContruction);
+                    }
+                })
+                .setOnKeyListener(new DialogInterface.OnKeyListener() {
+                    @Override
+                    public boolean onKey(DialogInterface dialog, int keyCode, KeyEvent event) {
+                        if(KeyEvent.ACTION_DOWN == event.getAction() && keyCode == KeyEvent.KEYCODE_ENTER) {
+                            LogUtils.i(TAG, "按键" + keyCode + ", 动作" + event.getAction());
+                            dialog.dismiss();
+                            saveContruction(stockinEdt, info, isEditContruction);
                         }
-                        info.stock_qty = stockinQty;     //发货件数
-                        if (!isEditContruction) {
-                            info.scannerPeople = spManager.getStringFromXml(SharedManager.USERNAME);
-                            info.scannerTime = TimeUtils.DateToStr(new Date());
-                        }
-                        StockinConSubDb db = new StockinConSubDb();
-                        if(!isEditContruction) {
-                            if(db.addStockinCon(info)) {
-                                UiUtils.showToast("插入数据成功");
-                            }else {
-                                UiUtils.showToast("插入数据失败");
-                            }
-                        }else {
-                            if(db.upDataByStockinQty(info) > 0) {
-                                UiUtils.showToast("修改数据成功");
-                            }else {
-                                UiUtils.showToast("修改数据失败");
-                            }
-                        }
-                        mAdapter.data = db.getAllStockinCon();
-                        mAdapter.notifyDataSetChanged();
+                        return false;
                     }
                 })
                 .create()
                 .show();
+    }
+
+
+
+    /** 对话框的确定事件 */
+    private void saveContruction(EditText stockinEdt, StockinConInfo info, boolean isEditContruction) {
+        String stockinQty = stockinEdt.getText().toString().trim();
+        if (Integer.valueOf(stockinQty) > Integer.valueOf(info.qty)) {
+            UiUtils.showToast("出库件数不能大于清单数量");
+            return;
+        }
+        info.stock_qty = stockinQty;     //发货件数
+        if (!isEditContruction) {
+            info.scannerPeople = spManager.getStringFromXml(SharedManager.USERNAME);
+            info.scannerTime = TimeUtils.DateToStr(new Date());
+        }
+        StockinConSubDb db = new StockinConSubDb();
+        if (!isEditContruction) {
+            if (db.addStockinCon(info)) {
+                UiUtils.showToast("插入数据成功");
+            } else {
+                UiUtils.showToast("插入数据失败");
+            }
+        } else {
+            if (db.upDataByStockinQty(info) > 0) {
+                UiUtils.showToast("修改数据成功");
+            } else {
+                UiUtils.showToast("修改数据失败");
+            }
+        }
+        mAdapter.data = db.getAllStockinCon();
+        mAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -353,5 +376,4 @@ public class StockinActivity extends BaseActivity {
         unregisterReceiver(receiver);
         super.onDestroy();
     }
-
 }

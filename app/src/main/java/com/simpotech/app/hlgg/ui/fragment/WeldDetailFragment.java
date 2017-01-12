@@ -2,6 +2,7 @@ package com.simpotech.app.hlgg.ui.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -71,6 +72,7 @@ public class WeldDetailFragment extends QualityDetailFragment {
                     resultTv.setText("不合格");
                 }
                 explainTv.setText(bean.remark);
+                explainTv.setMovementMethod(ScrollingMovementMethod.getInstance());
 
                 ImageLoader.getInstance().displayImage(Constant.HOST + bean.pic1, pic01Iv,
                         DisplayImageOptionManager.getQualityOption());

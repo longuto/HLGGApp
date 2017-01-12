@@ -5,14 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 
 import com.simpotech.app.hlgg.R;
 import com.simpotech.app.hlgg.api.NetLoginParse;
 import com.simpotech.app.hlgg.business.SharedManager;
-import com.simpotech.app.hlgg.business.ShowDialogManager;
 import com.simpotech.app.hlgg.util.UiUtils;
 
 import butterknife.BindView;
@@ -36,8 +34,9 @@ public class LoginActivity extends AppCompatActivity {
 
     @OnClick(R.id.iv_exit)
     public void exit(View view) {
+        finish();
 
-        ShowDialogManager.showpwdDialog(context);
+//        ShowDialogManager.showpwdDialog(context);
 
 //        ComponentName com = new ComponentName("com.android.launcher3", "com.android.launcher3.Launcher");
 //        Intent intent = new Intent();
@@ -70,12 +69,12 @@ public class LoginActivity extends AppCompatActivity {
         mPasswordEdt.setText(password);
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(keyCode == KeyEvent.KEYCODE_BACK) {
-            ShowDialogManager.showpwdDialog(context);
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
-    }
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        if(keyCode == KeyEvent.KEYCODE_BACK) {
+//            ShowDialogManager.showpwdDialog(context);
+//            return true;
+//        }
+//        return super.onKeyDown(keyCode, event);
+//    }
 }
