@@ -81,7 +81,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
                     @Override
                     public void onResponse(String response, int id) {
-                        LogUtils.i(TAG, "版本更新网络加载成功");
+                        LogUtils.i(TAG, "版本更新网络加载成功,当前版本号:" + getVersionName());
                         BaseJsonInfo<NetUpdateInfo> temp = (BaseJsonInfo<NetUpdateInfo>)
                                 GsonUtils.fromJson(response, new
                                         TypeToken<BaseJsonInfo<NetUpdateInfo>>() {
@@ -220,8 +220,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
                     Intent intent = new Intent(context, LoginActivity.class);
                     startActivity(intent);
-                    overridePendingTransition(R.anim.activity_top, R.anim
-                            .activity_top_exit);
+                    overridePendingTransition(R.anim.activity_top, R.anim.activity_top_exit);
                     finish();
                 } else {
                     NetLoginParse.loginForResult(username, password, WelcomeActivity.this);

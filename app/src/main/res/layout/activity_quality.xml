@@ -28,11 +28,11 @@
         android:id="@+id/vp_quality"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:layout_marginBottom="2dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="2dp"/>
+        android:layout_marginTop="2dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/btn_empty"

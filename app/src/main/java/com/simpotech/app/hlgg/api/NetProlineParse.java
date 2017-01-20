@@ -83,7 +83,6 @@ public class NetProlineParse {
                         ParseResponse(response, recyclerView, refreshPtr, context);
                         refreshPtr.refreshComplete();   //刷新完成
                     }
-
                 });
     }
 
@@ -130,9 +129,14 @@ public class NetProlineParse {
                     dbProLineInfos);
 
             int size2 = netTemp.organList.size();
-            for (int j = 0; j < size2; j++) {
-                DbProLineInfo temp = new DbProLineInfo(netTemp.id, netTemp.name, netTemp
-                        .organList.get(j).id, netTemp.organList.get(j).name);
+            if(size2 > 0) {
+                for (int j = 0; j < size2; j++) {
+                    DbProLineInfo temp = new DbProLineInfo(netTemp.id, netTemp.name, netTemp
+                            .organList.get(j).id, netTemp.organList.get(j).name);
+                    recyTemp.prolines.add(temp);
+                }
+            } else {
+                DbProLineInfo temp = new DbProLineInfo(netTemp.id, netTemp.name, netTemp.id, netTemp.name);
                 recyTemp.prolines.add(temp);
             }
 

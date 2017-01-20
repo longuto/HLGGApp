@@ -140,12 +140,9 @@ public class NetStockinparse {
                                 mAdapter.data = db.getAllStockinCon();
                                 mAdapter.notifyDataSetChanged();    //通知适配器数据已改变
                             }
-
                         }
-
                     }
                 });
-
     }
 
     /**
